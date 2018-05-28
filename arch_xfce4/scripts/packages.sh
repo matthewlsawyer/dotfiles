@@ -8,12 +8,14 @@ sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm base-devel
 
 # Get yaourt
-sudo cat <<EOT >> /etc/pacman.conf
+# Append a repo to the end of the pacman conf file
+# TODO fix this
+cat <<EOT >> /etc/pacman.conf
 
-    # Unofficial Arch repo
-    [archlinuxfr]
-    SigLevel = Never
-    Server = http://repo.archlinux.fr/$arch
+# Unofficial arch repo
+[archlinuxfr]
+SigLevel = Never
+Server = http://repo.archlinux.fr/$arch
 EOT
 sudo pacman -S --noconfirm yaourt
 
