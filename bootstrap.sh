@@ -10,30 +10,26 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 distro=arch_xfce4
 
-if [[ -z $distro ]]; then
-    echo "Missing distro argument, perhaps you forgot it";
+if [[ -z $1 ]]; then
+    echo "Missing an argument that specifies the configuration";
+    exit -1;
+fi
+
+if [[ ! -d "$1" ]]; then
+    echo "No directory found that matches the given configuration argument";
+    exit -1;
 fi
 
 # Sync the dotfiles
 function sync() {
-    # Clear the stage folder
-    if [ -d "./stage" ]; then
-        rm -fr ./stage;
-    fi
-    # And recreate it
-    mkdir -p ./stage;
-
-    # Stage the dotfiles in order of specificity
-    cp -a ./dotfiles/_base/. ./stage/;
-    if [[ $distro ]]; then cp -a ./dotfiles/$distro/. ./stage/; fi
-
 	# Copy the staged dotfiles into the home directory
 	# Flags:
 	#  -a           archive
 	#  -v           verbose
 	#  -h           human readable
 	#  --no-perms   don't copy over file permissions
-	# rsync -avh --no-perms ./stage/ ~;
+	# rsync -avh --no-perms ./$1/dotfiles/ ~;
+    echo "No op";
 }
 
 # Run the scripts

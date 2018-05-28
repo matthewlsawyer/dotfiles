@@ -1,14 +1,18 @@
-### File structure
+# Dotfiles
 
-```sh
-# the various configuration files
-dotfiles/
-  _base/            # system-agnostic
-  $distro/          # specific to the setup you are running
+This repo holds dotfile configurations for my various machines. The top level directories follow a `${distro}_${desktop_env}` format
+that specifies for which type of setup the dotfiles are used.
 
-# shell scripts for getting packages etc.
-# follows the same structure as above
-scripts/
-  _base/
-  $distro/
-```
+## Configurations
+
+### arch_xfce4
+
+These exist for an Arch install running the xfce4 desktop environment. The `packages.sh` file shows all of the software that will be installed but below are some highlights:
+
+* nvidia
+* yaourt
+* xfce4
+* Plank
+* Compton
+* Steam
+* vim, git, & node
