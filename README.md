@@ -3,16 +3,12 @@
 ```sh
 # the various configuration files
 dotfiles/
-  _base/             # distro-agnostic
-  $distro/
-    _base/           # desktop-env-agnostic
-    $desktop_env/
+  _base/            # system-agnostic
+  $distro/          # specific to the setup you are running
 
 # shell scripts for getting packages etc.
 # follows the same structure as above
 scripts/
   _base/
   $distro/
-    _base/
-    $desktop_env/
 ```
