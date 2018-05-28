@@ -20,14 +20,14 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Sync the dotfiles
 function sync() {
-	# Copy the dotfiles into the home directory
+    # Copy the dotfiles into the home directory
     dotfiles="./$1/dotfiles/"
-	# Flags:
-	#  -a           archive
-	#  -v           verbose
-	#  -h           human readable
-	#  --no-perms   don't copy over file permissions
-	sync -avh --no-perms $dotfiles ~;
+    # Flags:
+    #  -a           archive
+    #  -v           verbose
+    #  -h           human readable
+    #  --no-perms   don't copy over file permissions
+    sync -avh --no-perms $dotfiles ~;
 }
 
 # Run the scripts
