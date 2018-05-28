@@ -1,0 +1,24 @@
+// Place your settings in this file to overwrite the default settings
+{
+    // Controls the font family
+    "editor.fontFamily": "'Fira Code Retina', 'Droid Sans Mono'",
+
+    // Controls if quick suggestions should show up or not while typing
+    "editor.quickSuggestions": false,
+
+    // Enables font ligatures
+    "editor.fontLigatures": true,
+
+    // Defines space handling after function keyword for anonymous functions
+    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+
+    // Defines space handling after function keyword for anonymous functions
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+
+    // File types
+    "files.associations": {
+        "xflock4": "shellscript",
+        ".bash_profile": "shellscript",
+        ".*rc": "shellscript"
+    }
+}

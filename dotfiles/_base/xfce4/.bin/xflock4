@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+#  xfce4
+#
+#  Copyright (C) 1999, 2003 Olivier Fourdan (fourdan@xfce.org)
+#  Copyright (C) 2011       Guido Berhoerster (guido+xfce.org@berhoerster.name)
+#  Copyright (C) 2011       Jarno Suni (8@iki.fi)
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+#
+
+# The xfce4 lock screen script, customized to run a function that uses i3lock.
+
+PATH=/bin:/usr/bin
+export PATH
+
+# You can use any image you want here that will overlay the pixellation
+# LOCK=~/path/to/some/image
+
+# Uses i3lock, scrot, and imagemagick to create a screenshot of the desktop,
+# pixellate it, and set that as the lock screen. Can take a file as an argument
+# to center on top of the screenshot.
+function lock() {
+
+  # Grab a screenshot
+  scrot /tmp/screen.png
+
+  # Pixellate it
+  convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
+
+  # If given an image, center it on top of pixellated screenshot
+  [[ -f $LOCK ]] && convert /tmp/screen.png $LOCK -gravity center -composite -matte /tmp/screen.png
+
+  # Start up lock
+  i3lock -u -i /tmp/screen.png
+
+  # Clean up screenshot
+  rm /tmp/screen.png
+
+  # Turn off display back-light
+  xset dpms force off
+}
+
+lock;
+
+unset lock && exit;
