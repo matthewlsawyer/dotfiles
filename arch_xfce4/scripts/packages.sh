@@ -43,6 +43,7 @@ sudo pacman -S --noconfirm lib32-libpulse \
 # Install XFCE and related packages.
 sudo pacman -S --noconfirm xfce4 \
                            thunar-archive-plugin \ # Right-click menu for unzipping
+                           lm_sensors \
                            xfce4-sensors-plugin \
                            plank \                 # Plank
                            compton \               # Compton will be used for compositing
