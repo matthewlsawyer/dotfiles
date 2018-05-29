@@ -1,38 +1,43 @@
 #!/bin/bash
 
+# This file will grab all of the packages needed for a new install. This file also
+# assumes that `yaourt` is installed (for now).
+
 # Ask for the administrator password upfront
 sudo -v
 # Keep-alive: update existing `sudo` time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Append a repo to the end of the pacman conf file
-# TODO fix this
-sudo cat <<EOT >> /etc/pacman.conf
+# sudo cat <<EOT >> /etc/pacman.conf
 
-# Unofficial arch repo
-[archlinuxfr]
-SigLevel = Never
-Server = http://repo.archlinux.fr/$arch
-EOT
+# # Unofficial arch repo
+# [archlinuxfr]
+# SigLevel = Never
+# Server = http://repo.archlinux.fr/$arch
+# EOT
 
 # Make sure pacman is up to date
 sudo pacman -Syy
 sudo pacman -Syu --noconfirm
 
 # Get the base-devel group and yaourt
-sudo pacman -S --noconfirm base-devel \
-                           yaourt 
+# sudo pacman -S --noconfirm base-devel \
+#                            yaourt
 
-# Install libraries needed for video
+## Install libraries needed for video
+
 # Xorg utils for `startx` command
 sudo pacman -S --noconfirm xorg-server \
                            xorg-server-utils \
                            xorg-utils
+
 # Nvidia
 sudo pacman -S --noconfirm nvidia \
                            nvidia-libgl \
                            lib32-nvidia-libgl \
                            nvidia-settings
+
 # Set up Xorg file for our nvidia configs
 sudo nvidia-xconfig
 
@@ -63,17 +68,21 @@ sudo pacman -S --noconfirm xfce4 \
 # sudo pacman -S --noconfirm xfce4-cpufreq-plugin
 # sudo pacman -S --noconfirm xfce4-datetime-plugin
 
-# Install tools for development
+## Install tools for development
+
 sudo pacman -S --noconfirm vim \
                            git \                   # Git will be installed by this point if you are using this repo
                            source-highlight \
                            docker \
                            go \
-                           ruby \
+                           ruby
+
 sudo gem install sass --no-user-install
+
 # MySQL
 # sudo pacman -S --noconfirm mariadb
 # sudo pacman -S --noconfirm mysql-workbench
+
 # Configure MySQL
 # sudo mysql_install_db \
 #   --user=mysql \
@@ -81,6 +90,7 @@ sudo gem install sass --no-user-install
 #   --datadir=/var/lib/mysql             # Install DB
 # sudo systemctl start mysqld.service    # Start
 # sudo systemctl enable mysqld.service   # Enable
+
 # Node
 sudo pacman -S --noconfirm nodejs \
                            npm
@@ -89,7 +99,8 @@ sudo npm install -g gulp \
                     typescript \
                     @angular/cli
 
-# Install editors
+## Install editors
+
 # Atom
 # yaourt -S --noconfirm atom-editor
 # Atom packages
@@ -98,8 +109,10 @@ sudo npm install -g gulp \
 # apm install color-picker
 # apm install linter
 # apm install minimap
+
 # IntelliJ
 # sudo pacman -S --noconfirm intellij-idea-community-edition
+
 # VS Code
 yaourt -S --noconfirm code
 
@@ -116,7 +129,8 @@ code --install-extension robinbentley.sass-indented            # Sass
 code --install-extension eg2.tslint                            # tslint
 code --install-extension rbbit.typescript-hero                 # Typescript
 
-# Install various software and utility programs
+## Install various software and utility programs
+
 sudo pacman -S --noconfirm htop \
                            iotop \
                            powertop \
@@ -144,17 +158,13 @@ yaourt -S --noconfirm gputest \
 
 # yaourt -S --noconfirm android-file-transfer-linux-git
 
-# Enable bluetooth service
-# TODO move this into postinstall script
-# sudo systemctl start bluetooth.service
-# sudo systemctl enable bluetooth.service
-
 # Archive programs like 7z, unzip, unrar
 sudo pacman -S --noconfirm unzip \
                            p7zip \
                            unrar
 
-# Install packages needed for theming, fonts etc.
+## Install packages needed for theming, fonts etc.
+
 sudo pacman -S --noconfirm ttf-google-fonts
 yaourt -S --noconfirm otf-fira-code \
                       otf-fira-mono \
@@ -163,10 +173,12 @@ yaourt -S --noconfirm otf-fira-code \
 # Install packages used for gaming.
 sudo pacman -S --noconfirm steam \
                            steam-native-runtime
+
 # Stuff for WINE
 sudo pacman -S --noconfirm wine-staging \          # WINE staging, for that bleeding edge
                            lib32-libldap \         # LDAP, needed for some games in WINE
                            lib32-gnutls            # Transport layer, needed for some games in WINE
+
 # Microsoft fonts for WINE games
 yaourt -S --noconfirm ttf-ms-fonts
 

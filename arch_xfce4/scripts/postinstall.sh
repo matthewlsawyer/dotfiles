@@ -1,9 +1,16 @@
 #!/bin/bash
 
+# This file will be run after the `packages.sh` file is done. This should be used
+# to start up services, create symlinks, setup configurations etc.
+
 # Ask for the administrator password upfront
 sudo -v
 # Keep-alive: update existing `sudo` time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Enable bluetooth service
+# sudo systemctl start bluetooth.service
+# sudo systemctl enable bluetooth.service
 
 # Create initial ramdisk environment
 # There is also a pacman hook that will run this after every nvidia update
