@@ -12,12 +12,6 @@ if [[ ! -d "$1" ]]; then
     exit -1;
 fi
 
-# Ask for the administrator password upfront
-sudo -v
-
-# Keep-alive: update existing `sudo` time stamp until the script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 # Sync the dotfiles
 function sync() {
     # Copy the dotfiles into the home directory
@@ -34,10 +28,12 @@ function sync() {
 function scripts() {
     # Run the scripts in order
     preinstall="./$1/scripts/preinstall.sh";
-    packages="./$1/scripts/packages.sh";
-    postinstall="./$1/scripts/postinstall.sh";
     if [[ -f $preinstall ]]; then source $preinstall; fi
+
+    packages="./$1/scripts/packages.sh";
     if [[ -f $packages ]]; then source $packages; fi
+
+    postinstall="./$1/scripts/postinstall.sh";
     if [[ -f $postinstall ]]; then source $postinstall; fi
 }
 

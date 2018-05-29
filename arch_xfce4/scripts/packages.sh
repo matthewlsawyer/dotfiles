@@ -1,23 +1,27 @@
 #!/bin/bash
 
-# Make sure pacman is up to date
-sudo pacman -Syy --noconfirm
-sudo pacman -Syu --noconfirm
+# Ask for the administrator password upfront
+sudo -v
+# Keep-alive: update existing `sudo` time stamp until the script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Get the base-devel group
-sudo pacman -S --noconfirm base-devel
-
-# Get yaourt
 # Append a repo to the end of the pacman conf file
 # TODO fix this
-cat <<EOT >> /etc/pacman.conf
+sudo cat <<EOT >> /etc/pacman.conf
 
 # Unofficial arch repo
 [archlinuxfr]
 SigLevel = Never
 Server = http://repo.archlinux.fr/$arch
 EOT
-sudo pacman -S --noconfirm yaourt
+
+# Make sure pacman is up to date
+sudo pacman -Syy
+sudo pacman -Syu --noconfirm
+
+# Get the base-devel group and yaourt
+sudo pacman -S --noconfirm base-devel \
+                           yaourt 
 
 # Install libraries needed for video
 # Xorg utils for `startx` command
@@ -31,6 +35,10 @@ sudo pacman -S --noconfirm nvidia \
                            nvidia-settings
 # Set up Xorg file for our nvidia configs
 sudo nvidia-xconfig
+
+# Firmware
+yaourt -S aic94xx-firmware \    # SATA port chip
+          wd719x-firmware       # WD hdd
 
 # Install video players and codecs
 sudo pacman -S --noconfirm vlc \
@@ -47,6 +55,7 @@ sudo pacman -S --noconfirm xfce4 \
                            thunar-archive-plugin \ # Right-click menu for unzipping
                            lm_sensors \
                            xfce4-sensors-plugin \
+                           conky \                 # Conky
                            plank \                 # Plank
                            compton \               # Compton will be used for compositing
                            i3lock \                # i3lock is used to lock the screen
@@ -56,7 +65,7 @@ sudo pacman -S --noconfirm xfce4 \
 
 # Install tools for development
 sudo pacman -S --noconfirm vim \
-                           git \
+                           git \                   # Git will be installed by this point if you are using this repo
                            source-highlight \
                            docker \
                            ruby \
@@ -96,6 +105,10 @@ yaourt -S --noconfirm visual-studio-code
 # Install various software and utility programs
 sudo pacman -S --noconfirm htop \
                            iotop \
+                           powertop \
+                           atop \
+                           hardinfo \
+                           lvm2 \
                            brasero \         # Disc burnings
                            viewnior \        # Image viewer
                            rsync \           # File syncing
@@ -111,7 +124,8 @@ sudo pacman -S --noconfirm htop \
                            zsh \
                            zsh-completions \
                            gparted
-yaourt -S --noconfirm oh-my-zsh-git \
+yaourt -S --noconfirm gputest \
+                      oh-my-zsh-git \
                       etcher                 # SD card writer
 
 # yaourt -S --noconfirm android-file-transfer-linux-git
