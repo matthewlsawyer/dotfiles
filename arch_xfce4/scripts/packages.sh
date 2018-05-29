@@ -63,7 +63,8 @@ sudo pacman -S --noconfirm xfce4 \
                            conky \                 # Conky
                            plank \                 # Plank
                            compton \               # Compton will be used for compositing
-                           i3lock \                # i3lock is used to lock the screen
+                           i3lock                  # i3lock is used to lock the screen
+
 # Panel plugins
 # sudo pacman -S --noconfirm xfce4-cpufreq-plugin
 # sudo pacman -S --noconfirm xfce4-datetime-plugin
@@ -76,7 +77,6 @@ sudo pacman -S --noconfirm vim \
                            docker \
                            go \
                            ruby
-
 sudo gem install sass --no-user-install
 
 # MySQL
