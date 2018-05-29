@@ -37,8 +37,8 @@ sudo pacman -S --noconfirm nvidia \
 sudo nvidia-xconfig
 
 # Firmware
-yaourt -S aic94xx-firmware \    # SATA port chip
-          wd719x-firmware       # WD hdd
+yaourt -S aic94xx-firmware \ # SATA port chip
+          wd719x-firmware    # WD hdd
 
 # Install video players and codecs
 sudo pacman -S --noconfirm vlc \
@@ -68,6 +68,7 @@ sudo pacman -S --noconfirm vim \
                            git \                   # Git will be installed by this point if you are using this repo
                            source-highlight \
                            docker \
+                           go \
                            ruby \
 sudo gem install sass --no-user-install
 # MySQL
@@ -100,7 +101,20 @@ sudo npm install -g gulp \
 # IntelliJ
 # sudo pacman -S --noconfirm intellij-idea-community-edition
 # VS Code
-yaourt -S --noconfirm visual-studio-code
+yaourt -S --noconfirm code
+
+# VS Code extensions
+code --install-extension Mikael.angular-beastcode              # Angular snippets
+code --install-extension streetsidesoftware.code-spell-checker
+code --install-extension PeterJausovec.vscode-docker           # Docker
+code --install-extension EditorConfig.editorconfig             # Editorconfig
+code --install-extension eamodio.gitlens                       # Gitlens
+code --install-extension ms-vscode.go                          # Go
+code --install-extension yzhang.markdown-all-in-one            # Markdown
+code --install-extension ms-python.python                      # Python
+code --install-extension robinbentley.sass-indented            # Sass
+code --install-extension eg2.tslint                            # tslint
+code --install-extension rbbit.typescript-hero                 # Typescript
 
 # Install various software and utility programs
 sudo pacman -S --noconfirm htop \

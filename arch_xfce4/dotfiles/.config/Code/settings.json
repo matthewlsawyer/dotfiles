@@ -1,6 +1,6 @@
 // Place your settings in this file to overwrite the default settings
 {
-    // Controls the font family
+    // Controls the font family.
     "editor.fontFamily": "'Fira Code Retina', 'Droid Sans Mono'",
 
     // Controls if quick suggestions should show up or not while typing
@@ -14,10 +14,17 @@
 
     // Defines space handling after function keyword for anonymous functions
     "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    
+    // Specifies the color theme used in the workbench.
+    "workbench.colorTheme": "Visual Studio Dark",
 
-    // File types
+    // Specifies the icon theme used in the workbench or 'null' to not show any file icons.
+    "workbench.iconTheme": "vs-seti",
+
+    // Configure file associations to languages (e.g. "*.extension": "html"). These have precedence over the default associations of the languages installed.
     "files.associations": {
-        "xflock4": "shellscript",
+        "**/*.d/**/*.*": "shellscript",
+        "**/*bin/**/*": "shellscript",
         ".bash_profile": "shellscript",
         ".*rc": "shellscript"
     }

@@ -1,0 +1,13 @@
+# A pacman hook to run mkinitcpio every time there is an update to the nvidia package
+# For more details, see https://wiki.archlinux.org/index.php/NVIDIA#Pacman_hook
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=nvidia
+
+[Action]
+Depends=mkinitcpio
+When=PostTransaction
+Exec=/usr/bin/mkinitcpio -P

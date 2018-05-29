@@ -6,6 +6,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Create initial ramdisk environment
+# There is also a pacman hook that will run this after every nvidia update
 sudo mkinitcpio -P
 
 # Override xflock4 with our customized version
@@ -39,3 +40,5 @@ sudo ln -sf -t /usr/local/bin ~/.bin/xflock4
 # 8. Enable and start the service
 #    sudo systemctl enable fancontrol.service
 #    sudo systemctl start fancontrol.service
+# For more info see https://wiki.archlinux.org/index.php/lm_sensors
+# and https://wiki.archlinux.org/index.php/fan_speed_control#fancontrol
