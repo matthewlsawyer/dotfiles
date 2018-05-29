@@ -15,13 +15,13 @@ fi
 # Sync the dotfiles
 function sync() {
     # Copy the dotfiles into the home directory
-    dotfiles="./$1/dotfiles/"
+    dotfiles="./$1/dotfiles/";
     # Flags:
     #  -a           archive
     #  -v           verbose
     #  -h           human readable
     #  --no-perms   don't copy over file permissions
-    sync -avh --no-perms $dotfiles ~;
+    rsync -avh --no-perms $dotfiles ~;
 }
 
 # Run the scripts

@@ -18,7 +18,12 @@ sudo mkinitcpio -P
 
 # Override xflock4 with our customized version
 sudo chmod 755 ~/.bin/xflock4
-sudo ln -sf -t /usr/local/bin ~/.bin/xflock4
+sudo mv /usr/local/bin/xflock4 /usr/local/bin/xflock4.bak
+sudo ln -s -t /usr/local/bin ~/.bin/xflock4
+
+# Symlink in our pacman hooks
+sudo mkdir -p /etc/pacman.d/hooks
+sudo ln -s -t /etc/pacman.d/hooks ~/.etc/pacman.d/hooks/nvidia.hook
 
 # To get lm_sensors to work you need to follow these steps:
 # 1. Add `acpi_enforce_resources=lax` to the following line in `/etc/default/grub`
