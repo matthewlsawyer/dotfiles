@@ -12,7 +12,6 @@ if [[ ! -d "$1" ]]; then
     exit -1
 fi
 
-# Sync the dotfiles
 function sync() {
     echo "Running rsync..."
     # Copy the dotfiles into the home directory
@@ -26,23 +25,15 @@ function sync() {
     echo "Done!"
 }
 
-# Run the scripts
 function scripts() {
-    echo "Running the install scripts..."
-    # Run the scripts in order
-    preinstall="./$1/scripts/preinstall.sh";
-    if [[ -f $preinstall ]]; then source $preinstall; fi
-
-    packages="./$1/scripts/packages.sh";
-    if [[ -f $packages ]]; then source $packages; fi
-
-    postinstall="./$1/scripts/postinstall.sh";
-    if [[ -f $postinstall ]]; then source $postinstall; fi
+    echo "Running the scripts..."
+    # Run the scripts
+    entrypoint="./$1/scripts/entrypoint.sh";
+    if [[ -f $entrypoint ]]; then source $entrypoint; fi
     echo "Done!"
 }
 
-# Bootstrap the system
-function bootstrap() {
+function main() {
     if [ "$1" == "--force" -o "$1" == "-f" ]; then
         sync $1
     else
@@ -53,12 +44,12 @@ function bootstrap() {
             sync $1
         fi
     fi
-    read -p "Would you like to run the install scripts? (Y/n) " -n 1
+    read -p "Would you like to run the scripts? (Y/n) " -n 1
     echo ""
     # If the reply is not 'N' or 'n'
     if [[ $REPLY =~ ^[^Nn]?$ ]]; then
-        sync $1
+        scripts $1
     fi
 }
 
-bootstrap $1
+main $1

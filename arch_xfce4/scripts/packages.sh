@@ -45,7 +45,7 @@ sudo nvidia-xconfig
 yaourt -S aic94xx-firmware \ # SATA port chip
           wd719x-firmware    # WD hdd
 
-# Install video/audio players and codecs
+# Install media players and codecs
 sudo pacman -S --noconfirm vlc \
                            ffmpeg \
                            smplayer \
@@ -59,8 +59,6 @@ sudo pacman -S --noconfirm lib32-libpulse \
 # Install XFCE and related packages.
 sudo pacman -S --noconfirm xfce4 \
                            thunar-archive-plugin \ # Right-click menu for unzipping
-                           lm_sensors \
-                           xfce4-sensors-plugin \
                            conky \                 # Conky
                            plank \                 # Plank
                            compton \               # Compton will be used for compositing
@@ -138,6 +136,7 @@ sudo pacman -S --noconfirm htop \
                            iotop \
                            powertop \
                            atop \
+                           lm_sensors \      # Fans and PWM sensors
                            hardinfo \
                            lvm2 \
                            brasero \         # Disc burnings
@@ -156,16 +155,13 @@ sudo pacman -S --noconfirm htop \
                            tilix             # Tiling terminal emulator
 yaourt -S --noconfirm etcher                 # SD card writer
 
+# yaourt -S --noconfirm android-file-transfer-linux-git
+
 # Zsh
 sudo pacman -S --noconfirm zsh \
                            zsh-completions
-
 # Oh-my-zsh
-# Don't use the AUR here because the PKGBUILD puts it in /usr/share/oh-my-zsh/
-#  which is inconvenient for installing plugins
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-# yaourt -S --noconfirm android-file-transfer-linux-git
+source ./oh-my-zsh.sh
 
 # Archive programs like 7z, unzip, unrar
 sudo pacman -S --noconfirm unzip \

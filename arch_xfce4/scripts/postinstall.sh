@@ -8,13 +8,11 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Oh-my-zsh plugins
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-
 # Clear font cache
 fc-cache
+
+# Load tilix dconf
+dconf load /com/gexperts/Tilix/ < ~/.config/tilix/tilix.dconf
 
 # Enable bluetooth service
 # sudo systemctl start bluetooth.service

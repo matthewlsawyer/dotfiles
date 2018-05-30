@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# This file will be run before the `packages.sh` file is run. This should be used
-# to start up networking and other things that are useful to do before installing
-# a bunch of packages.
+# This file should be used to start up networking and other things that are 
+# useful to do up-front, before installing a bunch of packages.
 
 # Ask for the administrator password upfront
 sudo -v
