@@ -1,8 +1,8 @@
 // Place your settings in this file to overwrite the default settings
 {
     // Controls the font family.
-    "editor.fontFamily": "'Fira Code Retina', 'Droid Sans Mono'",
-
+    "editor.fontFamily": "'DejavuSansMono Nerd Font Mono', 'DejaVu Sans Mono', 'Droid Sans Mono', 'Source Code Pro'",
+    
     // Controls if quick suggestions should show up or not while typing
     "editor.quickSuggestions": false,
 
@@ -23,8 +23,9 @@
 
     // Configure file associations to languages (e.g. "*.extension": "html"). These have precedence over the default associations of the languages installed.
     "files.associations": {
-        "**/*.d/**/*.*": "shellscript",
-        "**/*bin/**/*": "shellscript",
+        "**/*.d/**/*": "shellscript",
+        "**/bin/**/*": "shellscript",
+        "*.desktop": "shellscript",
         ".bash_profile": "shellscript",
         ".*rc": "shellscript"
     }

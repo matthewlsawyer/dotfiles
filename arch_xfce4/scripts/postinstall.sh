@@ -8,6 +8,9 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+# Clear font cache
+fc-cache
+
 # Enable bluetooth service
 # sudo systemctl start bluetooth.service
 # sudo systemctl enable bluetooth.service
@@ -17,9 +20,9 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 sudo mkinitcpio -P
 
 # Override xflock4 with our customized version
-sudo chmod 755 ~/.bin/xflock4
+sudo chmod 755 ~/.local/bin/xflock4
 sudo mv /usr/local/bin/xflock4 /usr/local/bin/xflock4.bak
-sudo ln -s -t /usr/local/bin ~/.bin/xflock4
+sudo ln -s -t /usr/local/bin ~/.local/bin/xflock4
 
 # Symlink in our pacman hooks
 sudo mkdir -p /etc/pacman.d/hooks

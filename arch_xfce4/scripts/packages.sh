@@ -45,10 +45,11 @@ sudo nvidia-xconfig
 yaourt -S aic94xx-firmware \ # SATA port chip
           wd719x-firmware    # WD hdd
 
-# Install video players and codecs
+# Install video/audio players and codecs
 sudo pacman -S --noconfirm vlc \
                            ffmpeg \
-                           smplayer
+                           smplayer \
+                           ncmpcpp
 yaourt -S --noconfirm codecs64
 
 # Install audio packages
@@ -73,10 +74,10 @@ sudo pacman -S --noconfirm xfce4 \
 
 sudo pacman -S --noconfirm vim \
                            git \                   # Git will be installed by this point if you are using this repo
-                           source-highlight \
+                           source-highlight \      # Used in the LESSOPEN env var
                            docker \
                            go \
-                           ruby
+                           ruby                    # Ruby for Sass install
 sudo gem install sass --no-user-install
 
 # MySQL
@@ -123,6 +124,7 @@ code --install-extension PeterJausovec.vscode-docker           # Docker
 code --install-extension EditorConfig.editorconfig             # Editorconfig
 code --install-extension eamodio.gitlens                       # Gitlens
 code --install-extension ms-vscode.go                          # Go
+code --install-extension redhat.java                           # Java
 code --install-extension yzhang.markdown-all-in-one            # Markdown
 code --install-extension ms-python.python                      # Python
 code --install-extension robinbentley.sass-indented            # Sass
@@ -149,12 +151,17 @@ sudo pacman -S --noconfirm htop \
                            bluez-plugins \
                            bluez-utils \
                            transmission-qt \ # Torrents
-                           zsh \
-                           zsh-completions \
-                           gparted
-yaourt -S --noconfirm gputest \
-                      oh-my-zsh-git \
-                      etcher                 # SD card writer
+                           gparted \
+                           tilix             # Tiling terminal emulator
+yaourt -S --noconfirm etcher                 # SD card writer
+
+# Zsh
+sudo pacman -S --noconfirm zsh
+# Oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
 # yaourt -S --noconfirm android-file-transfer-linux-git
 
@@ -165,10 +172,14 @@ sudo pacman -S --noconfirm unzip \
 
 ## Install packages needed for theming, fonts etc.
 
-sudo pacman -S --noconfirm ttf-google-fonts
+sudo pacman -S --noconfirm adobe-source-sans-pro-fonts \
+                           adobe-source-code-pro-fonts \
+                           ttf-droid \
+                           ttf-fira-mono \
+                           awesome-terminal-fonts
 yaourt -S --noconfirm otf-fira-code \
-                      otf-fira-mono \
-                      otf-fira-sans
+                      ttf-fira-code \
+                      awesome-terminal-fonts-patched
 
 # Install packages used for gaming.
 sudo pacman -S --noconfirm steam \
