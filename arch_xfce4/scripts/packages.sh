@@ -75,6 +75,7 @@ sudo pacman -S --noconfirm xfce4 \
 sudo pacman -S --noconfirm vim \
                            git \                   # Git will be installed by this point if you are using this repo
                            source-highlight \      # Used in the LESSOPEN env var
+                           pygmentize \            # Generic source highlighting
                            docker \
                            go \
                            ruby                    # Ruby for Sass install
@@ -156,12 +157,13 @@ sudo pacman -S --noconfirm htop \
 yaourt -S --noconfirm etcher                 # SD card writer
 
 # Zsh
-sudo pacman -S --noconfirm zsh
+sudo pacman -S --noconfirm zsh \
+                           zsh-completions
+
 # Oh-my-zsh
+# Don't use the AUR here because the PKGBUILD puts it in /usr/share/oh-my-zsh/
+#  which is inconvenient for installing plugins
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
 # yaourt -S --noconfirm android-file-transfer-linux-git
 

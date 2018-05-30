@@ -3,8 +3,12 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Colorize ls
+# Aliases
 alias ls='ls --color=auto'
+alias grep='grep --color'
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
 
 # Program defaults
 BROWSER=/usr/bin/firefox

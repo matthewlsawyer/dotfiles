@@ -1,8 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Kick off the bashrc script
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
+export TERM="xterm-256color"
 
 # Define the font mode before setting the theme
 # POWERLEVEL9K_MODE='awesome-fontconfig'
@@ -79,11 +83,12 @@ HISTFILE=~/.zsh_history
 plugins=(
   archlinux
   aws
+  colored-man-pages
+  colorize
   docker
   dotenv
   git
   go
-  node
   npm
   python
   sudo
@@ -123,9 +128,3 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# VTE support for Tilix
-# https://gnunn1.github.io/tilix-web/manual/vteconfig/
-if [ $TILIX_ID ] && [ $VTE_VERSION ]; then
-    source /etc/profile.d/vte.sh
-fi
