@@ -71,12 +71,15 @@ sudo pacman -S --noconfirm xfce4 \
 ## Install tools for development
 
 sudo pacman -S --noconfirm vim \
-                           git \                   # Git will be installed by this point if you are using this repo
-                           source-highlight \      # Used in the LESSOPEN env var
-                           pygmentize \            # Generic source highlighting
+                           git \        # Git will be installed by this point if you are using this repo
+                           pygmentize \ # Generic source highlighting
                            docker \
+                           aws-cli \
+                           redis \
+                           tmux \
                            go \
-                           ruby                    # Ruby for Sass install
+                           python \
+                           ruby         # Ruby for Sass install
 sudo gem install sass --no-user-install
 
 # MySQL
@@ -130,8 +133,7 @@ code --install-extension robinbentley.sass-indented            # Sass
 code --install-extension eg2.tslint                            # tslint
 code --install-extension rbbit.typescript-hero                 # Typescript
 
-## Install various software and utility programs
-
+# Install various software and utility programs
 sudo pacman -S --noconfirm htop \
                            iotop \
                            powertop \
@@ -154,7 +156,6 @@ sudo pacman -S --noconfirm htop \
                            gparted \
                            tilix             # Tiling terminal emulator
 yaourt -S --noconfirm etcher                 # SD card writer
-
 # yaourt -S --noconfirm android-file-transfer-linux-git
 
 # Zsh
@@ -168,8 +169,7 @@ sudo pacman -S --noconfirm unzip \
                            p7zip \
                            unrar
 
-## Install packages needed for theming, fonts etc.
-
+# Install packages needed for theming, fonts etc.
 sudo pacman -S --noconfirm adobe-source-sans-pro-fonts \
                            adobe-source-code-pro-fonts \
                            ttf-droid \
@@ -181,7 +181,9 @@ yaourt -S --noconfirm otf-fira-code \
 
 # Install packages used for gaming.
 sudo pacman -S --noconfirm steam \
-                           steam-native-runtime
+                           steam-native-runtime \
+                           dolphin
+yaourt -S --noconfirm sc-controller
 
 # Stuff for WINE
 sudo pacman -S --noconfirm wine-staging \          # WINE staging, for that bleeding edge

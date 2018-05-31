@@ -83,17 +83,22 @@ HISTFILE=~/.zsh_history
 plugins=(
   archlinux
   aws
+  asdf
   colored-man-pages
   colorize
   docker
   dotenv
   git
+  git-fast
   go
+  ng
   npm
   python
+  redis-cli
   sudo
   systemd
-  virtualenv
+  tmux
+  wd
   zsh-autosuggestions
   zsh-syntax-highlighting
 )

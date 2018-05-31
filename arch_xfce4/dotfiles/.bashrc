@@ -12,11 +12,11 @@ alias mv='mv -i'
 
 # Program defaults
 BROWSER=/usr/bin/firefox
-VISUAL=/usr/bin/vim --nofork
+VISUAL=/usr/bin/vim
 EDITOR=/usr/bin/vim
 
 # LESS highlighting
-export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
+export LESSOPEN="| pygmentize %s"
 export LESS="-R "
 
 # Local binaries
