@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# This script installs oh-my-zsh and all the plugins we want for it, sourced from the package.sh
-# script.
+# This script installs oh-my-zsh and all the plugins we want for it.
 
 # Oh-my-zsh
 # Don't use the AUR here because the PKGBUILD puts it in /usr/share/oh-my-zsh/

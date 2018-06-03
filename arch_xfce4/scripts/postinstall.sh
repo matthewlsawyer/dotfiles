@@ -9,10 +9,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Clear font cache
-fc-cache
-
-# Load tilix dconf
-dconf load /com/gexperts/Tilix/ < ~/.config/tilix/tilix.dconf
+fc-cache -f
 
 # Enable bluetooth service
 # sudo systemctl start bluetooth.service
@@ -29,7 +26,7 @@ sudo ln -s -t /usr/local/bin ~/.local/bin/xflock4
 
 # Symlink in our pacman hooks
 sudo mkdir -p /etc/pacman.d/hooks
-sudo ln -s -t /etc/pacman.d/hooks ~/.etc/pacman.d/hooks/nvidia.hook
+sudo ln -s -t /etc/pacman.d/hooks ~/.local/etc/pacman.d/hooks/nvidia.hook
 
 # To get lm_sensors to work you need to follow these steps:
 # 1. Add `acpi_enforce_resources=lax` to the following line in `/etc/default/grub`

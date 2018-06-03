@@ -1,0 +1,23 @@
+! #### Xterm settings
+! Set xterm name
+XTerm.termName: xterm-256color
+! Alt key fix
+XTerm.vt100.metaSendsEscape: true
+! Backspace fix
+XTerm.vt100.backarrowKey: false
+XTerm.ttyModes: erase ^?
+XTerm.vt100.saveLines: 4096
+! Fonts
+XTerm.vt100.faceName: DejaVuSansMono Nerd Font Mono:size=12
+
+! #### UXterm settings
+! Set uxterm name
+UXTerm.termName: xterm-256color
+! Alt key fix
+UXTerm.vt100.metaSendsEscape: true
+! Backspace fix
+UXTerm.vt100.backarrowKey: false
+UXTerm.ttyModes: erase ^?
+UXTerm.vt100.saveLines: 4096
+! Fonts
+UXTerm.vt100.faceName: DejaVuSansMono Nerd Font Mono:size=12

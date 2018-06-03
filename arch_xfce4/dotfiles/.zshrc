@@ -1,12 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Kick off the bashrc script
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Kick off the commonrc script
+[[ -f ~/.commonrc ]] && . ~/.commonrc
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
-export TERM="xterm-256color"
 
 # Define the font mode before setting the theme
 # POWERLEVEL9K_MODE='awesome-fontconfig'

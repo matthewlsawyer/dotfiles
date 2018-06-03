@@ -6,10 +6,10 @@ prompt-on-delete-profile=true
 list=['2b7c4080-0ddd-46c5-8f23-563fd3ba789d']
 
 [profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
-foreground-color='#ABB2BF'
+foreground-color='#A7ADBA'
 visible-name='Default'
 login-shell=false
-palette=['#21252B', '#E06C75', '#98C379', '#D19A66', '#61AFEF', '#C678DD', '#56B6C2', '#ABB2BF', '#5C6370', '#E06C75', '#98C379', '#D19A66', '#61AFEF', '#C678DD', '#56B6C2', '#000000']
+palette=['#2B303B', '#BF616A', '#A3BE8C', '#EBCB8B', '#8FA1B3', '#B48EAD', '#96B5B4', '#C0C5CE', '#65737E', '#BF616A', '#A3BE8C', '#EBCB8B', '#8FA1B3', '#B48EAD', '#96B5B4', '#EFF1F5']
 badge-color='#AC7EA8'
 badge-color-set=false
 cursor-background-color='#ABB2BF'
@@ -24,7 +24,7 @@ terminal-bell='none'
 draw-margin=80
 use-theme-colors=false
 highlight-background-color='#ABB2BF'
-background-color='#282C34'
+background-color='#2B303B'
 background-transparency-percent=0
 dim-transparency-percent=14
 highlight-foreground-color='#282C34'

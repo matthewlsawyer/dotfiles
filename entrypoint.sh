@@ -53,3 +53,7 @@ function main() {
 }
 
 main $1
+
+unset -f main
+unset -f scripts
+unset -f sync

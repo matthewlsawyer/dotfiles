@@ -27,7 +27,7 @@
         "**/bin/**/*": "shellscript",
         "*.desktop": "shellscript",
         ".bash_profile": "shellscript",
-        ".*rc": "shellscript"
+        "*rc": "shellscript"
     },
 
     // The path of the shell that the terminal uses on Linux.

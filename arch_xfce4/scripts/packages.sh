@@ -25,12 +25,14 @@ sudo pacman -Syu --noconfirm
 # sudo pacman -S --noconfirm base-devel \
 #                            yaourt
 
+# TODO enable multilib support
+
 ## Install libraries needed for video
 
-# Xorg utils for `startx` command
+# Xorg utils for `startx` command and various others
 sudo pacman -S --noconfirm xorg-server \
-                           xorg-server-utils \
-                           xorg-utils
+                           xorg-xinit \
+                           xorg-apps
 
 # Nvidia
 sudo pacman -S --noconfirm nvidia \
@@ -53,8 +55,9 @@ sudo pacman -S --noconfirm vlc \
 yaourt -S --noconfirm codecs64
 
 # Install audio packages
-sudo pacman -S --noconfirm lib32-libpulse \
-                           lib32-alsa-plugins
+sudo pacman -S --noconfirm libpulse lib32-libpulse \
+                           alsa-plugins lib32-alsa-plugins \
+                           alsa-lib lib32-alsa-lib
 
 # Install XFCE and related packages.
 sudo pacman -S --noconfirm xfce4 \
@@ -161,8 +164,6 @@ yaourt -S --noconfirm etcher                 # SD card writer
 # Zsh
 sudo pacman -S --noconfirm zsh \
                            zsh-completions
-# Oh-my-zsh
-source ./oh-my-zsh.sh
 
 # Archive programs like 7z, unzip, unrar
 sudo pacman -S --noconfirm unzip \
@@ -183,19 +184,44 @@ yaourt -S --noconfirm otf-fira-code \
 sudo pacman -S --noconfirm steam \
                            steam-native-runtime \
                            dolphin
-yaourt -S --noconfirm sc-controller
+yaourt -S --noconfirm sc-controller \
+                      steamos-xpad-dkms # xpad kernel module included with Valve's SteamOS
 
 # Stuff for WINE
-sudo pacman -S --noconfirm wine-staging \          # WINE staging, for that bleeding edge
-                           lib32-libldap \         # LDAP, needed for some games in WINE
-                           lib32-gnutls            # Transport layer, needed for some games in WINE
+sudo pacman -S --noconfirm wine-staging \                       # WINE staging, for that bleeding edge
+                           winetricks \
+                           wine-devel \
+                           wine-32bit-devel \
+                           giflib lib32-giflib \                # Gif support
+                           libpng lib32-libpng \                # PNG support
+                           libldap lib32-libldap \              # LDAP, needed for some games in WINE
+                           gnutls lib32-gnutls \                # Transport layer, needed for some games in WINE
+                           mpg123 lib32-mpg123 \                # MPEG support
+                           openal lib32-openal \                # 3D audio
+                           v4l-utils lib32-v4l-utils \          # Video 4 linux support
+                           libjpeg-turbo lib32-libjpeg-turbo \
+                           libxcomposite lib32-libxcomposite \  # X11 Composite extension library
+                           libxinerama lib32-libxinerama \      # X11 Xinerama extension library
+                           ncurses lib32-ncurses \              # Curses emulation
+                           opencl-icd-loader \                  # OpenCL Installable Client Driver (ICD) Loader
+                           lib32-opencl-icd-loader \
+                           libxslt lib32-libxslt \              # XSLT support
+                           libva lib32-libva \                  # Video Acceleration (VA) API for Linux
+                           gtk3 lib32-gtk3 \
+                           gst-plugins-base-libs \              # GStreamer Multimedia Framework Base Plugin libraries
+                           lib32-gst-plugins-base-libs \
+                           vulkan-icd-loader \                  # Vulkan Installable Client Driver (ICD) Loader
+                           lib32-vulkan-icd-loader \
+                           cups \
+                           samba \
+                           libwbclient lib32-libwbclient \      # Samba winbind client library
+                                                                #  Pull in PGP key from PKGBUILD
+                           dosbox                               # DOS emulation
 
 # Microsoft fonts for WINE games
-yaourt -S --noconfirm ttf-ms-fonts
-
-# Samba winbind client library
-# yaourt -S --noconfirm lib32-libwbclient # pull in pgp key from PKGBUILD
+yaourt -S --noconfirm ttf-ms-win10
 
 # WINE wrapper useful for managing wine versions and bottles
 # sudo pacman -S --noconfirm playonlinux
 # yaourt -S --noconfirm q4wine
+yaourt -S --noconfig lutris
