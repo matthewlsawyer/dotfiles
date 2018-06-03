@@ -44,8 +44,8 @@ sudo pacman -S --noconfirm nvidia \
 sudo nvidia-xconfig
 
 # Firmware
-yaourt -S aic94xx-firmware \ # SATA port chip
-          wd719x-firmware    # WD hdd
+yaourt -S aic94xx-firmware # SATA port chip
+yaourt -S wd719x-firmware  # WD hdd
 
 # Install media players and codecs
 sudo pacman -S --noconfirm vlc \
@@ -61,11 +61,11 @@ sudo pacman -S --noconfirm libpulse lib32-libpulse \
 
 # Install XFCE and related packages.
 sudo pacman -S --noconfirm xfce4 \
-                           thunar-archive-plugin \ # Right-click menu for unzipping
-                           conky \                 # Conky
-                           plank \                 # Plank
-                           compton \               # Compton will be used for compositing
-                           i3lock                  # i3lock is used to lock the screen
+                           thunar-archive-plugin # Right-click menu for unzipping
+sudo pacman -S --noconfirm conky                 # Conky
+sudo pacman -S --noconfirm plank                 # Plank
+sudo pacman -S --noconfirm compton               # Compton will be used for compositing
+sudo pacman -S --noconfirm i3lock                # i3lock is used to lock the screen
 
 # Panel plugins
 # sudo pacman -S --noconfirm xfce4-cpufreq-plugin
@@ -73,16 +73,17 @@ sudo pacman -S --noconfirm xfce4 \
 
 ## Install tools for development
 
-sudo pacman -S --noconfirm vim \
-                           git \        # Git will be installed by this point if you are using this repo
-                           pygmentize \ # Generic source highlighting
-                           docker \
+sudo pacman -S --noconfirm vim
+sudo pacman -S --noconfirm git        # Git will be installed by this point if you are using this repo
+sudo pacman -S --noconfirm pygmentize # Generic source highlighting
+sudo pacman -S --noconfirm docker \
                            aws-cli \
                            redis \
                            tmux \
                            go \
-                           python \
-                           ruby         # Ruby for Sass install
+                           python
+
+sudo pacman -S --noconfirm ruby       # Ruby for Sass install
 sudo gem install sass --no-user-install
 
 # MySQL
@@ -140,32 +141,32 @@ code --install-extension rbbit.typescript-hero                 # Typescript
 sudo pacman -S --noconfirm htop \
                            iotop \
                            powertop \
-                           atop \
-                           lm_sensors \      # Fans and PWM sensors
-                           hardinfo \
-                           lvm2 \
-                           brasero \         # Disc burnings
-                           viewnior \        # Image viewer
-                           rsync \           # File syncing
-                           imagemagick \     # Image conversion
-                           scrot \           # Screenshots
-                           google-chrome \
-                           firefox \
-                           lesspipe \        # Less utilities
-                           bluez \           # Bluetooth
-                           bluez-plugins \
-                           bluez-utils \
-                           transmission-qt \ # Torrents
-                           gparted \
-                           tilix             # Tiling terminal emulator
-yaourt -S --noconfirm etcher                 # SD card writer
+                           atop
+sudo pacman -S --noconfirm lm_sensors      # Fans and PWM sensors
+sudo pacman -S --noconfirm hardinfo
+sudo pacman -S --noconfirm lvm2
+sudo pacman -S --noconfirm brasero         # Disc burnings
+sudo pacman -S --noconfirm viewnior        # Image viewer
+sudo pacman -S --noconfirm rsync           # File syncing
+sudo pacman -S --noconfirm imagemagick     # Image conversion
+sudo pacman -S --noconfirm scrot           # Screenshots
+sudo pacman -S --noconfirm google-chrome \
+                           firefox
+sudo pacman -S --noconfirm lesspipe        # Less utilities
+sudo pacman -S --noconfirm bluez           # Bluetooth
+sudo pacman -S --noconfirm bluez-plugins \
+                           bluez-utils
+sudo pacman -S --noconfirm transmission-qt # Torrents
+sudo pacman -S --noconfirm gparted
+sudo pacman -S --noconfirm tilix           # Tiling terminal emulator
+yaourt -S --noconfirm etcher               # SD card writer
 # yaourt -S --noconfirm android-file-transfer-linux-git
 
 # Zsh
 sudo pacman -S --noconfirm zsh \
                            zsh-completions
 
-# Archive programs like 7z, unzip, unrar
+# Archive programs like 7z, zip, rar
 sudo pacman -S --noconfirm unzip \
                            p7zip \
                            unrar
@@ -180,46 +181,47 @@ yaourt -S --noconfirm otf-fira-code \
                       ttf-fira-code \
                       awesome-terminal-fonts-patched
 
-# Install packages used for gaming.
+# Install packages used for gaming
 sudo pacman -S --noconfirm steam \
                            steam-native-runtime \
-                           dolphin
+                           dolphin \
+                           retroarch
 yaourt -S --noconfirm sc-controller \
-                      steamos-xpad-dkms # xpad kernel module included with Valve's SteamOS
+                      steamos-xpad-dkms # Xpad kernel module included with Valve's SteamOS
 
 # Stuff for WINE
-sudo pacman -S --noconfirm wine-staging \                       # WINE staging, for that bleeding edge
-                           winetricks \
-                           wine-devel \
-                           wine-32bit-devel \
-                           giflib lib32-giflib \                # Gif support
-                           libpng lib32-libpng \                # PNG support
-                           libldap lib32-libldap \              # LDAP, needed for some games in WINE
-                           gnutls lib32-gnutls \                # Transport layer, needed for some games in WINE
-                           mpg123 lib32-mpg123 \                # MPEG support
-                           openal lib32-openal \                # 3D audio
-                           v4l-utils lib32-v4l-utils \          # Video 4 linux support
-                           libjpeg-turbo lib32-libjpeg-turbo \
-                           libxcomposite lib32-libxcomposite \  # X11 Composite extension library
-                           libxinerama lib32-libxinerama \      # X11 Xinerama extension library
-                           ncurses lib32-ncurses \              # Curses emulation
-                           opencl-icd-loader \                  # OpenCL Installable Client Driver (ICD) Loader
-                           lib32-opencl-icd-loader \
-                           libxslt lib32-libxslt \              # XSLT support
-                           libva lib32-libva \                  # Video Acceleration (VA) API for Linux
-                           gtk3 lib32-gtk3 \
-                           gst-plugins-base-libs \              # GStreamer Multimedia Framework Base Plugin libraries
-                           lib32-gst-plugins-base-libs \
-                           vulkan-icd-loader \                  # Vulkan Installable Client Driver (ICD) Loader
-                           lib32-vulkan-icd-loader \
-                           cups \
-                           samba \
-                           libwbclient lib32-libwbclient \      # Samba winbind client library
-                                                                #  Pull in PGP key from PKGBUILD
-                           dosbox                               # DOS emulation
+sudo pacman -S --noconfirm wine-staging                       # WINE staging, for that bleeding edge
+sudo pacman -S --noconfirm winetricks
+sudo pacman -S --noconfirm wine-devel \
+                           wine-32bit-devel
+sudo pacman -S --noconfirm giflib lib32-giflib                # Gif support
+sudo pacman -S --noconfirm libpng lib32-libpng                # PNG support
+sudo pacman -S --noconfirm libldap lib32-libldap              # LDAP, needed for some games in WINE
+sudo pacman -S --noconfirm gnutls lib32-gnutls                # Transport layer, needed for some games in WINE
+sudo pacman -S --noconfirm mpg123 lib32-mpg123                # MPEG support
+sudo pacman -S --noconfirm openal lib32-openal                # 3D audio
+sudo pacman -S --noconfirm v4l-utils lib32-v4l-utils          # Video 4 linux support
+sudo pacman -S --noconfirm libjpeg-turbo lib32-libjpeg-turbo
+sudo pacman -S --noconfirm libxcomposite lib32-libxcomposite  # X11 Composite extension library
+sudo pacman -S --noconfirm libxinerama lib32-libxinerama      # X11 Xinerama extension library
+sudo pacman -S --noconfirm ncurses lib32-ncurses              # Curses emulation
+sudo pacman -S --noconfirm opencl-icd-loader                  # OpenCL Installable Client Driver (ICD) Loader
+sudo pacman -S --noconfirm lib32-opencl-icd-loader
+sudo pacman -S --noconfirm libxslt lib32-libxslt              # XSLT support
+sudo pacman -S --noconfirm libva lib32-libva                  # Video Acceleration (VA) API for Linux
+sudo pacman -S --noconfirm gtk3 lib32-gtk3
+sudo pacman -S --noconfirm gst-plugins-base-libs              # GStreamer Multimedia Framework Base Plugin libraries
+sudo pacman -S --noconfirm lib32-gst-plugins-base-libs
+sudo pacman -S --noconfirm vulkan-icd-loader                  # Vulkan Installable Client Driver (ICD) Loader
+sudo pacman -S --noconfirm lib32-vulkan-icd-loader
+sudo pacman -S --noconfirm cups
+sudo pacman -S --noconfirm samba \
+                           libwbclient lib32-libwbclient      # Samba winbind client library
+                                                              #  Pull in PGP key from PKGBUILD
+sudo pacman -S --noconfirm dosbox                             # DOS emulation
 
 # Microsoft fonts for WINE games
-yaourt -S --noconfirm ttf-ms-win10
+yaourt -S --noconfirm ttf-ms-fonts # This is deprecated but there's no better solution for now
 
 # WINE wrapper useful for managing wine versions and bottles
 # sudo pacman -S --noconfirm playonlinux
