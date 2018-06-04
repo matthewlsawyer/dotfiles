@@ -1,0 +1,5 @@
+# Configuration for fbterm
+
+# Font family and size
+font-names=DejaVuSansMono Nerd Font Mono
+font-size=12

@@ -34,7 +34,7 @@ sudo ln -s -t /etc/pacman.d/hooks ~/.local/etc/pacman.d/hooks/nvidia.hook
 #    GRUB_CMDLINE_LINUX_DEFAULT="resume=UUID=287db681-1c61-476b-919a-dde223abe55f quiet acpi_enforce_resources=lax"
 # 2. Reconfig grub with the changes
 #    grub-mkconfig -o /boot/grub/grub.cfg
-# i. Reboot
+# a. Reboot
 # 3. Install fan driver module
 #    sudo modprobe w83627ehf
 # 4. Run `lm_sensors` setup
@@ -46,12 +46,19 @@ sudo ln -s -t /etc/pacman.d/hooks ~/.local/etc/pacman.d/hooks/nvidia.hook
 #    sudo systemctl restart systemd-modules-load.service
 # 7. Run the fan config program
 #    sudo pwnconfig
-# i. Example configs for sane defaults of the Noctua fan series
-#    MINTEMP=hwmon1/device/pwm2=20 hwmon1/device/pwm1=20
-#    MAXTEMP=hwmon1/device/pwm2=60 hwmon1/device/pwm1=60
-#    MINSTART=hwmon1/device/pwm2=40 hwmon1/device/pwm1=40
-#    MINSTOP=hwmon1/device/pwm2=20 hwmon1/device/pwm1=20
-#    MINPWM=hwmon1/device/pwm2=20 hwmon1/device/pwm1=20
+# a. Example configs for sane defaults of the Noctua fan series
+# b. For the Intel DX79TO temp1_input points to SYSTIN while temp2_input points to CPUTIN
+# c. In this case fan1_input is the front fans, fan2_input the CPU fan, and fan3_input is the back fan
+#    INTERVAL=10
+#    DEVPATH=hwmon0=devices/platform/coretemp.0 hwmon1=devices/platform/w83627ehf.656
+#    DEVNAME=hwmon0=coretemp hwmon1=nct6775
+#    FCTEMPS=hwmon1/device/pwm2=hwmon0/device/temp1_input hwmon1/device/pwm1=hwmon1/device/temp1_input hwmon1/device/pwm3=hwmon1/device/temp2_input
+#    FCFANS=hwmon1/device/pwm2=hwmon1/device/fan2_input hwmon1/device/pwm1=hwmon1/device/fan1_input hwmon1/device/pwm3=hwmon1/device/fan3_input
+#    MINTEMP=hwmon1/device/pwm2=30 hwmon1/device/pwm1=30 hwmon1/device/pwm3=30
+#    MAXTEMP=hwmon1/device/pwm2=60 hwmon1/device/pwm1=60 hwmon1/device/pwm3=60
+#    MINSTART=hwmon1/device/pwm2=40 hwmon1/device/pwm1=40 hwmon1/device/pwm3=40
+#    MINSTOP=hwmon1/device/pwm2=20 hwmon1/device/pwm1=20 hwmon1/device/pwm3=20
+#    MINPWM=hwmon1/device/pwm2=20 hwmon1/device/pwm1=20 hwmon1/device/pwm3=20
 # 8. Enable and start the service
 #    sudo systemctl enable fancontrol.service
 #    sudo systemctl start fancontrol.service

@@ -7,6 +7,9 @@
 # Kick off the commonrc script
 [[ -f ~/.commonrc ]] && . ~/.commonrc
 
+# Ignore insecure directories when running `sudo -E -s` or `sume`
+ZSH_DISABLE_COMPFIX=true
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -104,6 +107,7 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
+# Add `fbterm` to plugin list to fix TTY fonts
 
 source $ZSH/oh-my-zsh.sh
 

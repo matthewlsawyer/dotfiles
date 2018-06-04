@@ -4,15 +4,17 @@
 # and configures them.
 
 # Shell
-git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
-source ~/.config/base16-shell/scripts/base16_ocean.sh # Default to using Ocean
+# git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+# Default to using Ocean
+# source ~/.config/base16-shell/scripts/base16_ocean.sh
 
 # Tilix
 mkdir -p ~/.config/tilix/
 git clone https://github.com/karlding/base16-tilix.git ~/.config/tilix/base16
 mkdir -p ~/.config/tilix/schemes
 ln -sf ~/.config/tilix/base16/tilix/*.json ~/.config/tilix/schemes/
-dconf load /com/gexperts/Tilix/ < ~/.config/tilix/tilix.dconf # Tilix dconf is configured to use Ocean
+# Tilix dconf is configured to use Ocean
+dconf load /com/gexperts/Tilix/ < ~/.config/tilix/tilix.dconf
 
 # Xfce4
 mkdir -p ~/.local/share/xfce4/terminal/
@@ -24,4 +26,5 @@ ln -sf ~/.local/share/xfce4/terminal/base16/colorschemes/*.theme ~/.local/share/
 # Xresources
 mkdir -p ~/.config/Xresources/
 git clone https://github.com/chriskempson/base16-xresources.git ~/.config/Xresources/base16
-xrdb -merge ~/.config/Xresources/base16/xresources/base16-ocean.Xresources # Default to using Ocean
+# Default to using Ocean
+xrdb -merge ~/.config/Xresources/base16/xresources/base16-ocean-256.Xresources

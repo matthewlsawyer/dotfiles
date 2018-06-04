@@ -11,6 +11,7 @@ alias grep='grep --color'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+alias sume='sudo -E -s'
 
 # Program defaults
 BROWSER=/usr/bin/firefox
