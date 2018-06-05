@@ -2,9 +2,20 @@
 
 # System-agnostic script to rsync the dotfiles
 
+CWD="$(pwd)"
+
+# Make sure the user has a configuration argument
+if [[ -z $1 ]]; then
+    echo "Missing an argument that specifies the configuration"
+    exit -1
+fi
+if [[ ! -d "$CWD/$1" ]]; then
+    echo "No directory found that matches the given configuration argument"
+    exit -1
+fi
+
 function sync() {
     echo "Running rsync..."
-    CWD="$(pwd)"
     # Copy the dotfiles into the home directory
     dotfiles="$CWD/$1/dotfiles/"
     # Flags:
