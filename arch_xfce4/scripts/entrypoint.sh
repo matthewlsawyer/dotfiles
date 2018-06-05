@@ -1,11 +1,29 @@
 #!/bin/bash
 
-# This file will source all of the scripts needed for a new system install.
+# Entrypoint for the Arch XFCE4 install
 
-source ./setup.sh
-source ./packages.sh
+CWD="$(pwd)"
 
-source ./oh-my-zsh.sh
-source ./base16.sh
+# Make sure the user has a configuration argument
+if [[ -z $1 ]]; then
+    echo "Missing an argument that specifies the configuration"
+    exit -1
+fi
+if [[ ! -d "$CWD/$1" ]]; then
+    echo "No directory found that matches the given configuration argument"
+    exit -1
+fi
 
-source ./postinstall.sh
+( $CWD/$1/scripts/setup.sh )
+
+( $CWD/scripts/sync.sh $@ )
+
+( $CWD/$1/scripts/yaourt.sh )
+( $CWD/$1/scripts/packages.sh )
+
+( $CWD/$1/scripts/oh-my-zsh.sh )
+( $CWD/$1/scripts/base16.sh )
+
+( $CWD/$1/scripts/postinstall.sh )
+
+unset CWD

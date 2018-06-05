@@ -14,5 +14,7 @@ sudo touch /etc/modprobe.d/nobeep.conf
 echo 'blacklist pcspkr' | sudo tee /etc/modprobe.d/nobeep.conf > /dev/null
 
 # Start up the networking service
-sudo systemctl start dhcpcd@eno1.service
-sudo systemctl enable dhcpcd@eno1.service
+if [[ "$(systemctl is-active dhcpcd@eno1.service)" == "inactive" ]]; then
+    sudo systemctl start dhcpcd@eno1.service
+    sudo systemctl enable dhcpcd@eno1.service
+fi
