@@ -1,98 +1,91 @@
 #!/bin/bash
 
-# This file will grab all of the packages needed for a new install. This file also
-# assumes that `yaourt` is installed (for now).
+# This file will grab all of the packages needed for a new install.
 
 # Ask for the administrator password upfront
 sudo -v
 # Keep-alive: update existing `sudo` time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Append a repo to the end of the pacman conf file
-# sudo cat <<EOT >> /etc/pacman.conf
-
-# # Unofficial arch repo
-# [archlinuxfr]
-# SigLevel = Never
-# Server = http://repo.archlinux.fr/$arch
-# EOT
+# Enable multilib support
+if [[ -z "$(grep -n "^\[multilib\]" /etc/pacman.conf)" ]]; then
+    echo -e "\n[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee --append /etc/pacman.conf > /dev/null
+fi
 
 # Make sure pacman is up to date
 sudo pacman -Syy
 sudo pacman -Syu --noconfirm
 
-# Get base-devel and yaourt
-# sudo pacman -S --noconfirm base-devel yaourt
-# sudo pacman -S git base-devel
-# cd /tmp/ && git clone https://aur.archlinux.org/package-query.git \
-#   && cd /tmp/package-query && makepkg -si && cd /tmp/ \
-#   && git clone https://aur.archlinux.org/yaourt.git \
-#   && cd /tmp/yaourt && makepkg -si
-
-# TODO enable multilib support
+# Helper install functions
+function pinstall() {
+    sudo pacman -S --noconfirm --needed -q $@
+}
+function yinstall() {
+    yaourt -S --noconfirm --needed $@
+}
 
 ## Install libraries needed for video
 
 # Xorg utils for `startx` command and various others
-sudo pacman -S --noconfirm --needed xorg-server \
-                           xorg-xinit \
-                           xorg-apps
+pinstall xorg-server \
+            xorg-xinit \
+            xorg-apps
 
 # Nvidia
-sudo pacman -S --noconfirm --needed nvidia \
-                           nvidia-libgl \
-                           lib32-nvidia-libgl \
-                           nvidia-settings
-
-# Set up Xorg file for our nvidia configs
-sudo nvidia-xconfig
+pinstall nvidia \
+            nvidia-libgl \
+            lib32-nvidia-libgl \
+            nvidia-settings
 
 # Firmware
-yaourt -S aic94xx-firmware # SATA port chip
-yaourt -S wd719x-firmware  # WD hdd
+yinstall aic94xx-firmware # SATA port chip
+yinstall wd719x-firmware  # WD HDDs
+
+# Initramfs
+pinstall mkinitcpio
 
 # Install media players and codecs
-sudo pacman -S --noconfirm --needed vlc \
-                           ffmpeg \
-                           smplayer \
-                           ncmpcpp
-yaourt -S --noconfirm --needed codecs64
+pinstall vlc \
+            ffmpeg \
+            smplayer \
+            ncmpcpp
+yinstall codecs64
 
 # Install audio packages
-sudo pacman -S --noconfirm --needed libpulse lib32-libpulse \
-                           alsa-plugins lib32-alsa-plugins \
-                           alsa-lib lib32-alsa-lib
+pinstall libpulse lib32-libpulse \
+            alsa-plugins lib32-alsa-plugins \
+            alsa-lib lib32-alsa-lib
 
-# Install XFCE and related packages.
-sudo pacman -S --noconfirm --needed xfce4 \
-                           thunar-archive-plugin # Right-click menu for unzipping
-sudo pacman -S --noconfirm --needed conky                 # Conky
-sudo pacman -S --noconfirm --needed plank                 # Plank
-sudo pacman -S --noconfirm --needed compton               # Compton will be used for compositing
-sudo pacman -S --noconfirm --needed i3lock                # i3lock is used to lock the screen
+# Install XFCE and related packages
+pinstall xfce4
+pinstall thunar-archive-plugin # Right-click menu for unzipping
+pinstall conky                 # Conky
+pinstall plank                 # Plank
+pinstall compton               # Compton will be used for compositing
+pinstall i3lock                # i3lock is used to lock the screen
 
 # Panel plugins
-# sudo pacman -S --noconfirm --needed xfce4-cpufreq-plugin
-# sudo pacman -S --noconfirm --needed xfce4-datetime-plugin
+# pinstall xfce4-cpufreq-plugin
+# pinstall xfce4-datetime-plugin
 
 ## Install tools for development
 
-sudo pacman -S --noconfirm --needed vim
-sudo pacman -S --noconfirm --needed git        # Git will be installed by this point if you are using this repo
-sudo pacman -S --noconfirm --needed pygmentize # Generic source highlighting
-sudo pacman -S --noconfirm --needed docker \
-                           aws-cli \
-                           redis \
-                           tmux \
-                           go \
-                           python
+pinstall vim
+pinstall git          # Git will be installed by this point if you are using this repo
+pinstall pygmentize   # Generic source highlighting
+pinstall docker \
+            aws-cli \
+            redis \
+            tmux \
+            go \
+            python
 
-sudo pacman -S --noconfirm --needed ruby       # Ruby for Sass install
+pinstall ruby         # Ruby for Sass install
 sudo gem install sass --no-user-install
 
 # MySQL
-# sudo pacman -S --noconfirm --needed mariadb
-# sudo pacman -S --noconfirm --needed mysql-workbench
+# pinstall mariadb
+# pinstall mysql-workbench
 
 # Configure MySQL
 # sudo mysql_install_db \
@@ -103,8 +96,8 @@ sudo gem install sass --no-user-install
 # sudo systemctl enable mysqld.service   # Enable
 
 # Node
-sudo pacman -S --noconfirm --needed nodejs \
-                           npm
+pinstall nodejs \
+            npm
 sudo npm install -g gulp \
                     less \
                     typescript \
@@ -113,7 +106,7 @@ sudo npm install -g gulp \
 ## Install editors
 
 # Atom
-# yaourt -S --noconfirm --needed atom-editor
+# yinstall atom-editor
 # Atom packages
 # apm install atom-beautify
 # apm install atom-typescript
@@ -122,10 +115,10 @@ sudo npm install -g gulp \
 # apm install minimap
 
 # IntelliJ
-# sudo pacman -S --noconfirm --needed intellij-idea-community-edition
+# pinstall intellij-idea-community-edition
 
 # VS Code
-yaourt -S --noconfirm --needed code
+yinstall code
 
 # VS Code extensions
 code --install-extension Mikael.angular-beastcode              # Angular snippets
@@ -142,92 +135,92 @@ code --install-extension eg2.tslint                            # tslint
 code --install-extension rbbit.typescript-hero                 # Typescript
 
 # Install various software and utility programs
-sudo pacman -S --noconfirm --needed htop \
-                           iotop \
-                           powertop \
-                           atop
-sudo pacman -S --noconfirm --needed lm_sensors      # Fans and PWM sensors
-sudo pacman -S --noconfirm --needed hardinfo
-sudo pacman -S --noconfirm --needed lvm2
-sudo pacman -S --noconfirm --needed brasero         # Disc burnings
-sudo pacman -S --noconfirm --needed viewnior        # Image viewer
-sudo pacman -S --noconfirm --needed rsync           # File syncing
-sudo pacman -S --noconfirm --needed imagemagick     # Image conversion
-sudo pacman -S --noconfirm --needed scrot           # Screenshots
-sudo pacman -S --noconfirm --needed google-chrome \
-                           firefox
-sudo pacman -S --noconfirm --needed lesspipe        # Less utilities
-sudo pacman -S --noconfirm --needed bluez           # Bluetooth
-sudo pacman -S --noconfirm --needed bluez-plugins \
-                           bluez-utils
-sudo pacman -S --noconfirm --needed transmission-qt # Torrents
-sudo pacman -S --noconfirm --needed gparted
-sudo pacman -S --noconfirm --needed tilix           # Tiling terminal emulator
-yaourt -S --noconfirm --needed etcher               # SD card writer
-# yaourt -S --noconfirm --needed android-file-transfer-linux-git
-
-# Zsh
-sudo pacman -S --noconfirm --needed zsh \
-                           zsh-completions
+pinstall htop \
+            iotop \
+            powertop \
+            atop
+pinstall lm_sensors      # Fans and PWM sensors
+pinstall hardinfo
+pinstall lvm2
+pinstall brasero         # Disc burnings
+pinstall viewnior        # Image viewer
+pinstall rsync           # File syncing
+pinstall imagemagick     # Image conversion
+pinstall scrot           # Screenshots
+pinstall google-chrome \
+            firefox
+pinstall lesspipe        # Less utilities
+pinstall bluez           # Bluetooth
+pinstall bluez-plugins \
+            bluez-utils
+pinstall transmission-qt # Torrents
+pinstall gparted
+pinstall tilix           # Tiling terminal emulator
+yinstall etcher          # SD card writer
+# yinstall android-file-transfer-linux-git
 
 # Archive programs like 7z, zip, rar
-sudo pacman -S --noconfirm --needed unzip \
-                           p7zip \
-                           unrar
+pinstall unzip \
+            p7zip \
+            unrar
 
 # Install packages needed for theming, fonts etc.
-sudo pacman -S --noconfirm --needed adobe-source-sans-pro-fonts \
-                           adobe-source-code-pro-fonts \
-                           ttf-droid \
-                           ttf-fira-mono \
-                           awesome-terminal-fonts
-yaourt -S --noconfirm --needed otf-fira-code \
-                      ttf-fira-code \
-                      awesome-terminal-fonts-patched
+pinstall adobe-source-sans-pro-fonts \
+            adobe-source-code-pro-fonts \
+            ttf-droid \
+            ttf-fira-mono \
+            awesome-terminal-fonts
+yinstall otf-fira-code \
+                                ttf-fira-code \
+                                awesome-terminal-fonts-patched
 
 # Install packages used for gaming
-sudo pacman -S --noconfirm --needed steam \
-                           steam-native-runtime \
-                           dolphin \
-                           retroarch
-yaourt -S --noconfirm --needed sc-controller \
-                      steamos-xpad-dkms # Xpad kernel module included with Valve's SteamOS
+pinstall steam \
+            steam-native-runtime \
+            dolphin \
+            retroarch
+yinstall sc-controller \
+            steamos-xpad-dkms               # Xpad kernel module included with Valve's SteamOS
 
 # Stuff for WINE
-sudo pacman -S --noconfirm --needed wine-staging                       # WINE staging, for that bleeding edge
-sudo pacman -S --noconfirm --needed winetricks
-sudo pacman -S --noconfirm --needed wine-devel \
-                           wine-32bit-devel
-sudo pacman -S --noconfirm --needed giflib lib32-giflib                # Gif support
-sudo pacman -S --noconfirm --needed libpng lib32-libpng                # PNG support
-sudo pacman -S --noconfirm --needed libldap lib32-libldap              # LDAP, needed for some games in WINE
-sudo pacman -S --noconfirm --needed gnutls lib32-gnutls                # Transport layer, needed for some games in WINE
-sudo pacman -S --noconfirm --needed mpg123 lib32-mpg123                # MPEG support
-sudo pacman -S --noconfirm --needed openal lib32-openal                # 3D audio
-sudo pacman -S --noconfirm --needed v4l-utils lib32-v4l-utils          # Video 4 linux support
-sudo pacman -S --noconfirm --needed libjpeg-turbo lib32-libjpeg-turbo
-sudo pacman -S --noconfirm --needed libxcomposite lib32-libxcomposite  # X11 Composite extension library
-sudo pacman -S --noconfirm --needed libxinerama lib32-libxinerama      # X11 Xinerama extension library
-sudo pacman -S --noconfirm --needed ncurses lib32-ncurses              # Curses emulation
-sudo pacman -S --noconfirm --needed opencl-icd-loader                  # OpenCL Installable Client Driver (ICD) Loader
-sudo pacman -S --noconfirm --needed lib32-opencl-icd-loader
-sudo pacman -S --noconfirm --needed libxslt lib32-libxslt              # XSLT support
-sudo pacman -S --noconfirm --needed libva lib32-libva                  # Video Acceleration (VA) API for Linux
-sudo pacman -S --noconfirm --needed gtk3 lib32-gtk3
-sudo pacman -S --noconfirm --needed gst-plugins-base-libs              # GStreamer Multimedia Framework Base Plugin libraries
-sudo pacman -S --noconfirm --needed lib32-gst-plugins-base-libs
-sudo pacman -S --noconfirm --needed vulkan-icd-loader                  # Vulkan Installable Client Driver (ICD) Loader
-sudo pacman -S --noconfirm --needed lib32-vulkan-icd-loader
-sudo pacman -S --noconfirm --needed cups
-sudo pacman -S --noconfirm --needed samba \
-                           libwbclient lib32-libwbclient      # Samba winbind client library
-                                                              #  Pull in PGP key from PKGBUILD
-sudo pacman -S --noconfirm --needed dosbox                             # DOS emulation
+pinstall wine-staging                       # WINE staging, for that bleeding edge
+pinstall winetricks
+pinstall wine-devel \
+            wine-32bit-devel
+pinstall giflib lib32-giflib                # Gif support
+pinstall libpng lib32-libpng                # PNG support
+pinstall libldap lib32-libldap              # LDAP, needed for some games in WINE
+pinstall gnutls lib32-gnutls                # Transport layer, needed for some games in WINE
+pinstall mpg123 lib32-mpg123                # MPEG support
+pinstall openal lib32-openal                # 3D audio
+pinstall v4l-utils lib32-v4l-utils          # Video 4 linux support
+pinstall libjpeg-turbo lib32-libjpeg-turbo
+pinstall libxcomposite lib32-libxcomposite  # X11 Composite extension library
+pinstall libxinerama lib32-libxinerama      # X11 Xinerama extension library
+pinstall ncurses lib32-ncurses              # Curses emulation
+pinstall opencl-icd-loader                  # OpenCL Installable Client Driver (ICD) Loader
+pinstall lib32-opencl-icd-loader
+pinstall libxslt lib32-libxslt              # XSLT support
+pinstall libva lib32-libva                  # Video Acceleration (VA) API for Linux
+pinstall gtk3 lib32-gtk3
+pinstall gst-plugins-base-libs              # GStreamer Multimedia Framework Base Plugin libraries
+pinstall lib32-gst-plugins-base-libs
+pinstall vulkan-icd-loader                  # Vulkan Installable Client Driver (ICD) Loader
+pinstall lib32-vulkan-icd-loader
+pinstall cups
+pinstall samba \
+            libwbclient lib32-libwbclient   # Samba winbind client library
+                                            #  Might need to pull in PGP key from PKGBUILD
+pinstall dosbox                             # DOS emulation
 
 # Microsoft fonts for WINE games
-yaourt -S --noconfirm --needed ttf-ms-fonts # This is deprecated but there's no better solution for now
+# This is deprecated but there's no better solution for now
+yinstall ttf-ms-fonts
 
 # WINE wrapper useful for managing wine versions and bottles
-# sudo pacman -S --noconfirm --needed playonlinux
-# yaourt -S --noconfirm --needed q4wine
-yaourt -S --noconfirm --needed lutris
+# pinstall playonlinux
+# yinstall q4wine
+yinstall lutris
+
+unset -f pinstall
+unset -f yinstall

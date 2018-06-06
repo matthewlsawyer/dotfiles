@@ -9,9 +9,11 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Disable the internal PC speaker, cause it's super annoying
-sudo rmmod pcspkr
-sudo touch /etc/modprobe.d/nobeep.conf
-echo 'blacklist pcspkr' | sudo tee /etc/modprobe.d/nobeep.conf > /dev/null
+if [[ "$(modinfo pcspkr)" != "modinfo: ERROR: Module alias pcspkr not found." ]]; then
+    sudo rmmod pcspkr
+    sudo touch /etc/modprobe.d/nobeep.conf
+    echo 'blacklist pcspkr' | sudo tee /etc/modprobe.d/nobeep.conf > /dev/null
+fi
 
 # Start up the networking service
 if [[ "$(systemctl is-active dhcpcd@eno1.service)" == "inactive" ]]; then

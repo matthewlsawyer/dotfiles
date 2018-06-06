@@ -21,9 +21,12 @@ fi
 ( $CWD/$1/scripts/yaourt.sh )
 ( $CWD/$1/scripts/packages.sh )
 
-( $CWD/$1/scripts/oh-my-zsh.sh )
-( $CWD/$1/scripts/base16.sh )
-
 ( $CWD/$1/scripts/postinstall.sh )
+
+# Base16 install script requires X11 to be started
+# ( $CWD/$1/scripts/base16.sh )
+
+# Installing zsh is interactive so it should be done manually
+# ( $CWD/$1/scripts/zsh.sh )
 
 unset CWD

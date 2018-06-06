@@ -12,10 +12,8 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Make sure pacman is up to date
-sudo pacman -Syy
 # Grab dependencies for package-query
-sudo pacman -S --noconfirm --needed yajl
+sudo pacman -Sy --noconfirm --needed yajl
 
 # Make package-query
 cd $HOME \
@@ -23,14 +21,14 @@ cd $HOME \
     && cd $HOME/package-query \
     && makepkg -s
 # Install it
-sudo pacman -U --noconfirm $HOME/package-query/package-query-*-x86_64.pkg.tar.xz
+sudo pacman -U --noconfirm --needed -q $HOME/package-query/package-query-*-x86_64.pkg.tar.xz
 
 # Make yaourt
 cd $HOME \
     && git clone https://aur.archlinux.org/yaourt.git \
     && cd $HOME/yaourt \
     && makepkg -s
-sudo pacman -U --noconfirm $HOME/yaourt/yaourt-*-any.pkg.tar.xz
+sudo pacman -U --noconfirm --needed -q $HOME/yaourt/yaourt-*-any.pkg.tar.xz
 
 # Cleanup
 rm -fr $HOME/package-query $HOME/yaourt

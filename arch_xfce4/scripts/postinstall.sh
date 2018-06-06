@@ -15,13 +15,14 @@ fc-cache -f
 # sudo systemctl start bluetooth.service
 # sudo systemctl enable bluetooth.service
 
+# Set up Xorg file for our nvidia configs
+sudo nvidia-xconfig
+
 # Create initial ramdisk environment
-# There is also a pacman hook that will run this after every nvidia update
+#  There is also a pacman hook that will run this after every nvidia update
 sudo mkinitcpio -P
 
 # Override xflock4 with our customized version
-sudo chmod 755 ~/.local/bin/xflock4
-sudo mv /usr/local/bin/xflock4 /usr/local/bin/xflock4.bak
 sudo ln -s -t /usr/local/bin ~/.local/bin/xflock4
 
 # Symlink in our pacman hooks
