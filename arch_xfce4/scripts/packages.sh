@@ -171,8 +171,8 @@ pinstall adobe-source-sans-pro-fonts \
             ttf-fira-mono \
             awesome-terminal-fonts
 yinstall otf-fira-code \
-                                ttf-fira-code \
-                                awesome-terminal-fonts-patched
+            ttf-fira-code \
+            awesome-terminal-fonts-patched
 
 # Install packages used for gaming
 pinstall steam \
@@ -185,8 +185,7 @@ yinstall sc-controller \
 # Stuff for WINE
 pinstall wine-staging                       # WINE staging, for that bleeding edge
 pinstall winetricks
-pinstall wine-devel \
-            wine-32bit-devel
+pinstall wine-devel wine-32bit-devel
 pinstall giflib lib32-giflib                # Gif support
 pinstall libpng lib32-libpng                # PNG support
 pinstall libldap lib32-libldap              # LDAP, needed for some games in WINE
@@ -208,8 +207,8 @@ pinstall lib32-gst-plugins-base-libs
 pinstall vulkan-icd-loader                  # Vulkan Installable Client Driver (ICD) Loader
 pinstall lib32-vulkan-icd-loader
 pinstall cups
-pinstall samba \
-            libwbclient lib32-libwbclient   # Samba winbind client library
+pinstall samba
+pinstall libwbclient lib32-libwbclient      # Samba winbind client library
                                             #  Might need to pull in PGP key from PKGBUILD
 pinstall dosbox                             # DOS emulation
 
