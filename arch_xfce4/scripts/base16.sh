@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This file grabs all of the base16 themes we want for our various apps
-# and configures them.
+# and configures them. This script requires X11 to be running.
 
 # Shell
 # git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
