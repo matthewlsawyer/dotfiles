@@ -58,11 +58,12 @@ pinstall libpulse lib32-libpulse \
 
 # Install XFCE and related packages
 pinstall xfce4
-pinstall thunar-archive-plugin # Right-click menu for unzipping
-pinstall conky                 # Conky
-pinstall plank                 # Plank
-pinstall compton               # Compton will be used for compositing
-pinstall i3lock                # i3lock is used to lock the screen
+pinstall thunar-archive-plugin  # Right-click menu for unzipping
+pinstall conky                  # Conky
+pinstall plank                  # Plank
+pinstall compton                # Compton will be used for compositing
+pinstall i3lock                 # i3lock is used to lock the screen
+yinstall polybar-git            # Polybar
 
 # Panel plugins
 # pinstall xfce4-cpufreq-plugin
@@ -71,8 +72,8 @@ pinstall i3lock                # i3lock is used to lock the screen
 ## Install tools for development
 
 pinstall vim
-pinstall git          # Git will be installed by this point if you are using this repo
-pinstall pygmentize   # Generic source highlighting
+pinstall git            # Git will be installed by this point if you are using this repo
+pinstall pygmentize     # Generic source highlighting
 pinstall docker \
             aws-cli \
             redis \
@@ -121,43 +122,43 @@ sudo npm install -g gulp \
 yinstall code
 
 # VS Code extensions
-code --install-extension Mikael.angular-beastcode              # Angular snippets
+code --install-extension Mikael.angular-beastcode               # Angular snippets
 code --install-extension streetsidesoftware.code-spell-checker
-code --install-extension PeterJausovec.vscode-docker           # Docker
-code --install-extension EditorConfig.editorconfig             # Editorconfig
-code --install-extension eamodio.gitlens                       # Gitlens
-code --install-extension ms-vscode.go                          # Go
-code --install-extension redhat.java                           # Java
-code --install-extension yzhang.markdown-all-in-one            # Markdown
-code --install-extension ms-python.python                      # Python
-code --install-extension robinbentley.sass-indented            # Sass
-code --install-extension eg2.tslint                            # tslint
-code --install-extension rbbit.typescript-hero                 # Typescript
+code --install-extension PeterJausovec.vscode-docker            # Docker
+code --install-extension EditorConfig.editorconfig              # Editorconfig
+code --install-extension eamodio.gitlens                        # Gitlens
+code --install-extension ms-vscode.go                           # Go
+code --install-extension redhat.java                            # Java
+code --install-extension yzhang.markdown-all-in-one             # Markdown
+code --install-extension ms-python.python                       # Python
+code --install-extension robinbentley.sass-indented             # Sass
+code --install-extension eg2.tslint                             # tslint
+code --install-extension rbbit.typescript-hero                  # Typescript
 
 # Install various software and utility programs
 pinstall htop \
             iotop \
             powertop \
             atop
-pinstall lm_sensors      # Fans and PWM sensors
+pinstall lm_sensors         # Fans and PWM sensors
 pinstall hardinfo
 pinstall lvm2
-pinstall brasero         # Disc burnings
-pinstall viewnior        # Image viewer
-pinstall rsync           # File syncing
-pinstall imagemagick     # Image conversion
-pinstall scrot           # Screenshots
+pinstall brasero            # Disc burnings
+pinstall viewnior           # Image viewer
+pinstall rsync              # File syncing
+pinstall imagemagick        # Image conversion
+pinstall scrot              # Screenshots
 pinstall google-chrome \
             firefox
-pinstall lesspipe        # Less utilities
-pinstall bluez           # Bluetooth
+pinstall lesspipe           # Less utilities
+pinstall bluez              # Bluetooth
 pinstall bluez-plugins \
             bluez-utils
-pinstall transmission-qt # Torrents
+pinstall transmission-qt    # Torrents
 pinstall gparted
-pinstall tilix           # Tiling terminal emulator
-yinstall etcher          # SD card writer
-# yinstall android-file-transfer-linux-git
+pinstall tilix              # Tiling terminal emulator
+yinstall etcher             # SD card writer
+yinstall android-file-transfer-linux-git
 
 # Archive programs like 7z, zip, rar
 pinstall unzip \

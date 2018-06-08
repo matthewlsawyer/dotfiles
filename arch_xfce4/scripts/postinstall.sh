@@ -23,7 +23,7 @@ sudo nvidia-xconfig
 sudo mkinitcpio -P
 
 # Override xflock4 with our customized version
-sudo ln -s -t /usr/local/bin ~/.local/bin/xflock4
+# sudo ln -s -t /usr/local/bin ~/.local/bin/xflock4
 
 # Symlink in our pacman hooks
 sudo mkdir -p /etc/pacman.d/hooks

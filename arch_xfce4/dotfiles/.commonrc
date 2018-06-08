@@ -23,7 +23,7 @@ export LESSOPEN="| pygmentize %s"
 export LESS="-R "
 
 # Local binaries
-export PATH=$PATH:~/.local/bin
+export PATH=~/.local/bin:$PATH
 
 # VTE support for Tilix
 # https://gnunn1.github.io/tilix-web/manual/vteconfig/

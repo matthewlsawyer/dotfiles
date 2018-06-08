@@ -1,8 +1,15 @@
+#!/bin/sh
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+# Run normal bash if not in xterm-256color
+if [[ "$TERM" != "xterm-256color" ]]; then
+  exec /usr/bin/bash -l && return
+fi
 
 # Kick off the commonrc script
 [[ -f ~/.commonrc ]] && . ~/.commonrc
@@ -13,26 +20,13 @@ ZSH_DISABLE_COMPFIX=true
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
-# Define the font mode before setting the theme
-# POWERLEVEL9K_MODE='awesome-fontconfig'
-# POWERLEVEL9K_MODE='awesome-patched'
-POWERLEVEL9K_MODE='nerdfont-complete'
+# Powerlevel configs
+[[ -f ~/.powerlevelrc ]] && . ~/.powerlevelrc
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
-
-# Powerlevel9k configs
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-# POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-# POWERLEVEL9K_SHORTEN_STRATEGY=truncate_middle
-# POWERLEVEL9K_SHORTEN_DELIMITER=".."
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs status)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time)
-POWERLEVEL9K_DISABLE_RPROMPT=false
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=1
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
