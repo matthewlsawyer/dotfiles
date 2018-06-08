@@ -21,6 +21,8 @@ fi
 ( $CWD/$1/scripts/yaourt.sh )
 ( $CWD/$1/scripts/packages.sh )
 
+( $CWD/$1/scripts/fonts.sh )
+
 ( $CWD/$1/scripts/postinstall.sh )
 
 # Base16 install script requires X11 to be started
