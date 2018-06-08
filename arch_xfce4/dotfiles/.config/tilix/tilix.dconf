@@ -19,7 +19,7 @@ highlight-colors-set=false
 use-system-font=false
 bold-color-set=false
 cursor-foreground-color='#282C34'
-font='DejaVuSansMono Nerd Font Mono 12'
+font='FuraCode Nerd Font weight=453 12'
 terminal-bell='none'
 draw-margin=80
 use-theme-colors=false

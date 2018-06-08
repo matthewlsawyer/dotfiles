@@ -8,7 +8,7 @@ XTerm.vt100.backarrowKey: false
 XTerm.ttyModes: erase ^?
 XTerm.vt100.saveLines: 4096
 ! Fonts
-XTerm.vt100.faceName: DejaVuSansMono Nerd Font Mono:size=12
+XTerm.vt100.faceName: xft:FuraCode Nerd Font Mono:style=Retina:size=12
 
 !-- UXterm settings
 ! Set uxterm name
@@ -20,7 +20,7 @@ UXTerm.vt100.backarrowKey: false
 UXTerm.ttyModes: erase ^?
 UXTerm.vt100.saveLines: 4096
 ! Fonts
-UXTerm.vt100.faceName: DejaVuSansMono Nerd Font Mono:size=12
+UXTerm.vt100.faceName: xft:FuraCode Nerd Font Mono:style=Retina:size=12
 
 !-- General font settings
 Xft*antialias: true

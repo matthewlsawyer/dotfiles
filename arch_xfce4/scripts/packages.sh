@@ -79,7 +79,8 @@ pinstall docker \
             redis \
             tmux \
             go \
-            python
+            python \
+            jq
 
 pinstall ruby         # Ruby for Sass install
 sudo gem install sass --no-user-install
@@ -169,11 +170,14 @@ pinstall unzip \
 pinstall adobe-source-sans-pro-fonts \
             adobe-source-code-pro-fonts \
             ttf-droid \
-            ttf-fira-mono \
-            awesome-terminal-fonts
-yinstall otf-fira-code \
             ttf-fira-code \
-            awesome-terminal-fonts-patched
+            otf-fira-code \
+            ttf-fira-mono \
+            otf-fira-mono \
+            ttf-fira-sans \
+            otf-fira-sans \
+            awesome-terminal-fonts
+yinstall awesome-terminal-fonts-patched
 
 # Install packages used for gaming
 pinstall steam \
