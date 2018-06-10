@@ -1,3 +1,13 @@
+# arch_xfce4
+
+These exist for an Arch install running the xfce4 desktop environment. The `packages.sh` file shows all of the software that will be installed but below are some highlights:
+
+* Diplay -- X, nvidia
+* Media -- ffmpeg, smplayer, ncmpcpp
+* Desktop -- Xfce4, Plank, Compton
+* Development -- vim, git, docker, node
+* Gaming -- wine, Steam
+
 ## LVM configuration
 
 Below is a breakdown of the LVM configuration based on my current disk setup. In general the pattern I follow
@@ -55,14 +65,18 @@ Again, just follow the logical volumes here.
 
 You can test all the scripts in a Docker container by running the following commands from the root directory of the project.
 
-```
+```bash
 docker build -t arch_xfce4_test -f arch_xfce4/test/Dockerfile .
 docker run -it arch_xfce4_test /bin/bash
+
+# Or if you want it running detached
+docker run -itd arch_xfce4_test /bin/bash
+docker exec -ti $container_id /bin/bash
 ```
 
 Once you are in the container you will want to kick off the `entrypoint.sh` script.
 
-```
+```bash
 ./entrypoint.sh arch_xfce4
 ```
 
