@@ -16,11 +16,12 @@ fi
 
 ( $CWD/$1/scripts/setup.sh )
 
+# Prompt yes/no on rsync here
 ( $CWD/scripts/sync.sh $@ )
 
 ( $CWD/$1/scripts/yaourt.sh )
 ( $CWD/$1/scripts/packages.sh )
-
+( $CWD/$1/scripts/xfce4.sh )
 ( $CWD/$1/scripts/fonts.sh )
 
 ( $CWD/$1/scripts/postinstall.sh )
@@ -30,5 +31,8 @@ fi
 
 # Installing zsh is interactive so it should be done manually
 # ( $CWD/$1/scripts/zsh.sh )
+
+# Prompt to clean up cache here
+( $CWD/$1/scripts/cleanup.sh )
 
 unset CWD

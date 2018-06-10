@@ -13,3 +13,7 @@ fi
 
 # Start up xfce session
 exec startxfce4
+
+# Budgie from Solus
+# export XDG_CURRENT_DESKTOP=Budgie:GNOME
+# exec budgie-desktop

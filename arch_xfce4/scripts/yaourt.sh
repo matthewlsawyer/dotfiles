@@ -13,22 +13,21 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Grab dependencies for package-query
-sudo pacman -Sy --noconfirm --needed yajl
+sudo pacman -Sy --noconfirm --needed -q yajl
 
 # Make package-query
 cd $HOME \
     && git clone https://aur.archlinux.org/package-query.git \
     && cd $HOME/package-query \
     && makepkg -s
-# Install it
-sudo pacman -U --noconfirm --needed -q $HOME/package-query/package-query-*-x86_64.pkg.tar.xz
+sudo pacman -U --noconfirm --needed $HOME/package-query/package-query-*-x86_64.pkg.tar.xz
 
 # Make yaourt
 cd $HOME \
     && git clone https://aur.archlinux.org/yaourt.git \
     && cd $HOME/yaourt \
     && makepkg -s
-sudo pacman -U --noconfirm --needed -q $HOME/yaourt/yaourt-*-any.pkg.tar.xz
+sudo pacman -U --noconfirm --needed $HOME/yaourt/yaourt-*-any.pkg.tar.xz
 
 # Cleanup
 rm -fr $HOME/package-query $HOME/yaourt

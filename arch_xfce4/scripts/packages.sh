@@ -20,6 +20,7 @@ sudo pacman -Syu --noconfirm
 function pinstall() {
     sudo pacman -S --noconfirm --needed -q $@
 }
+
 function yinstall() {
     yaourt -S --noconfirm --needed $@
 }
@@ -33,9 +34,14 @@ pinstall xorg-server \
 
 # Nvidia
 pinstall nvidia \
-            nvidia-libgl \
-            lib32-nvidia-libgl \
+            nvidia-utils \
+            lib32-nvidia-utils \
             nvidia-settings
+
+# Make sure nvidia-utils is already installed or else
+#  there's a prompt for which version of the dependency
+pinstall nvidia-libgl \
+            lib32-nvidia-libgl
 
 # Firmware
 yinstall aic94xx-firmware # SATA port chip
@@ -56,18 +62,10 @@ pinstall libpulse lib32-libpulse \
             alsa-plugins lib32-alsa-plugins \
             alsa-lib lib32-alsa-lib
 
-# Install XFCE and related packages
-pinstall xfce4
-pinstall thunar-archive-plugin  # Right-click menu for unzipping
+pinstall i3lock                 # i3lock is used to lock the screen
 pinstall conky                  # Conky
 pinstall plank                  # Plank
-pinstall compton                # Compton will be used for compositing
-pinstall i3lock                 # i3lock is used to lock the screen
-yinstall polybar-git            # Polybar
-
-# Panel plugins
-# pinstall xfce4-cpufreq-plugin
-# pinstall xfce4-datetime-plugin
+# yinstall polybar-git            # Polybar
 
 ## Install tools for development
 
@@ -83,7 +81,8 @@ pinstall docker \
             jq
 
 pinstall ruby         # Ruby for Sass install
-sudo gem install sass --no-user-install
+pinstall ruby-sass    # Sass
+# sudo gem install sass --no-user-install
 
 # MySQL
 # pinstall mariadb
@@ -120,7 +119,7 @@ sudo npm install -g gulp \
 # pinstall intellij-idea-community-edition
 
 # VS Code
-yinstall code
+yinstall visual-studio-code-bin
 
 # VS Code extensions
 code --install-extension Mikael.angular-beastcode               # Angular snippets
@@ -141,6 +140,7 @@ pinstall htop \
             iotop \
             powertop \
             atop
+pinstall pacman-contrib
 pinstall lm_sensors         # Fans and PWM sensors
 pinstall hardinfo
 pinstall lvm2
@@ -149,17 +149,31 @@ pinstall viewnior           # Image viewer
 pinstall rsync              # File syncing
 pinstall imagemagick        # Image conversion
 pinstall scrot              # Screenshots
-pinstall google-chrome \
-            firefox
+pinstall firefox
+pinstall chromium
 pinstall lesspipe           # Less utilities
 pinstall bluez              # Bluetooth
 pinstall bluez-plugins \
             bluez-utils
-pinstall transmission-qt    # Torrents
+pinstall transmission-qt    # Torrents -- use blocklist https://silo.glasz.org/antip2p.list.gz a daily updated
+                            # dump of I-Blocklist by https://github.com/glaszig
 pinstall gparted
 pinstall tilix              # Tiling terminal emulator
-yinstall etcher             # SD card writer
-yinstall android-file-transfer-linux-git
+
+# Commenting these for now because they take forever
+# yinstall google-chrome
+# yinstall etcher             # SD card writer
+# yinstall android-file-transfer-linux-git
+
+# Gnome stuff
+pinstall file-roller
+pinstall gnome-calendar
+pinstall gnome-todo
+pinstall gnome-clocks
+pinstall gnome-logs
+pinstall gnome-calculator
+pinstall gnome-system-monitor
+pinstall gnome-disks
 
 # Archive programs like 7z, zip, rar
 pinstall unzip \
@@ -182,15 +196,14 @@ yinstall awesome-terminal-fonts-patched
 # Install packages used for gaming
 pinstall steam \
             steam-native-runtime \
-            dolphin \
+            dolphin-emu \
             retroarch
 yinstall sc-controller \
             steamos-xpad-dkms               # Xpad kernel module included with Valve's SteamOS
 
 # Stuff for WINE
-pinstall wine-staging                       # WINE staging, for that bleeding edge
+pinstall wine-staging-nine                  # WINE staging with the gallium-nine patches, for that bleeding edge
 pinstall winetricks
-pinstall wine-devel wine-32bit-devel
 pinstall giflib lib32-giflib                # Gif support
 pinstall libpng lib32-libpng                # PNG support
 pinstall libldap lib32-libldap              # LDAP, needed for some games in WINE
@@ -213,8 +226,8 @@ pinstall vulkan-icd-loader                  # Vulkan Installable Client Driver (
 pinstall lib32-vulkan-icd-loader
 pinstall cups
 pinstall samba
-pinstall libwbclient lib32-libwbclient      # Samba winbind client library
-                                            #  Might need to pull in PGP key from PKGBUILD
+pinstall libwbclient                        # Samba winbind client library -- might need to pull in PGP key from PKGBUILD
+# yinstall lib32-libwbclient                  # Multilib samba winbind client library
 pinstall dosbox                             # DOS emulation
 
 # Microsoft fonts for WINE games
