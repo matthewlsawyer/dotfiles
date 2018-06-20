@@ -44,7 +44,7 @@ Next we want to create a user that we will put in the `ssh` and `sudo` groups. W
 because OMV won't create a home directory for us.
 
 ```bash
-adduser -m matthewlsawyer
+adduser -m $user
 ```
 
 ## LVM configuration
