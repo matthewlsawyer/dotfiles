@@ -7,7 +7,9 @@
 
 # Aliases
 alias ls='ls --color=auto'
-alias grep='grep --color'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
@@ -36,3 +38,8 @@ fi
 # [ -n "$PS1" ] && \
 #     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 #         eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+# Generate .gitingore files using gitingore.io
+#  Use `gi list` for a list of all supported files
+function _gi() { curl -L -s https://www.gitignore.io/api/$@ ; }
+function gi() { _gi $@ > $(pwd)/.gitignore; }

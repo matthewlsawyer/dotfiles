@@ -62,9 +62,8 @@ pinstall libpulse lib32-libpulse \
             alsa-plugins lib32-alsa-plugins \
             alsa-lib lib32-alsa-lib
 
-pinstall i3lock                 # i3lock is used to lock the screen
-pinstall conky                  # Conky
 pinstall plank                  # Plank
+pinstall conky                  # Conky
 # yinstall polybar-git            # Polybar
 
 ## Install tools for development
@@ -122,18 +121,21 @@ sudo npm install -g gulp \
 yinstall visual-studio-code-bin
 
 # VS Code extensions
-code --install-extension Mikael.angular-beastcode               # Angular snippets
-code --install-extension streetsidesoftware.code-spell-checker
+code --install-extension mikael.angular-beastcode               # Angular
 code --install-extension PeterJausovec.vscode-docker            # Docker
 code --install-extension EditorConfig.editorconfig              # Editorconfig
-code --install-extension eamodio.gitlens                        # Gitlens
 code --install-extension ms-vscode.go                           # Go
 code --install-extension redhat.java                            # Java
 code --install-extension yzhang.markdown-all-in-one             # Markdown
 code --install-extension ms-python.python                       # Python
 code --install-extension robinbentley.sass-indented             # Sass
-code --install-extension eg2.tslint                             # tslint
 code --install-extension rbbit.typescript-hero                  # Typescript
+code --install-extension ms-vscode.csharp                       # C#
+code --install-extension eg2.tslint
+code --install-extension ajhyndman.jslint
+# Commented because it's disruptive
+# code --install-extension eamodio.gitlens
+# code --install-extension streetsidesoftware.code-spell-checker
 
 # Install various software and utility programs
 pinstall htop \
@@ -156,9 +158,10 @@ pinstall bluez              # Bluetooth
 pinstall bluez-plugins \
             bluez-utils
 pinstall transmission-qt    # Torrents -- use blocklist https://silo.glasz.org/antip2p.list.gz a daily updated
-                            # dump of I-Blocklist by https://github.com/glaszig
+                            #  dump of I-Blocklist by https://github.com/glaszig
 pinstall gparted
 pinstall tilix              # Tiling terminal emulator
+pinstall filezilla
 
 # Commenting these for now because they take forever
 # yinstall google-chrome
@@ -192,6 +195,8 @@ pinstall adobe-source-sans-pro-fonts \
             otf-fira-sans \
             awesome-terminal-fonts
 yinstall awesome-terminal-fonts-patched
+
+pinstall arc-gtk-theme
 
 # Install packages used for gaming
 pinstall steam \
