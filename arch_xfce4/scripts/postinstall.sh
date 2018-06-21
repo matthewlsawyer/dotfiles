@@ -46,7 +46,7 @@ sudo ln -s -t /etc/pacman.d/hooks ~/.local/etc/pacman.d/hooks/nvidia.hook
 # 6. Restart the module loading service
 #    sudo systemctl restart systemd-modules-load.service
 # 7. Run the fan config program
-#    sudo pwnconfig
+#    sudo pwmconfig
 # a. Example configs for sane defaults of the Noctua fan series
 # b. For the Intel DX79TO temp1_input points to SYSTIN while temp2_input points to CPUTIN
 # c. In this case fan1_input is the front fans, fan2_input the CPU fan, and fan3_input is the back fan
@@ -61,11 +61,21 @@ sudo ln -s -t /etc/pacman.d/hooks ~/.local/etc/pacman.d/hooks/nvidia.hook
 #    MINSTOP=hwmon1/device/pwm2=20 hwmon1/device/pwm1=20 hwmon1/device/pwm3=20
 #    MINPWM=hwmon1/device/pwm2=20 hwmon1/device/pwm1=20 hwmon1/device/pwm3=20
 # 8. Enable and start the service
-#    sudo systemctl enable fancontrol.service
 #    sudo systemctl start fancontrol.service
+#    sudo systemctl enable fancontrol.service
 # For more info see https://wiki.archlinux.org/index.php/lm_sensors
 # and https://wiki.archlinux.org/index.php/fan_speed_control#fancontrol
 
 # Enable a weekly package cleanup
 sudo systemctl enable paccache.timer
 sudo systemctl start paccache.timer
+
+# Fix tty resolution
+# 1. Add the following line in `/etc/default/grub`
+#    GRUB_GFXPAYLOAD_LINUX=1920x1080
+# 2. Reconfig grub with the changes
+#    grub-mkconfig -o /boot/grub/grub.cfg
+
+# Generate your keys
+ssh-keygen
+gpg --full-gen-key

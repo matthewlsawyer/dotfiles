@@ -15,16 +15,22 @@ Below is a breakdown of the LVM configuration based on my current disk setup. In
 is a single volume group for all hard disks and another one for all solid state disks, and then logical volumes
 for each mount point I intend to add.
 
+Make sure `boot` is located outside of the LVM config.
+
+```
+/dev/sda1 -- 512M
+```
+
 ### LVM physical volumes
 
-The solid state disks will be put into a "sdd-vg" `volume group`.
+The solid state disks will be put into a "ssd_vg" `volume group`.
 
 ```
-/dev/sda -- ~120G
-/dev/sdd -- ~250G
+/dev/sda2 -- ~120G
+/dev/sdd  -- ~250G
 ```
 
-The hard disks will be put into a "hdd-vg" `volume group`.
+The hard disks will be put into a "hdd_vg" `volume group`.
 
 ```
 /dev/sdb -- ~750G
@@ -36,16 +42,15 @@ The hard disks will be put into a "hdd-vg" `volume group`.
 These basically follow the mount points but define which volume group they should live on.
 
 ```
-# On the SDD
-root-lv     -- sdd-vg -- 20G
-boot-lv     -- sdd-vg -- 512M
-s-data-lv   -- sdd-vg -- ~300G  # The remaining space on sdd-vg
+# On the SSD
+root_lv     -- ssd_vg -- 20G
+sdata_lv    -- ssd_vg -- ~300G  # The remaining space on ssd_vg
 
 # On the HDD
-var-lv      -- hdd-vg -- 20G
-tmp-lv      -- hdd-vg -- 4G
-home-lv     -- hdd-vg -- 500G
-data-lv     -- hdd-vg -- ~1T    # The remaining space on hdd-vg
+var_lv      -- hdd_vg -- 20G
+home_lv     -- hdd_vg -- 500G
+swap_lv     -- hdd_vg -- 8G
+data_lv     -- hdd_vg -- ~1T    # The remaining space on hdd_vg
 ```
 
 ### Mount points
@@ -53,13 +58,12 @@ data-lv     -- hdd-vg -- ~1T    # The remaining space on hdd-vg
 Again, just follow the logical volumes here.
 
 ```
-/       -- root-lv
-/boot   -- boot-lv
-/var    -- var-lv
-/tmp    -- tmp-lv
-/home   -- home-lv
-/data   -- data-lv
-/sdata  -- s-data-lv
+/       -- root_lv
+/var    -- var_lv
+/home   -- home_lv
+/data   -- data_lv
+/sdata  -- sdata_lv
+swap    -- swap_lv
 ```
 
 ## Testing

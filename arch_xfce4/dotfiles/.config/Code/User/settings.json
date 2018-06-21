@@ -1,7 +1,7 @@
 // Place your settings in this file to overwrite the default settings
 {
     // Controls the font family.
-    "editor.fontFamily": "'Fira Code Retina', 'DejaVu Sans Mono', 'Droid Sans Mono', 'Source Code Pro'",
+    "editor.fontFamily": "'Fira Code Retina', 'Fira Code Nerd Font Mono Retina', 'DejaVu Sans Mono', 'Droid Sans Mono', 'Source Code Pro'",
     
     // Controls if quick suggestions should show up or not while typing
     "editor.quickSuggestions": false,
@@ -30,6 +30,9 @@
         "*rc": "shellscript",
         "*.service": "shellscript"
     },
+
+    // Enable usage data and errors to be sent to Microsoft.
+    "telemetry.enableTelemetry": true,
 
     // The path of the shell that the terminal uses on Linux.
     "terminal.integrated.shell.linux": "/bin/bash"

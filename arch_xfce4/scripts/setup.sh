@@ -16,7 +16,11 @@ if [[ "$(modinfo pcspkr)" != "modinfo: ERROR: Module alias pcspkr not found." ]]
 fi
 
 # Start up the networking service
-if [[ "$(systemctl is-active dhcpcd@eno1.service)" == "inactive" ]]; then
-    sudo systemctl start dhcpcd@eno1.service
-    sudo systemctl enable dhcpcd@eno1.service
+# if [[ "$(systemctl is-active dhcpcd@eno1.service)" == "inactive" ]]; then
+#     sudo systemctl start dhcpcd@eno1.service
+#     sudo systemctl enable dhcpcd@eno1.service
+# fi
+if [[ "$(systemctl is-active NetworkManager.service)" == "inactive" ]]; then
+    sudo systemctl start NetworkManager.service
+    sudo systemctl enable NetworkManager.service
 fi

@@ -62,6 +62,8 @@ pinstall libpulse lib32-libpulse \
             alsa-plugins lib32-alsa-plugins \
             alsa-lib lib32-alsa-lib
 
+pinstall pavucontrol
+
 pinstall plank                  # Plank
 pinstall conky                  # Conky
 # yinstall polybar-git            # Polybar
@@ -162,6 +164,7 @@ pinstall transmission-qt    # Torrents -- use blocklist https://silo.glasz.org/a
 pinstall gparted
 pinstall tilix              # Tiling terminal emulator
 pinstall filezilla
+pinstall gnuplot
 
 # Commenting these for now because they take forever
 # yinstall google-chrome
@@ -184,6 +187,8 @@ pinstall unzip \
             unrar
 
 # Install packages needed for theming, fonts etc.
+# TODO fix this
+#  adobe-source-sans-pro-fonts and ttf-google-fonts-typewolf are in conflict
 pinstall adobe-source-sans-pro-fonts \
             adobe-source-code-pro-fonts \
             ttf-droid \
@@ -205,6 +210,14 @@ pinstall steam \
             retroarch
 yinstall sc-controller \
             steamos-xpad-dkms               # Xpad kernel module included with Valve's SteamOS
+
+# Emulators
+#  Make sure to add user to the `games` group
+#  Might need to receive key for ncurses dependency
+yinstall epsxe
+
+# Might need to receive key
+yinstall discord
 
 # Stuff for WINE
 pinstall wine-staging-nine                  # WINE staging with the gallium-nine patches, for that bleeding edge
