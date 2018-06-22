@@ -25,6 +25,10 @@ function yinstall() {
     yaourt -S --noconfirm --needed $@
 }
 
+## Networking
+pinstall networkmanager \
+            network-manager-applet
+
 ## Install libraries needed for video
 
 # Xorg utils for `startx` command and various others
@@ -165,42 +169,35 @@ pinstall gparted
 pinstall tilix              # Tiling terminal emulator
 pinstall filezilla
 pinstall gnuplot
+pinstall youtube-dl
+pinstall file-roller
 
 # Commenting these for now because they take forever
 # yinstall google-chrome
 # yinstall etcher             # SD card writer
 # yinstall android-file-transfer-linux-git
 
-# Gnome stuff
-pinstall file-roller
-pinstall gnome-calendar
-pinstall gnome-todo
-pinstall gnome-clocks
-pinstall gnome-logs
-pinstall gnome-calculator
-pinstall gnome-system-monitor
-pinstall gnome-disks
-
 # Archive programs like 7z, zip, rar
 pinstall unzip \
             p7zip \
             unrar
 
-# Install packages needed for theming, fonts etc.
-# TODO fix this
-#  adobe-source-sans-pro-fonts and ttf-google-fonts-typewolf are in conflict
-pinstall adobe-source-sans-pro-fonts \
+# Install packages needed for theming, fonts etc. The package
+#  `ttf-google-fonts-typewolf` provides the following:
+# ttf-fira-sans
+# otf-fira-sans
+# adobe-source-sans-pro-fonts
+pinstall ttf-google-fonts-typewolf \
             adobe-source-code-pro-fonts \
             ttf-droid \
             ttf-fira-code \
             otf-fira-code \
             ttf-fira-mono \
             otf-fira-mono \
-            ttf-fira-sans \
-            otf-fira-sans \
             awesome-terminal-fonts
 yinstall awesome-terminal-fonts-patched
 
+yinstall elementary-xfce-icons-git
 pinstall arc-gtk-theme
 
 # Install packages used for gaming

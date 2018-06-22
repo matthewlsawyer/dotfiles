@@ -13,8 +13,7 @@ sudo pacman -S --noconfirm --needed samba \
 sudo pacman -S --noconfirm --needed gvfs gvfs-smb
 
 # Get samba configuration
-# TODO fix this
-sudo wget -O smb.conf -P /etc/samba/ \
+sudo wget -O /etc/samba/smb.conf \
     "https://git.samba.org/samba.git/?p=samba.git;a=blob_plain;f=examples/smb.conf.default;hb=HEAD"
 
 # Enable the cifs module

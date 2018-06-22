@@ -70,12 +70,17 @@ sudo ln -s -t /etc/pacman.d/hooks ~/.local/etc/pacman.d/hooks/nvidia.hook
 sudo systemctl enable paccache.timer
 sudo systemctl start paccache.timer
 
-# Fix tty resolution
+# Fix grub and tty resolution
 # 1. Add the following line in `/etc/default/grub`
+#    GRUB_GFXMODE=1920x1080,1024x768,auto
 #    GRUB_GFXPAYLOAD_LINUX=1920x1080
-# 2. Reconfig grub with the changes
+# 2. Make sure to add the lvm module
+#    GRUB_PRELOAD_MODULES="part_gpt part_msdos lvm"
+# 3. Reconfig grub with the changes
 #    grub-mkconfig -o /boot/grub/grub.cfg
 
 # Generate your keys
 ssh-keygen
 gpg --full-gen-key
+# To export your GPG key you can use
+# gpg --armor --export $key

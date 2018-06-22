@@ -9,6 +9,14 @@ software that will be installed but below are some highlights:
 * Development -- vim, git, docker, node
 * Gaming -- wine, Steam
 
+## Initial setup
+
+To start networking, run the following command.
+
+```bash
+sudo systemctl start dhcpcd@eno1.service
+```
+
 ## LVM configuration
 
 Below is a breakdown of the LVM configuration based on my current disk setup. In general the pattern I follow
