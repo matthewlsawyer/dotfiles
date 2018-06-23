@@ -64,7 +64,7 @@ sudo ln -s -t /etc/pacman.d/hooks ~/.local/etc/pacman.d/hooks/nvidia.hook
 #    sudo systemctl start fancontrol.service
 #    sudo systemctl enable fancontrol.service
 # For more info see https://wiki.archlinux.org/index.php/lm_sensors
-# and https://wiki.archlinux.org/index.php/fan_speed_control#fancontrol
+#  and https://wiki.archlinux.org/index.php/fan_speed_control#fancontrol
 
 # Enable a weekly package cleanup
 sudo systemctl enable paccache.timer
@@ -82,5 +82,10 @@ sudo systemctl start paccache.timer
 # Generate your keys
 ssh-keygen
 gpg --full-gen-key
-# To export your GPG key you can use
+
+# To export your GPG key you can use:
+# gpg --list-keys
 # gpg --armor --export $key
+
+# To import keys, use:
+# gpg --recv-keys $key

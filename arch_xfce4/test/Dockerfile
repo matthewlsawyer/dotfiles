@@ -15,4 +15,3 @@ WORKDIR /home/test/dotfiles
 USER test
 
 ENTRYPOINT /bin/bash
-# ENTRYPOINT ["./entrypoint.sh", "arch_xfce4"]

@@ -1,0 +1,10 @@
+[Desktop Entry] 
+Name=Messages
+Comment=Messages for web
+GenericName=Messages
+Categories=Internet;
+Type=Link
+Icon=messages
+Terminal=false 
+NoDisplay=false
+URL=https://messages.android.com/

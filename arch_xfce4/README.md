@@ -87,10 +87,11 @@ docker run -itd arch_xfce4_test /bin/bash
 docker exec -ti $container_id /bin/bash
 ```
 
-Once you are in the container you will want to kick off the `entrypoint.sh` script.
+Once you are in the container you can run whichever script you want to test.
 
 ```bash
-./entrypoint.sh arch_xfce4
+cd arch_xfce4/scripts
+./packages.sh
 ```
 
 Keep in mind that the container can get pretty big, up to around 8G so far in my testing.

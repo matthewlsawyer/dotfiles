@@ -3,8 +3,6 @@
 # This file has global functions and is intended to be sourced into the
 # other various scripts.
 
-# TODO reference this throughout the files
-
 function pinstall() {
     sudo pacman -S --noconfirm --needed -q $@
 }

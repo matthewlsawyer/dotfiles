@@ -1,7 +1,7 @@
 [Desktop Entry] 
 Name=Plank Preferences 
-Comment=Plank Preferences 
-GenericName=Dock 
+Comment=Plank preferences 
+GenericName=Plank Preferences 
 Categories=Utility; 
 Type=Application 
 Exec=plank --preferences 

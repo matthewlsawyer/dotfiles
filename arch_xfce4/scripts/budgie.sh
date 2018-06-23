@@ -9,15 +9,17 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-sudo pacman --no-confirm --needed budgie-desktop \
-                                    gnome \
-                                    gnome-backgrounds \
-                                    gnome-control-center \
-                                    gnome-screensaver
+. functions.sh
 
-yaourt -S --no-confirm --needed budgie-extras \
-                                    budgie-caffeine-applet \
-                                    budgie-calendar-applet \
-                                    budgie-haste-applet \
-                                    budgie-pixel-saver-applet \
-                                    budgie-advanced-brightness-controller-applet
+pinstall budgie-desktop \
+            gnome \
+            gnome-backgrounds \
+            gnome-control-center \
+            gnome-screensaver
+
+yinstall budgie-extras \
+            budgie-caffeine-applet \
+            budgie-calendar-applet \
+            budgie-haste-applet \
+            budgie-pixel-saver-applet \
+            budgie-advanced-brightness-controller-applet

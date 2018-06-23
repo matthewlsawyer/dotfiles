@@ -16,14 +16,7 @@ fi
 sudo pacman -Syy
 sudo pacman -Syu --noconfirm
 
-# Helper install functions
-function pinstall() {
-    sudo pacman -S --noconfirm --needed -q $@
-}
-
-function yinstall() {
-    yaourt -S --noconfirm --needed $@
-}
+. functions.sh
 
 ## Networking
 pinstall networkmanager \
@@ -62,7 +55,7 @@ pinstall vlc \
 yinstall codecs64
 
 # Install audio packages
-pinstall libpulse lib32-libpulse \
+pinstall pulseaudio libpulse lib32-libpulse \
             alsa-plugins lib32-alsa-plugins \
             alsa-lib lib32-alsa-lib
 
@@ -152,7 +145,6 @@ pinstall pacman-contrib
 pinstall lm_sensors         # Fans and PWM sensors
 pinstall hardinfo
 pinstall lvm2
-pinstall brasero            # Disc burnings
 pinstall viewnior           # Image viewer
 pinstall rsync              # File syncing
 pinstall imagemagick        # Image conversion
@@ -171,11 +163,19 @@ pinstall filezilla
 pinstall gnuplot
 pinstall youtube-dl
 pinstall file-roller
+pinstall bookworm           # PDF reader
+pinstall alacarte           # Menu editor
+
+# WhatsApp client
+yinstall whatsie
 
 # Commenting these for now because they take forever
 # yinstall google-chrome
 # yinstall etcher             # SD card writer
 # yinstall android-file-transfer-linux-git
+
+# Removed because it depends on "tracker" which I don't want
+# pinstall brasero            # Disc burnings
 
 # Archive programs like 7z, zip, rar
 pinstall unzip \
@@ -215,44 +215,3 @@ yinstall epsxe
 
 # Might need to receive key
 yinstall discord
-
-# Stuff for WINE
-pinstall wine-staging-nine                  # WINE staging with the gallium-nine patches, for that bleeding edge
-pinstall winetricks
-pinstall giflib lib32-giflib                # Gif support
-pinstall libpng lib32-libpng                # PNG support
-pinstall libldap lib32-libldap              # LDAP, needed for some games in WINE
-pinstall gnutls lib32-gnutls                # Transport layer, needed for some games in WINE
-pinstall mpg123 lib32-mpg123                # MPEG support
-pinstall openal lib32-openal                # 3D audio
-pinstall v4l-utils lib32-v4l-utils          # Video 4 linux support
-pinstall libjpeg-turbo lib32-libjpeg-turbo
-pinstall libxcomposite lib32-libxcomposite  # X11 Composite extension library
-pinstall libxinerama lib32-libxinerama      # X11 Xinerama extension library
-pinstall ncurses lib32-ncurses              # Curses emulation
-pinstall opencl-icd-loader                  # OpenCL Installable Client Driver (ICD) Loader
-pinstall lib32-opencl-icd-loader
-pinstall libxslt lib32-libxslt              # XSLT support
-pinstall libva lib32-libva                  # Video Acceleration (VA) API for Linux
-pinstall gtk3 lib32-gtk3
-pinstall gst-plugins-base-libs              # GStreamer Multimedia Framework Base Plugin libraries
-pinstall lib32-gst-plugins-base-libs
-pinstall vulkan-icd-loader                  # Vulkan Installable Client Driver (ICD) Loader
-pinstall lib32-vulkan-icd-loader
-pinstall cups
-pinstall samba
-pinstall libwbclient                        # Samba winbind client library -- might need to pull in PGP key from PKGBUILD
-# yinstall lib32-libwbclient                  # Multilib samba winbind client library
-pinstall dosbox                             # DOS emulation
-
-# Microsoft fonts for WINE games
-# This is deprecated but there's no better solution for now
-yinstall ttf-ms-fonts
-
-# WINE wrapper useful for managing wine versions and bottles
-# pinstall playonlinux
-# yinstall q4wine
-yinstall lutris
-
-unset -f pinstall
-unset -f yinstall
