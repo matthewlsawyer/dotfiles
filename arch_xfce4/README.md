@@ -9,6 +9,8 @@ software that will be installed but below are some highlights:
 * Development -- vim, git, docker, node
 * Gaming -- wine, Steam
 
+---
+
 ## Initial setup
 
 To start networking, run the following command.
@@ -16,6 +18,8 @@ To start networking, run the following command.
 ```bash
 sudo systemctl start dhcpcd@eno1.service
 ```
+
+---
 
 ## LVM configuration
 
@@ -52,10 +56,10 @@ These basically follow the mount points but define which volume group they shoul
 ```
 # On the SSD
 root_lv     -- ssd_vg -- 20G
+var_lv      -- ssd_vg -- 20G
 sdata_lv    -- ssd_vg -- ~300G  # The remaining space on ssd_vg
 
 # On the HDD
-var_lv      -- hdd_vg -- 20G
 home_lv     -- hdd_vg -- 500G
 swap_lv     -- hdd_vg -- 8G
 data_lv     -- hdd_vg -- ~1T    # The remaining space on hdd_vg
@@ -73,6 +77,8 @@ Again, just follow the logical volumes here.
 /sdata  -- sdata_lv
 swap    -- swap_lv
 ```
+
+---
 
 ## Testing
 
@@ -95,3 +101,22 @@ cd arch_xfce4/scripts
 ```
 
 Keep in mind that the container can get pretty big, up to around 8G so far in my testing.
+
+---
+
+## Settings
+
+### Display
+
+Turn off display sleep by going to "Settings" > "Power Manager" > "Display" and setting "Blank after" to "Never".
+
+### Hard drives
+
+To reduce hard drive clicking, turn off power management on the hard disk drives.
+
+```bash
+# Set the power consumption up to 255 which disables APM
+#  preventing the drive from parking its heads
+sudo hdparm -B 255 /dev/sdb
+sudo hdparm -B 255 /dev/sdc
+```

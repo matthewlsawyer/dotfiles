@@ -39,11 +39,6 @@ fi
 #     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 #         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-# Generate .gitingore files using gitingore.io
-#  Use `gi list` for a list of all supported files
-function _gi() { curl -L -s https://www.gitignore.io/api/$@ ; }
-function gi() { _gi $@ > $(pwd)/.gitignore; }
-
 # XDG - set defaults as they may not be set
 # See https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 # and https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
@@ -57,3 +52,12 @@ if [ ! -w ${XDG_RUNTIME_DIR:="/run/user/$UID"} ]; then
 else
     export XDG_RUNTIME_DIR
 fi
+
+# Install functions
+function pinstall() { sudo pacman -S --noconfirm --needed -q $@; }
+function yinstall() { yaourt -S --noconfirm --needed $@; }
+
+# Generate .gitingore files using gitingore.io
+#  Use `gi list` for a list of all supported files
+function _gi() { curl -L -s https://www.gitignore.io/api/$@; }
+function gi() { _gi $@ > $(pwd)/.gitignore; }

@@ -1,4 +1,4 @@
-# Raspberry Pi
+# Raspberry Pi with Open Media Vault
 
 First thing we want to do is get everything up to date and get some useful packages.
 
@@ -14,6 +14,8 @@ Next we want to set up the pi, making sure to set the locale.
 ```bash
 sudo raspi-config
 ```
+
+---
 
 ## OMV
 
@@ -74,6 +76,8 @@ Use a single logical volume that OMV will use to mount.
 main-lv  -- main-vg -- ~5.5T # The entire space on main-vg
 ```
 
+---
+
 ## Samba
 
 Make sure that if you create a `samba` password for your users.
@@ -87,6 +91,8 @@ And then the client can mount that drive with the following command.
 ```bash
 sudo mount -t cifs //$server/Public /mnt/path/to/Public -o user=$user,uid=$user,gid=users
 ```
+
+---
 
 ## Nginx
 
@@ -126,6 +132,8 @@ already appeared to be installed properly in my testing.
 # Fix bad gateway errors in php7
 sudo apt-get install --reinstall libpcre3
 ```
+
+---
 
 ## Debugging
 

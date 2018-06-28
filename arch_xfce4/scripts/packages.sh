@@ -18,11 +18,12 @@ sudo pacman -Syu --noconfirm
 
 . functions.sh
 
-## Networking
-pinstall networkmanager \
-            network-manager-applet
+# Networking
+pinstall networkmanager network-manager-applet
 
-## Install libraries needed for video
+##
+## Install libraries needed for video and audio
+##
 
 # Xorg utils for `startx` command and various others
 pinstall xorg-server \
@@ -61,15 +62,18 @@ pinstall pulseaudio libpulse lib32-libpulse \
 
 pinstall pavucontrol
 
-pinstall plank                  # Plank
-pinstall conky                  # Conky
-# yinstall polybar-git            # Polybar
+pinstall plank
+pinstall conky
+#yinstall polybar-git
 
+##
 ## Install tools for development
+##
 
 pinstall vim
-pinstall git            # Git will be installed by this point if you are using this repo
-pinstall pygmentize     # Generic source highlighting
+pinstall git
+# Generic source highlighting
+pinstall pygmentize
 pinstall docker \
             aws-cli \
             redis \
@@ -78,21 +82,20 @@ pinstall docker \
             python \
             jq
 
-pinstall ruby         # Ruby for Sass install
-pinstall ruby-sass    # Sass
-# sudo gem install sass --no-user-install
+# Ruby for Sass install
+pinstall ruby ruby-sass
 
 # MySQL
-# pinstall mariadb
-# pinstall mysql-workbench
+#pinstall mariadb
+#pinstall mysql-workbench
 
 # Configure MySQL
-# sudo mysql_install_db \
+#sudo mysql_install_db \
 #   --user=mysql \
 #   --basedir=/usr \
-#   --datadir=/var/lib/mysql             # Install DB
-# sudo systemctl start mysqld.service    # Start
-# sudo systemctl enable mysqld.service   # Enable
+#   --datadir=/var/lib/mysql
+#sudo systemctl start mysqld.service
+#sudo systemctl enable mysqld.service
 
 # Node
 pinstall nodejs \
@@ -102,19 +105,21 @@ sudo npm install -g gulp \
                     typescript \
                     @angular/cli
 
-## Install editors
+##
+## Install editors and plugins
+##
 
 # Atom
 # yinstall atom-editor
 # Atom packages
-# apm install atom-beautify
-# apm install atom-typescript
-# apm install color-picker
-# apm install linter
-# apm install minimap
+#apm install atom-beautify
+#apm install atom-typescript
+#apm install color-picker
+#apm install linter
+#apm install minimap
 
 # IntelliJ
-# pinstall intellij-idea-community-edition
+#pinstall intellij-idea-community-edition
 
 # VS Code
 yinstall visual-studio-code-bin
@@ -125,6 +130,7 @@ code --install-extension PeterJausovec.vscode-docker            # Docker
 code --install-extension EditorConfig.editorconfig              # Editorconfig
 code --install-extension ms-vscode.go                           # Go
 code --install-extension redhat.java                            # Java
+code --install-extension mathiasfrohlich.kotlin                 # Kotlin
 code --install-extension yzhang.markdown-all-in-one             # Markdown
 code --install-extension ms-python.python                       # Python
 code --install-extension robinbentley.sass-indented             # Sass
@@ -133,10 +139,13 @@ code --install-extension ms-vscode.csharp                       # C#
 code --install-extension eg2.tslint
 code --install-extension ajhyndman.jslint
 # Commented because it's disruptive
-# code --install-extension eamodio.gitlens
-# code --install-extension streetsidesoftware.code-spell-checker
+#code --install-extension eamodio.gitlens
+#code --install-extension streetsidesoftware.code-spell-checker
 
-# Install various software and utility programs
+##
+## Install various software and utility programs
+##
+
 pinstall htop \
             iotop \
             powertop \
@@ -155,8 +164,9 @@ pinstall lesspipe           # Less utilities
 pinstall bluez              # Bluetooth
 pinstall bluez-plugins \
             bluez-utils
-pinstall transmission-qt    # Torrents -- use blocklist https://silo.glasz.org/antip2p.list.gz a daily updated
-                            #  dump of I-Blocklist by https://github.com/glaszig
+# Torrents -- use blocklist https://silo.glasz.org/antip2p.list.gz a daily updated
+#  dump of I-Blocklist by https://github.com/glaszig
+pinstall transmission-qt
 pinstall gparted
 pinstall tilix              # Tiling terminal emulator
 pinstall filezilla
@@ -166,24 +176,37 @@ pinstall file-roller
 pinstall bookworm           # PDF reader
 pinstall alacarte           # Menu editor
 
+# Night mode
+pinstall geoclue2
+pinstall redshift
+
+# HD tools
+pinstall hdparm
+pinstall smartmontools
+
 # WhatsApp client
 yinstall whatsie
 
 # Commenting these for now because they take forever
-# yinstall google-chrome
-# yinstall etcher             # SD card writer
-# yinstall android-file-transfer-linux-git
+#yinstall google-chrome
+# SD card writer
+#yinstall etcher
+#yinstall android-file-transfer-linux-git
 
 # Removed because it depends on "tracker" which I don't want
-# pinstall brasero            # Disc burnings
+# Disc burning
+#pinstall brasero
 
 # Archive programs like 7z, zip, rar
 pinstall unzip \
             p7zip \
             unrar
 
-# Install packages needed for theming, fonts etc. The package
-#  `ttf-google-fonts-typewolf` provides the following:
+##
+## Install packages needed for theming, fonts etc.
+##
+
+# The package `ttf-google-fonts-typewolf` provides the following:
 # ttf-fira-sans
 # otf-fira-sans
 # adobe-source-sans-pro-fonts
@@ -197,16 +220,24 @@ pinstall ttf-google-fonts-typewolf \
             awesome-terminal-fonts
 yinstall awesome-terminal-fonts-patched
 
-yinstall elementary-xfce-icons-git
+# Gtk themes
 pinstall arc-gtk-theme
+# OSX Arc -- https://gitlab.com/LinxGem33/X-Arc-White
+yinstall osx-arc-plus \
+            osx-arc-white \
+            osx-arc-darker \
+            osx-arc-shadow
+
+yinstall elementary-xfce-icons-git
+yinstall moka-icon-theme-git
 
 # Install packages used for gaming
 pinstall steam \
             steam-native-runtime \
             dolphin-emu \
             retroarch
-yinstall sc-controller \
-            steamos-xpad-dkms               # Xpad kernel module included with Valve's SteamOS
+# Xpad kernel module included with Valve's SteamOS
+yinstall sc-controller steamos-xpad-dkms
 
 # Emulators
 #  Make sure to add user to the `games` group

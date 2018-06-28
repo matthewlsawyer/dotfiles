@@ -35,5 +35,8 @@
     "telemetry.enableTelemetry": true,
 
     // The path of the shell that the terminal uses on Linux.
-    "terminal.integrated.shell.linux": "/bin/bash"
+    "terminal.integrated.shell.linux": "/bin/bash",
+
+    // Controls how the terminal is rendered, the options are "canvas" for the standard (fast) canvas renderer, "dom" for the fallback DOM-based renderer or "auto" which lets VS Code guess which will be best. This setting needs VS Code to reload in order to take effect.
+    "terminal.integrated.rendererType": "dom"
 }
