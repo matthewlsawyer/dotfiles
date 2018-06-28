@@ -135,9 +135,11 @@ code --install-extension yzhang.markdown-all-in-one             # Markdown
 code --install-extension ms-python.python                       # Python
 code --install-extension robinbentley.sass-indented             # Sass
 code --install-extension rbbit.typescript-hero                  # Typescript
+code --install-extension eg2.vscode-npm-script                  # NPM
 code --install-extension ms-vscode.csharp                       # C#
 code --install-extension eg2.tslint
 code --install-extension ajhyndman.jslint
+code --install-extension dbaeumer.vscode-eslint
 # Commented because it's disruptive
 #code --install-extension eamodio.gitlens
 #code --install-extension streetsidesoftware.code-spell-checker
