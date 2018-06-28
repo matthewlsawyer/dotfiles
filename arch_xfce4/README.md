@@ -56,7 +56,7 @@ These basically follow the mount points but define which volume group they shoul
 ```
 # On the SSD
 root_lv     -- ssd_vg -- 20G
-var_lv      -- ssd_vg -- 20G
+var_lv      -- ssd_vg -- 40G
 sdata_lv    -- ssd_vg -- ~300G  # The remaining space on ssd_vg
 
 # On the HDD
