@@ -1,12 +1,11 @@
 [Desktop Entry]
-Encoding=UTF-8
-Version=0.9.4
+Version=1.0
 Type=Application
-Name=Compton
-Comment=Standalone compositor for Xorg
-Exec=compton
+Name=compton
+GenericName=X compositor
+Comment=Compositor for X11
+Categories=Utility;
+TryExec=compton --xrender-sync-fence
+Exec=compton --xrender-sync-fence
 Icon=compton
-OnlyShowIn=XFCE;
-StartupNotify=false
-Terminal=false
-Hidden=false
+# Thanks to quequotion for providing this file!
