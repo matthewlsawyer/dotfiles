@@ -16,6 +16,7 @@ brew install wget
 #
 
 brew cask install firefox
+brew cask install spotify
 
 # Mac app store CLI
 # brew install mas

@@ -188,6 +188,8 @@ pinstall smartmontools
 
 # WhatsApp client
 yinstall whatsie
+# Spotify client
+yinstall spotify
 
 # Commenting these for now because they take forever
 #yinstall google-chrome
