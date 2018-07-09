@@ -3,10 +3,7 @@
 # This file should be used to start up networking and other things that are 
 # useful to do up-front, before installing a bunch of packages.
 
-# Ask for the administrator password upfront
-sudo -v
-# Keep-alive: update existing `sudo` time stamp until the script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+. sudov.sh
 
 # Disable the internal PC speaker, cause it's super annoying
 if [[ "$(modinfo pcspkr)" != "modinfo: ERROR: Module alias pcspkr not found." ]]; then

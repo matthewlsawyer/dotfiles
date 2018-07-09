@@ -2,10 +2,7 @@
 
 # This file will grab all of the packages needed for a new install.
 
-# Ask for the administrator password upfront
-sudo -v
-# Keep-alive: update existing `sudo` time stamp until the script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+. sudov.sh
 
 # Enable multilib support
 if [[ -z "$(grep -n "^\[multilib\]" /etc/pacman.conf)" ]]; then
@@ -104,6 +101,9 @@ sudo npm install -g gulp \
                     less \
                     typescript \
                     @angular/cli
+
+# PhantomJS -- used by youtube-dl
+sudo npm install -g phantomjs@2.1.1 --unsafe-perm
 
 ##
 ## Install editors and plugins
@@ -223,17 +223,6 @@ pinstall ttf-google-fonts-typewolf \
             otf-fira-mono \
             awesome-terminal-fonts
 yinstall awesome-terminal-fonts-patched
-
-# Gtk themes
-pinstall arc-gtk-theme
-# OSX Arc -- https://gitlab.com/LinxGem33/X-Arc-White
-yinstall osx-arc-plus \
-            osx-arc-white \
-            osx-arc-darker \
-            osx-arc-shadow
-
-yinstall elementary-xfce-icons-git
-yinstall moka-icon-theme-git
 
 # Install packages used for gaming
 pinstall steam \

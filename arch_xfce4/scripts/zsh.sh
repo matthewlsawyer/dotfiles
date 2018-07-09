@@ -3,9 +3,11 @@
 # This script installs zsh and oh-my-zsh and all the plugins we want for it. Installing
 # zsh is a manual process so this script should be done independently.
 
+. sudov.sh
+. functions.sh
+
 # Zsh
-sudo pacman -S --noconfirm --needed zsh \
-                                    zsh-completions
+pinstall zsh zsh-completions
 
 # Oh-my-zsh
 # Don't use the AUR here because the PKGBUILD puts it in /usr/share/oh-my-zsh/

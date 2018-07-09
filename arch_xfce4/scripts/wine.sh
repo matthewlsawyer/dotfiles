@@ -2,6 +2,7 @@
 
 # This file should be used to grab wine and all of its dependencies.
 
+. sudov.sh
 . functions.sh
 
 # Stuff for WINE

@@ -2,15 +2,11 @@
 
 # This file will grab XFCE and related packages.
 
-# Ask for the administrator password upfront
-sudo -v
-# Keep-alive: update existing `sudo` time stamp until the script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
+. sudov.sh
 . functions.sh
 
 pinstall xfce4
-pinstall gtk-xfce-engine gtk-engine-murrine
+pinstall gtk-xfce-engine gtk-engine-murrine gtk-engines
 pinstall xdg-user-dirs-gtk
 
 # Right-click menu for unzipping
@@ -31,3 +27,13 @@ pinstall i3lock
 
 # If home directories are not present:
 #  xdg-user-dirs-update
+
+##
+## Themes and icons
+##
+
+# Arc
+pinstall arc-gtk-theme
+
+# Elementary
+yinstall elementary-xfce-icons-git
