@@ -95,12 +95,10 @@ pinstall ruby ruby-sass
 #sudo systemctl enable mysqld.service
 
 # Node
-pinstall nodejs \
-            npm
-sudo npm install -g gulp \
-                    less \
-                    typescript \
-                    @angular/cli
+pinstall nodejs npm
+sudo npm install -g gulp less
+sudo npm install -g typescript @angular/cli
+sudo npm install -g tslint eslint jslint
 
 # PhantomJS -- used by youtube-dl
 sudo npm install -g phantomjs@2.1.1 --unsafe-perm
@@ -140,7 +138,7 @@ code --install-extension ms-vscode.csharp                       # C#
 code --install-extension eg2.tslint
 code --install-extension ajhyndman.jslint
 code --install-extension dbaeumer.vscode-eslint
-# Commented because it's disruptive
+# Commented because they're disruptive
 #code --install-extension eamodio.gitlens
 #code --install-extension streetsidesoftware.code-spell-checker
 

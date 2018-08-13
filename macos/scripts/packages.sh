@@ -10,6 +10,7 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 #
 
 brew install wget
+brew install htop
 
 #
 # Various apps
@@ -17,9 +18,6 @@ brew install wget
 
 brew cask install firefox
 brew cask install spotify
-
-# Mac app store CLI
-# brew install mas
 
 #
 # Development tools
@@ -32,6 +30,8 @@ brew cask install docker
 brew cask install visual-studio-code
 
 # VS Code extensions
+#  TODO these behave weird for some reason
+code --install-extension eamodio.gitlens
 code --install-extension mikael.angular-beastcode
 code --install-extension PeterJausovec.vscode-docker
 code --install-extension EditorConfig.editorconfig
@@ -52,4 +52,6 @@ brew install go
 
 # Node
 brew install node
-sudo npm install -g gulp less sass typescript @angular/cli
+npm install -g gulp less
+npm install -g typescript @angular/cli
+npm install -g tslint eslint jslint
