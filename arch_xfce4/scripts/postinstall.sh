@@ -86,3 +86,8 @@ gpg --full-gen-key
 
 # To import keys, use:
 # gpg --recv-keys $key
+
+# Kernel 4.18 is dumb and added native Steam controller support that breaks everything
+# so let's remove that shit here
+sudo modprobe -r hid_steam
+echo 'blacklist hid_steam' | sudo tee /etc/modprobe.d/sc.conf > /dev/null
