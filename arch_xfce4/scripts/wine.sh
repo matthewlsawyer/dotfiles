@@ -31,16 +31,17 @@ pinstall lib32-vulkan-icd-loader
 pinstall cups
 pinstall samba
 pinstall libwbclient                        # Samba winbind client library -- might need to pull in PGP key from PKGBUILD
-# yinstall lib32-libwbclient                  # Multilib samba winbind client library
+#yinstall lib32-libwbclient                 # Multilib samba winbind client library
 pinstall dosbox                             # DOS emulation
+pinstall gnutls                             # Better networking in Proton 3.16 Beta
 
 # Microsoft fonts for WINE games
 # This is deprecated but there's no better solution for now
 yinstall ttf-ms-fonts
 
 # WINE wrapper useful for managing wine versions and bottles
-# pinstall playonlinux
-# yinstall q4wine
+#pinstall playonlinux
+#yinstall q4wine
 yinstall lutris
 
 # Clean out all the dumb wine extensions

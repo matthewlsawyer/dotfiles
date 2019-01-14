@@ -23,20 +23,15 @@ pinstall networkmanager network-manager-applet
 ##
 
 # Xorg utils for `startx` command and various others
-pinstall xorg-server \
-            xorg-xinit \
-            xorg-apps
+pinstall xorg-server xorg-xinit xorg-apps
 
 # Nvidia
-pinstall nvidia \
-            nvidia-utils \
-            lib32-nvidia-utils \
+pinstall nvidia nvidia-utils lib32-nvidia-utils \
             nvidia-settings
 
 # Make sure nvidia-utils is already installed or else
 #  there's a prompt for which version of the dependency
-pinstall nvidia-libgl \
-            lib32-nvidia-libgl
+pinstall nvidia-libgl lib32-nvidia-libgl
 
 # Firmware
 yinstall aic94xx-firmware # SATA port chip
@@ -46,10 +41,7 @@ yinstall wd719x-firmware  # WD HDDs
 pinstall mkinitcpio
 
 # Install media players and codecs
-pinstall vlc \
-            ffmpeg \
-            smplayer \
-            ncmpcpp
+pinstall vlc ffmpeg smplayer ncmpcpp
 yinstall codecs64
 
 # Install audio packages
@@ -71,13 +63,9 @@ pinstall vim
 pinstall git
 # Generic source highlighting
 pinstall pygmentize
-pinstall docker \
-            aws-cli \
-            redis \
-            tmux \
-            go \
-            python \
-            jq
+pinstall docker aws-cli \
+            redis tmux jq \
+            go python
 
 # Ruby for Sass install
 pinstall ruby ruby-sass
@@ -142,14 +130,14 @@ code --install-extension dbaeumer.vscode-eslint
 #code --install-extension eamodio.gitlens
 #code --install-extension streetsidesoftware.code-spell-checker
 
+# Qt
+pinstall qtcreator
+
 ##
 ## Install various software and utility programs
 ##
 
-pinstall htop \
-            iotop \
-            powertop \
-            atop
+pinstall htop iotop powertop atop
 pinstall pacman-contrib
 pinstall lm_sensors         # Fans and PWM sensors
 pinstall hardinfo
@@ -160,6 +148,7 @@ pinstall imagemagick        # Image conversion
 pinstall scrot              # Screenshots
 pinstall firefox
 pinstall chromium
+pinstall pepper-flash       # Flash plugin for Chromium
 pinstall lesspipe           # Less utilities
 pinstall bluez              # Bluetooth
 pinstall bluez-plugins \
@@ -200,9 +189,7 @@ yinstall spotify
 #pinstall brasero
 
 # Archive programs like 7z, zip, rar
-pinstall unzip \
-            p7zip \
-            unrar
+pinstall unzip p7zip unrar
 
 ##
 ## Install packages needed for theming, fonts etc.
@@ -223,8 +210,7 @@ pinstall ttf-google-fonts-typewolf \
 yinstall awesome-terminal-fonts-patched
 
 # Install packages used for gaming
-pinstall steam \
-            steam-native-runtime \
+pinstall steam steam-native-runtime \
             dolphin-emu \
             retroarch
 # Xpad kernel module included with Valve's SteamOS
@@ -233,7 +219,9 @@ yinstall sc-controller steamos-xpad-dkms
 # Emulators
 #  Make sure to add user to the `games` group
 #  Might need to receive key for ncurses dependency
-yinstall epsxe
+yinstall epsxe      # PS
+pinstall desmume    # DS
+#yinstall citra-git # 3DS
 
 # Might need to receive key
 yinstall discord

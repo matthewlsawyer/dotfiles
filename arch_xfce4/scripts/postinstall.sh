@@ -89,5 +89,8 @@ gpg --full-gen-key
 
 # Kernel 4.18 is dumb and added native Steam controller support that breaks everything
 # so let's remove that shit here
+# The following command shows that the steam controller is registered as both itself and
+# a "Microsoft X-Box 360 pad"
+# cat /proc/bus/input/devices
 sudo modprobe -r hid_steam
 echo 'blacklist hid_steam' | sudo tee /etc/modprobe.d/sc.conf > /dev/null
