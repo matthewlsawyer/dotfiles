@@ -11,6 +11,12 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 brew install wget
 brew install htop
+brew install jq
+brew install httpie
+
+# Todoist CLI
+brew tap sachaos/todoist
+brew install todoist
 
 #
 # Various apps
@@ -18,6 +24,9 @@ brew install htop
 
 brew cask install firefox
 brew cask install spotify
+
+# Todoist app
+brew cask install todoist
 
 #
 # Development tools
@@ -28,6 +37,7 @@ brew cask install docker
 
 # VS Code
 brew cask install visual-studio-code
+brew cask install visual-studio-code-insiders
 
 # VS Code extensions
 #  TODO these behave weird for some reason
