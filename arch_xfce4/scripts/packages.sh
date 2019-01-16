@@ -52,6 +52,7 @@ pinstall pulseaudio libpulse lib32-libpulse \
 pinstall pavucontrol
 
 pinstall plank
+pinstall docky
 pinstall conky
 #yinstall polybar-git
 
@@ -164,6 +165,7 @@ pinstall youtube-dl
 pinstall file-roller
 pinstall bookworm           # PDF reader
 pinstall alacarte           # Menu editor
+pinstall seahorse           # Password and key manager
 
 # Night mode
 pinstall geoclue2
