@@ -167,6 +167,10 @@ pinstall bookworm           # PDF reader
 pinstall alacarte           # Menu editor
 pinstall seahorse           # Password and key manager
 
+# Todoist
+#yinstall todoist            # CLI
+yinstall todoist-linux-bin
+
 # Night mode
 pinstall geoclue2
 pinstall redshift
@@ -223,7 +227,7 @@ yinstall sc-controller steamos-xpad-dkms
 #  Might need to receive key for ncurses dependency
 yinstall epsxe      # PS
 pinstall desmume    # DS
-#yinstall citra-git # 3DS
+#yinstall citra-git  # 3DS
 
 # Might need to receive key
 yinstall discord
