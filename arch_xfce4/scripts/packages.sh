@@ -110,6 +110,7 @@ sudo npm install -g phantomjs@2.1.1 --unsafe-perm
 
 # VS Code
 yinstall visual-studio-code-bin
+yinstall visual-studio-code-insiders
 
 # VS Code extensions
 code --install-extension mikael.angular-beastcode               # Angular
@@ -127,6 +128,7 @@ code --install-extension ms-vscode.csharp                       # C#
 code --install-extension eg2.tslint
 code --install-extension ajhyndman.jslint
 code --install-extension dbaeumer.vscode-eslint
+code --install-extension nrwl.angular-console                   # Angular Console
 # Commented because they're disruptive
 #code --install-extension eamodio.gitlens
 #code --install-extension streetsidesoftware.code-spell-checker
@@ -166,10 +168,17 @@ pinstall file-roller
 pinstall bookworm           # PDF reader
 pinstall alacarte           # Menu editor
 pinstall seahorse           # Password and key manager
+yinstall qdirstat           # KDirStat in Qt
 
-# Todoist
+# XMind
+#  At the time of install this required an edit to `/usr/share/xmind/XMind/XMind.ini`
+#  to remove the `add-modules` option to even start up
+#yinstall xmind              # Mind mapping
+
+# GTD
 #yinstall todoist            # CLI
 yinstall todoist-linux-bin
+#yinstall boostnote
 
 # Night mode
 pinstall geoclue2

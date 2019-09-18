@@ -46,3 +46,6 @@ yinstall lutris
 
 # Clean out all the dumb wine extensions
 rm -f ~/.local/share/applications/wine-extension*
+
+# Monster Hunter World launch options
+WINEDEBUG=-all __GL_SHADER_DISK_CACHE=1 __GL_SHADER_DISK_CACHE_PATH=/sdata/GLCache/mhw __GL_THREADED_OPTIMIZATIONS=1 %command% -nofriendsui -udp

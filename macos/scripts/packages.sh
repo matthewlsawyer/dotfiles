@@ -13,10 +13,11 @@ brew install wget
 brew install htop
 brew install jq
 brew install httpie
+brew install mac2unix
 
 # Todoist CLI
-brew tap sachaos/todoist
-brew install todoist
+#brew tap sachaos/todoist
+#brew install todoist
 
 #
 # Various apps
@@ -25,8 +26,9 @@ brew install todoist
 brew cask install firefox
 brew cask install spotify
 
-# Todoist app
+# GTD
 brew cask install todoist
+brew cask install evernote
 
 #
 # Development tools
