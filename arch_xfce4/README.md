@@ -1,13 +1,6 @@
 # arch_xfce4
 
-These exist for an Arch install running the Xfce4 desktop environment. The `packages.sh` file shows all of the
-software that will be installed but below are some highlights:
-
-* Diplay -- X, nvidia
-* Media -- ffmpeg, smplayer, ncmpcpp
-* Desktop -- Xfce4, Plank, Compton
-* Development -- vim, git, docker, node
-* Gaming -- wine, Steam
+Arch/Antergos installation running XFCE.
 
 ---
 
