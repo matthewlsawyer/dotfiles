@@ -169,6 +169,7 @@ pinstall bookworm           # PDF reader
 pinstall alacarte           # Menu editor
 pinstall seahorse           # Password and key manager
 yinstall qdirstat           # KDirStat in Qt
+pinstall ffmpegthumbnailer  # Thumbnails
 
 # XMind
 #  At the time of install this required an edit to `/usr/share/xmind/XMind/XMind.ini`
