@@ -45,6 +45,7 @@ fi
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_SESSION_TYPE="x11"
 
 if [ ! -w ${XDG_RUNTIME_DIR:="/run/user/$UID"} ]; then
     echo "\$XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) not writable. Unsetting." >&2
@@ -61,3 +62,10 @@ function yinstall() { yaourt -S --noconfirm --needed $@; }
 #  Use `gi list` for a list of all supported files
 function _gi() { curl -L -s https://www.gitignore.io/api/$@; }
 function gi() { _gi $@ > $(pwd)/.gitignore; }
+
+# Npm global installs
+NPM_PACKAGES="${HOME}/.npm-packages"
+export PATH="$PATH:$NPM_PACKAGES/bin"
+# Preserve MANPATH if you already defined it somewhere in your config.
+# Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"

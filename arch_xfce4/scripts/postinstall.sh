@@ -27,39 +27,33 @@ sudo mkdir -p /etc/pacman.d/hooks
 sudo ln -s -t /etc/pacman.d/hooks ~/.local/etc/pacman.d/hooks/nvidia.hook
 
 # To get lm_sensors to work you need to follow these steps:
-# 1. Add `acpi_enforce_resources=lax` to the following line in `/etc/default/grub`
-#    GRUB_CMDLINE_LINUX_DEFAULT="resume=UUID=287db681-1c61-476b-919a-dde223abe55f quiet"
-#    GRUB_CMDLINE_LINUX_DEFAULT="resume=UUID=287db681-1c61-476b-919a-dde223abe55f quiet acpi_enforce_resources=lax"
+# 1. Add `acpi_enforce_resources=lax` and `pcie_aspm=force i915.i915_enable_rc6=1` to the following line in `/etc/default/grub`
+#       GRUB_CMDLINE_LINUX_DEFAULT="resume=UUID=287db681-1c61-476b-919a-dde223abe55f quiet"
+#       GRUB_CMDLINE_LINUX_DEFAULT="resume=UUID=287db681-1c61-476b-919a-dde223abe55f quiet acpi_enforce_resources=lax pcie_aspm=force i915.i915_enable_rc6=1"
 # 2. Reconfig grub with the changes
-#    grub-mkconfig -o /boot/grub/grub.cfg
+#       grub-mkconfig -o /boot/grub/grub.cfg
 # a. Reboot
 # 3. Install fan driver module
-#    sudo modprobe w83627ehf
+#       modprobe nct6775
+#       modprobe i2c-i801
+#       modprobe w83627ehf
 # 4. Run `lm_sensors` setup
-#    sudo sensors-detect --auto
+#       sudo sensors-detect --auto
 # 5. Create the file `/etc/modules-load.d/load_these.conf` with the following lines
-#    coretemp
-#    w83627ehf
+#       coretemp
+#       nct6775
+#       w83627ehf
+#       i2c-i801
 # 6. Restart the module loading service
-#    sudo systemctl restart systemd-modules-load.service
+#       sudo systemctl restart systemd-modules-load.service
 # 7. Run the fan config program
-#    sudo pwmconfig
-# a. Example configs for sane defaults of the Noctua fan series
+#       sudo pwmconfig
+# a. Example configs for sane defaults of the Noctua fan series in /etc/fancontrol
 # b. For the Intel DX79TO temp1_input points to SYSTIN while temp2_input points to CPUTIN
 # c. In this case fan1_input is the front fans, fan2_input the CPU fan, and fan3_input is the back fan
-#    INTERVAL=10
-#    DEVPATH=hwmon0=devices/platform/coretemp.0 hwmon1=devices/platform/w83627ehf.656
-#    DEVNAME=hwmon0=coretemp hwmon1=nct6775
-#    FCTEMPS=hwmon1/device/pwm2=hwmon0/device/temp1_input hwmon1/device/pwm1=hwmon1/device/temp1_input hwmon1/device/pwm3=hwmon1/device/temp2_input
-#    FCFANS=hwmon1/device/pwm2=hwmon1/device/fan2_input hwmon1/device/pwm1=hwmon1/device/fan1_input hwmon1/device/pwm3=hwmon1/device/fan3_input
-#    MINTEMP=hwmon1/device/pwm2=30 hwmon1/device/pwm1=30 hwmon1/device/pwm3=30
-#    MAXTEMP=hwmon1/device/pwm2=60 hwmon1/device/pwm1=60 hwmon1/device/pwm3=60
-#    MINSTART=hwmon1/device/pwm2=40 hwmon1/device/pwm1=40 hwmon1/device/pwm3=40
-#    MINSTOP=hwmon1/device/pwm2=20 hwmon1/device/pwm1=20 hwmon1/device/pwm3=20
-#    MINPWM=hwmon1/device/pwm2=20 hwmon1/device/pwm1=20 hwmon1/device/pwm3=20
 # 8. Enable and start the service
-#    sudo systemctl start fancontrol.service
-#    sudo systemctl enable fancontrol.service
+#       sudo systemctl start fancontrol.service
+#       sudo systemctl enable fancontrol.service
 # For more info see https://wiki.archlinux.org/index.php/lm_sensors
 #  and https://wiki.archlinux.org/index.php/fan_speed_control#fancontrol
 
@@ -94,3 +88,9 @@ gpg --full-gen-key
 # cat /proc/bus/input/devices
 sudo modprobe -r hid_steam
 echo 'blacklist hid_steam' | sudo tee /etc/modprobe.d/sc.conf > /dev/null
+
+# Add user to docker group
+sudo usermod -aG docker $USER
+
+# Add user to input group
+sudo usermod -aG input $USER

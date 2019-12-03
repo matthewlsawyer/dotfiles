@@ -60,16 +60,20 @@ pinstall conky
 ## Install tools for development
 ##
 
-pinstall vim
-pinstall git
+pinstall vim git tmux jq
+
 # Generic source highlighting
 pinstall pygmentize
-pinstall docker aws-cli \
-            redis tmux jq \
-            go python
+
+# Programming langs and tools
+pinstall docker docker-compose
+pinstall aws-cli
+pinstall redis
+pinstall python
+#yinstall python37
 
 # Ruby for Sass install
-pinstall ruby ruby-sass
+#pinstall ruby ruby-sass
 
 # MySQL
 #pinstall mariadb
@@ -82,15 +86,6 @@ pinstall ruby ruby-sass
 #   --datadir=/var/lib/mysql
 #sudo systemctl start mysqld.service
 #sudo systemctl enable mysqld.service
-
-# Node
-pinstall nodejs npm
-sudo npm install -g gulp less
-sudo npm install -g typescript @angular/cli
-sudo npm install -g tslint eslint jslint
-
-# PhantomJS -- used by youtube-dl
-sudo npm install -g phantomjs@2.1.1 --unsafe-perm
 
 ##
 ## Install editors and plugins
@@ -143,6 +138,7 @@ pinstall qtcreator
 pinstall htop iotop powertop atop
 pinstall pacman-contrib
 pinstall lm_sensors         # Fans and PWM sensors
+yinstall update-grub        # Grub update command
 pinstall hardinfo
 pinstall lvm2
 pinstall viewnior           # Image viewer
