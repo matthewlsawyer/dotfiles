@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Visual Studio Code
+Exec=/usr/share/code/code %U
+Icon=/usr/share/code/resources/app/resources/linux/code.png
+Comment=Develop with pleasure!
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=visual-studio-code
