@@ -15,3 +15,9 @@ cd Python-3.7.3
 
 make -j 4
 sudo make altinstall
+
+# Upgrade pip
+pip3.7 install --upgrade --user pip
+
+# Remove /usr/bin/pip3.7 in favor of local bin installed from upgrade
+sudo rm /usr/bin/pip3.7
