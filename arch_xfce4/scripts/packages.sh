@@ -221,19 +221,5 @@ pinstall ttf-google-fonts-typewolf \
             awesome-terminal-fonts
 yinstall awesome-terminal-fonts-patched
 
-# Install packages used for gaming
-pinstall steam steam-native-runtime \
-            dolphin-emu \
-            retroarch
-# Xpad kernel module included with Valve's SteamOS
-yinstall sc-controller steamos-xpad-dkms
-
-# Emulators
-#  Make sure to add user to the `games` group
-#  Might need to receive key for ncurses dependency
-yinstall epsxe      # PS
-pinstall desmume    # DS
-#yinstall citra-git  # 3DS
-
 # Might need to receive key
 yinstall discord

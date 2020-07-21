@@ -1,0 +1,10 @@
+[Match]
+Name=wlp0s26u1u2
+[Network]
+Address=192.168.1.69
+Gateway=192.168.1.1
+DNS=8.8.8.8
+DBS=8.8.4.4
+[DHCP]
+UseDNS=false
+UseNTP=false

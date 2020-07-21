@@ -1,11 +1,16 @@
 #!/bin/bash
 
-# This file should be used to grab wine and all of its dependencies.
-
 . sudov.sh
 . functions.sh
 
-# Stuff for WINE
+#########
+# Games #
+#########
+
+# ==
+# WINE depedencies
+# ==
+
 pinstall wine-staging-nine                  # WINE staging with the gallium-nine patches, for that bleeding edge
 pinstall winetricks
 pinstall giflib lib32-giflib                # Gif support
@@ -48,4 +53,51 @@ yinstall lutris
 rm -f ~/.local/share/applications/wine-extension*
 
 # Monster Hunter World launch options
-WINEDEBUG=-all __GL_SHADER_DISK_CACHE=1 __GL_SHADER_DISK_CACHE_PATH=/sdata/GLCache/mhw __GL_THREADED_OPTIMIZATIONS=1 %command% -nofriendsui -udp
+# WINEDEBUG=-all __GL_SHADER_DISK_CACHE=1 __GL_SHADER_DISK_CACHE_PATH=/sdata/GLCache/mhw __GL_THREADED_OPTIMIZATIONS=1 %command% -nofriendsui -udp
+
+# ==
+# Dependencies to run Blizzard games
+# ==
+
+sudo pacman -S lib32-gnutls lib32-libldap \
+    lib32-libgpg-error lib32-sqlite lib32-libpulse
+
+sudo pacman -S wine-staging giflib \
+    lib32-giflib libpng lib32-libpng \
+    libldap lib32-libldap gnutls \
+    lib32-gnutls mpg123 lib32-mpg123 \
+    openal lib32-openal v4l-utils \
+    lib32-v4l-utils libpulse lib32-libpulse \
+    libgpg-error lib32-libgpg-error \
+    alsa-plugins lib32-alsa-plugins \
+    alsa-lib lib32-alsa-lib libjpeg-turbo \
+    lib32-libjpeg-turbo sqlite lib32-sqlite \
+    libxcomposite lib32-libxcomposite \
+    libxinerama lib32-libgcrypt libgcrypt \
+    lib32-libxinerama ncurses lib32-ncurses \
+    opencl-icd-loader lib32-opencl-icd-loader \
+    libxslt lib32-libxslt libva lib32-libva \
+    gtk3 lib32-gtk3 gst-plugins-base-libs \
+    lib32-gst-plugins-base-libs vulkan-icd-loader \
+    lib32-vulkan-icd-loader
+
+# ==
+# Steam
+# ==
+
+pinstall steam steam-native-runtime
+
+# Xpad kernel module included with Valve's SteamOS
+yinstall sc-controller steamos-xpad-dkms
+
+# ==
+# Emulators
+# ==
+
+#  Make sure to add user to the `games` group
+#  Might need to receive key for ncurses dependency
+pinstall dolphin-emu    # Gamecube\Wii
+yinstall epsxe          # PS
+pinstall desmume        # DS
+#yinstall citra-git  # 3DS
+#pinstall retroarch
