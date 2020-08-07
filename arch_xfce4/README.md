@@ -71,6 +71,26 @@ Again, just follow the logical volumes here.
 swap    -- swap_lv
 ```
 
+### Sample fstab
+
+```bash
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+#
+UUID=18760778-9f4d-449b-92af-578369c5d0e0 /home ext4 defaults,noatime 0 0
+UUID=3883f240-59f3-4335-818e-0db935495c13 swap swap defaults 0 0
+UUID=deada21c-3b47-48a8-89a4-87d07d126008 /var ext4 defaults,noatime 0 0
+UUID=b89b8e48-deb7-4160-8109-4c35b1b57c31 /data ext4 defaults,noatime 0 0
+UUID=106fb8dc-c4f7-4762-bcc7-12dcddfe2575 / ext4 defaults,noatime 0 1
+UUID=c05ae092-cce8-4a2a-944d-06363e2c8425 /sdata ext4 defaults,noatime 0 0
+UUID=738fb1df-ba2d-4afb-be18-aae8f4442bd8 /boot ext4 defaults,noatime,discard 0 0
+```
+
 ---
 
 ## Testing
