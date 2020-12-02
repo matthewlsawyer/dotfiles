@@ -60,7 +60,12 @@ code --install-extension eg2.tslint
 code --install-extension ajhyndman.jslint
 code --install-extension dbaeumer.vscode-eslint
 
+# Go
 brew install go
+
+# Kotlin
+brew install gcc
+brew install kotlin
 
 # Node
 brew install node
