@@ -1,5 +1,21 @@
 # Raspberry Pi with Open Media Vault
 
+> **Stale runbook** — written for OMV arrakis / PHP 7.0 era. Hardware may be rebuilt; verify current OMV release and package names before following these steps. No scripts in this directory — procedural notes only.
+
+**Status:** Repurpose — NAS hardware exists; may rebuild with updated OMV.
+
+---
+
+## Before rebuilding
+
+- Check the [current OMV release](https://www.openmediavault.org/) — arrakis is outdated.
+- Replace `apt-key add` with a signed-by keyring pattern.
+- PHP/nginx paths will differ — the 502 fix references `php7.0-fpm`; adjust for your OMV version.
+- Disk layout is hardware-specific — see [LVM.md](LVM.md); adapt `/dev/sd*` to your setup.
+- Future: extract steps into `scripts/` — see [MODERNIZATION.md](../MODERNIZATION.md).
+
+---
+
 First thing we want to do is get everything up to date and get some useful packages.
 
 ```bash
@@ -49,32 +65,7 @@ because OMV won't create a home directory for us.
 adduser -m $user
 ```
 
-## LVM configuration
-
-Make sure to start by installing the `openmediavault-lvm` plugin.
-
-Below is a breakdown of the LVM configuration based on my current disk setup. In general the pattern I follow
-is a single volume group for all of the hard disks, and then logical volumes for each mount point I intend to add.
-Since we are using openmediavault then I can put them all into a single logical volume and OMV will mount the
-various points via configuration.
-
-### LVM physical volumes
-
-The hard disks will be put into a "main-vg" `volume group`.
-
-```
-/dev/sda -- ~930G
-/dev/sdb -- ~930G
-/dev/sdc -- ~3.64T
-```
-
-### LVM logical volumes
-
-Use a single logical volume that OMV will use to mount.
-
-```
-main-lv  -- main-vg -- ~5.5T # The entire space on main-vg
-```
+Disk layout: [LVM.md](LVM.md)
 
 ---
 
