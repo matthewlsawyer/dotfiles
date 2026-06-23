@@ -4,8 +4,11 @@
 
 # TODO move to another folder or put in DE switch
 
-. sudov.sh
-. functions.sh
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../lib/init.sh
+. "$SCRIPT_DIR/../lib/init.sh"
+. "$DOTFILES_SCRIPTS_ROOT/lib/sudov.sh"
+. "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 pinstall budgie-desktop \
             gnome \

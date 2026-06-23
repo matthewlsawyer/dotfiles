@@ -1,135 +1,207 @@
 # arch_xfce4
 
-Arch/Antergos installation running XFCE.
+**Status:** Planned — hardware exists; may revive on existing or new machine with a similar setup.
+
+Arch Linux workstation running XFCE4. Modular install scripts, dotfiles synced via rsync, and a handful of system config files copied manually to `/etc`.
+
+The checkout is an **installer tree** — scripts plus source dotfiles. After `sync.sh`, live config lives in `$HOME` (and selected paths under `/etc`). The checkout path does not need to stay fixed unless you keep it for updates or re-running optional modules.
 
 ---
 
-## Initial setup
+## Install path
 
-To start networking, run the following command.
+Checkout location is flexible — scripts resolve paths relative to their own location (`scripts/../dotfiles/`).
+
+### Git clone (permanent checkout)
 
 ```bash
-sudo systemctl start dhcpcd@eno1.service
+git clone git@github.com:matthewlsawyer/dotfiles.git ~/Code/dotfiles
+~/Code/dotfiles/dotfiles.sh arch              # apply dotfiles
+# ~/Code/dotfiles/dotfiles.sh arch bootstrap  # fresh hardware
 ```
+
+Keep the repo for `git pull`, optional modules, and dotfile diffs.
+
+### Release tarball (disposable checkout)
+
+```bash
+./make-release.sh                          # from repo root, writes dotfiles-YYYYMMDD.tar.gz
+tar xzf dotfiles-20250622.tar.gz -C ~/
+cd ~/dotfiles && ./dotfiles.sh arch bootstrap
+```
+
+Automated checks: [test/contract-test.sh](../../test/contract-test.sh).
 
 ---
 
-## LVM configuration
+## Quick start
 
-Below is a breakdown of the LVM configuration based on my current disk setup. In general the pattern I follow
-is a single volume group for all hard disks and another one for all solid state disks, and then logical volumes
-for each mount point I intend to add.
+Two flows depending on machine state:
 
-Make sure `boot` is located outside of the LVM config.
-
-```
-/dev/sda1 -- 512M
-```
-
-### LVM physical volumes
-
-The solid state disks will be put into a "ssd_vg" `volume group`.
-
-```
-/dev/sda2 -- ~120G
-/dev/sdd  -- ~250G
-```
-
-The hard disks will be put into a "hdd_vg" `volume group`.
-
-```
-/dev/sdb -- ~750G
-/dev/sdc -- ~750G
-```
-
-### LVM logical volumes
-
-These basically follow the mount points but define which volume group they should live on.
-
-```
-# On the SSD
-root_lv     -- ssd_vg -- 20G    # TODO: 20G is too small
-var_lv      -- ssd_vg -- 40G
-sdata_lv    -- ssd_vg -- ~300G  # The remaining space on ssd_vg
-
-# On the HDD
-home_lv     -- hdd_vg -- 500G
-swap_lv     -- hdd_vg -- 8G
-data_lv     -- hdd_vg -- ~1T    # The remaining space on hdd_vg
-```
-
-### Mount points
-
-Again, just follow the logical volumes here.
-
-```
-/       -- root_lv
-/var    -- var_lv
-/home   -- home_lv
-/data   -- data_lv
-/sdata  -- sdata_lv
-swap    -- swap_lv
-```
-
-### Sample fstab
+| Flow | When | Command |
+|------|------|---------|
+| **Apply** | System already set up; pull in dotfiles | `./apply.sh` or `dotfiles.sh arch` |
+| **Bootstrap** | Fresh Arch install | `./apply.sh bootstrap` or `dotfiles.sh arch bootstrap` |
 
 ```bash
-# /etc/fstab: static file system information.
-#
-# Use 'blkid' to print the universally unique identifier for a
-# device; this may be used with UUID= as a more robust way to name devices
-# that works even if disks are added and removed. See fstab(5).
-#
-# <file system> <mount point>   <type>  <options>       <dump>  <pass>
-#
-UUID=18760778-9f4d-449b-92af-578369c5d0e0 /home ext4 defaults,noatime 0 0
-UUID=3883f240-59f3-4335-818e-0db935495c13 swap swap defaults 0 0
-UUID=deada21c-3b47-48a8-89a4-87d07d126008 /var ext4 defaults,noatime 0 0
-UUID=b89b8e48-deb7-4160-8109-4c35b1b57c31 /data ext4 defaults,noatime 0 0
-UUID=106fb8dc-c4f7-4762-bcc7-12dcddfe2575 / ext4 defaults,noatime 0 1
-UUID=c05ae092-cce8-4a2a-944d-06363e2c8425 /sdata ext4 defaults,noatime 0 0
-UUID=738fb1df-ba2d-4afb-be18-aae8f4442bd8 /boot ext4 defaults,noatime,discard 0 0
+cd ~/arch_xfce4/scripts   # or your checkout path
+./apply.sh              # apply dotfiles
+./apply.sh bootstrap    # full pipeline
 ```
+
+### Apply (existing machine)
+
+`./apply.sh` — syncs `dotfiles/` to `$HOME`. Requires `rsync` on the system (installed via `packages.sh` during bootstrap, or already present).
+
+Run optional modules individually if needed (`zsh.sh`, `apps/dev.sh`, …).
+
+### Bootstrap (fresh install)
+
+**Prerequisite:** working network before bootstrap. Pacman needs mirror access for `install/installer.sh` and `install/packages.sh`. This repo does not configure networking — handle that during the base Arch install or manually first. A minimal Arch install often has no NetworkManager yet; if you're stuck offline after install:
+
+```bash
+sudo pacman -S networkmanager
+sudo systemctl enable --now NetworkManager
+nmcli device wifi connect "SSID" password "pass"   # or use nmtui
+```
+
+Wired DHCP, `systemd-networkd`, or `dhcpcd` from your install medium work too — bootstrap only needs reachability to mirrors, not a specific stack.
+
+#### Bootstrap pipeline (contract)
+
+Fixed order — orchestrated by `bootstrap.sh` / `./apply.sh bootstrap`. See [scripts/install/README.md](scripts/install/README.md).
+
+```
+installer.sh → packages.sh → desktop.sh → sync.sh → postinstall.sh
+```
+
+| Step | Script | What it does |
+|------|--------|--------------|
+| 1 | `install/installer.sh` | AUR helper (yaourt) |
+| 2 | `install/packages.sh` | Core packages |
+| 3 | `install/desktop.sh` | XFCE, Compton, Arc, elementary icons, base fonts |
+| 4 | `sync.sh` | Dotfiles → `$HOME` |
+| 5 | `install/postinstall.sh` | Font cache, paccache timer, keys, groups |
+
+#### Recommended run
+
+Typical fresh install on NVIDIA hardware with dev tooling:
+
+```bash
+cd ~/arch_xfce4/scripts
+
+./apply.sh bootstrap
+
+./hardware/graphics-nvidia.sh
+./apps/dev.sh && ./apps/utilities.sh
+```
+
+Add other optional modules as needed — [full list below](#optional-modules). Manual copy of `files/etc/` to `/system` is still bootstrap-only — see [What's covered](#whats-covered).
+
+### Optional modules
+
+Run from `scripts/` after bootstrap (or after `apply.sh` on an existing machine):
+
+**Hardware** (`scripts/hardware/`)
+
+| Script | Purpose |
+|--------|---------|
+| `graphics-nvidia.sh` | NVIDIA driver, `nvidia-xconfig`, mkinitcpio, pacman hook |
+| `firmware-extra.sh` | Niche SATA/HDD firmware (aic94xx, wd719x) |
+| `bluetooth.sh` | bluez stack |
+| `nobeep.sh` | Blacklist internal PC speaker (`pcspkr`) |
+
+**Apps and dev** (`scripts/apps/`)
+
+| Script | Purpose |
+|--------|---------|
+| `dev.sh` | VS Code, Docker, Node (+ optional extensions, langs, npm globals) |
+| `media.sh` | VLC, ffmpeg, smplayer, codecs |
+| `browsers.sh` | Firefox, Chromium |
+| `utilities.sh` | htop, tilix, transmission, gparted, archives, … |
+| `games.sh` | WINE, Lutris, Steam, emulators |
+
+**Desktop / shell extras** (`scripts/desktop/`)
+
+| Script | Purpose |
+|--------|---------|
+| `zsh.sh` | zsh, oh-my-zsh, powerlevel9k, syntax highlighting |
+| `fonts.sh` | Nerd Fonts from GitHub releases |
+| `base16.sh` | Base16 Ocean theme for Tilix, Xfce terminal, Xresources |
+| `flatpak.sh` | flatpak + Flathub remote |
+| `samba.sh` | Samba + gvfs-smb |
+| `budgie.sh` | Alternate Budgie DE (TODO: move elsewhere) |
+| `cleanup.sh` | `paccache` cache trim |
+
+Most optional scripts source `lib/sudov.sh` and `lib/functions.sh` via `lib/init.sh`. Not part of the bootstrap pipeline contract.
+
+---
+
+## What's covered
+
+### Dotfiles (`dotfiles/` → `$HOME` via `sync.sh`)
+
+- **Shell:** `.zshrc`, `.bashrc`, `.commonrc` (aliases, XDG dirs, npm local prefix, `pinstall`/`yinstall`)
+- **Desktop:** Compton config, Plank autostart, XFCE terminal + Tilix (Base16 Ocean, FuraCode Nerd Font)
+- **Apps:** VS Code settings, `.Xresources`, `.xinitrc` → `startxfce4`
+- **System hooks:** NVIDIA pacman hook (dotfiles) — activated by optional `graphics-nvidia.sh`
+
+### System files (`files/etc/` — manual copy)
+
+- `X11/xorg.conf.d/20-intel.conf` — Intel TearFree
+- `systemd/network/51-static.network` — static IP config
+
+These are **not** deployed by any script.
+
+---
+
+## Key decisions
+
+- **XFCE4 + Plank + Compton** — Arc GTK theme, elementary-xfce icons, Base16 Ocean palette across terminals.
+- **NVIDIA (optional)** — `hardware/graphics-nvidia.sh` after bootstrap on discrete NVIDIA hardware. Intel TearFree snippet in `files/etc/` (may conflict on hybrid GPU).
+- **yaourt for AUR** — `install/installer.sh` runs first; optional modules use `yinstall`.
+- **LVM split** — SSD volume group for `/`, `/var`, `/sdata`; HDD volume group for `/home`, swap, `/data`. Boot partition outside LVM.
+- **Dev stack (optional)** — `apps/dev.sh` (editors, Docker, optional Node/langs) — not part of core bootstrap.
+- **`apply.sh`** dispatches apply vs bootstrap; optional modules stay separate.
+
+---
+
+## Customization
+
+- Adjust LVM layout before install — see [LVM.md](LVM.md). Root LV at 20G was flagged as too small.
+- Edit `files/etc/systemd/network/51-static.network` for your interface and IP.
+- Comment out optional modules you don't need (games, budgie, samba).
+- `install/postinstall.sh` runs interactive `ssh-keygen` and `gpg --full-gen-key` — expect prompts.
+
+---
+
+## Post-install manual steps
+
+**Display:** Settings → Power Manager → Display → set "Blank after" to "Never".
+
+**Hard drives:** Disable APM to reduce clicking on HDDs:
+
+```bash
+sudo hdparm -B 255 /dev/sdb
+sudo hdparm -B 255 /dev/sdc
+```
+
+**GRUB resume, lm_sensors, fancontrol** — instructions in `install/postinstall.sh` comments.
 
 ---
 
 ## Testing
 
-You can test all the scripts in a Docker container by running the following commands from the root directory of the project.
-
 ```bash
-docker build -t arch_xfce4_test -f arch_xfce4/test/Dockerfile .
-docker run -it arch_xfce4_test /bin/bash
-
-# Or if you want it running detached
-docker run -itd arch_xfce4_test /bin/bash
-docker exec -ti $container_id /bin/bash
+cd test && ./contract-test.sh
 ```
 
-Once you are in the container you can run whichever script you want to test.
+Validates routing and bootstrap pipeline layout. See [test/README.md](../test/README.md).
 
-```bash
-cd arch_xfce4/scripts
-./packages.sh
-```
+## Known limitations
 
-Keep in mind that the container can get pretty big, up to around 8G so far in my testing.
+Much of this stack is dated: yaourt, compton, wine-staging-nine, powerlevel9k.
 
----
+See [MODERNIZATION.md](../MODERNIZATION.md) for the full migration backlog before running on real hardware.
 
-## Settings
-
-### Display
-
-Turn off display sleep by going to "Settings" > "Power Manager" > "Display" and setting "Blank after" to "Never".
-
-### Hard drives
-
-To reduce hard drive clicking, turn off power management on the hard disk drives.
-
-```bash
-# Set the power consumption up to 255 which disables APM
-#  preventing the drive from parking its heads
-sudo hdparm -B 255 /dev/sdb
-sudo hdparm -B 255 /dev/sdc
-```
+Disk layout and sample fstab: [LVM.md](LVM.md).

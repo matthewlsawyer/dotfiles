@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# Script to sync the dotfiles
+# Contract: sync — apply path; bootstrap pipeline step 4 — sync.sh
+#
+# Apply:     invoked by apply.sh (default)
+# Bootstrap: step 4 of installer → packages → desktop → sync → postinstall
+# See install/README.md.
 
-. sudov.sh
-. functions.sh
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=lib/init.sh
+. "$SCRIPT_DIR/lib/init.sh"
 
-# Get rsync
-pinstall rsync
-
-# Sync up dotfiles
-rsync -avh --no-perms ../dotfiles ~
+rsync -avh --no-perms "$DOTFILES_PLATFORM_ROOT/dotfiles/" ~/
