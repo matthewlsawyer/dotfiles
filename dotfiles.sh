@@ -1,14 +1,11 @@
 #!/bin/bash
 
-# Root router — execs into $platform/scripts/apply.sh (contract entry point).
-# Platform-agnostic; install logic stays in each platform's scripts/.
+# Root router — execs into each platform's apply.sh (sync | bootstrap).
 #
 # Usage:
-#   ./dotfiles.sh arch              # arch_xfce4/scripts/apply.sh
+#   ./dotfiles.sh arch sync
 #   ./dotfiles.sh arch bootstrap
-#   ./dotfiles.sh macos
-#   DOTFILES_PLATFORM=arch ./dotfiles.sh
-#   DOTFILES_PLATFORM=arch ./dotfiles.sh bootstrap
+#   DOTFILES_PLATFORM=arch ./dotfiles.sh sync
 
 set -euo pipefail
 
@@ -16,7 +13,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 platform_dir() {
     case "$1" in
-        arch|arch_xfce4) echo arch_xfce4 ;;
+        arch) echo arch ;;
+        arch_xfce4) echo arch_xfce4 ;;
         macos) echo macos ;;
         crostini) echo crostini ;;
         pi|pi_omv) echo pi_omv ;;
@@ -24,28 +22,37 @@ platform_dir() {
     esac
 }
 
+platform_root() {
+    echo "$ROOT/$1"
+}
+
 usage() {
     cat <<EOF
-Usage: $0 <platform> [command ...]
-       DOTFILES_PLATFORM=<platform> $0 [command ...]
+Usage: $0 <platform> <command>
+       DOTFILES_PLATFORM=<platform> $0 <command>
 
 Platforms:
-  arch, macos          active — apply / sync / bootstrap (see platform scripts/README.md)
-  crostini             archived — apply.sh exits with pointer to README
-  pi                   runbook only — no scripts/apply.sh
+  arch                 pacman-only headless base (see arch/README.md)
+  arch_xfce4           full XFCE workstation + AUR (see arch_xfce4/README.md)
+  macos                Homebrew scripts (see macos/README.md)
+  crostini             archived no-op apply — see crostini/README.md
+  pi                   runbook only — no scripts/
+
+Commands:
+  sync                 Sync dotfiles to \$HOME
+  bootstrap            Full fresh-install pipeline
 
 Examples:
-  $0 arch                    apply dotfiles (sync)
-  $0 arch bootstrap          full fresh-install pipeline
-  $0 macos                   Homebrew packages
-  $0 macos bootstrap         Homebrew + packages
+  $0 arch sync
+  $0 arch bootstrap
+  $0 arch_xfce4 bootstrap
+  $0 macos sync
+  $0 macos bootstrap
+  $0 crostini sync              # archived — no-op
 
   export DOTFILES_PLATFORM=arch
-  $0                         apply dotfiles (platform from env)
-  $0 bootstrap               bootstrap (platform from env)
-
-DOTFILES_PLATFORM skips the platform argument — useful in shell profile or scripts
-when you always run on the same OS context.
+  $0 sync
+  $0 bootstrap
 EOF
 }
 
@@ -61,7 +68,7 @@ resolve_platform_and_args() {
         return
     fi
 
-    if [[ $# -lt 1 ]]; then
+    if [[ $# -lt 2 ]]; then
         usage >&2
         exit 1
     fi
@@ -79,11 +86,30 @@ if ! DIR="$(platform_dir "$PLATFORM")"; then
     exit 1
 fi
 
-APPLY="$ROOT/$DIR/scripts/apply.sh"
-if [[ ! -x "$APPLY" ]]; then
-    echo "No scripts/apply.sh for platform '$PLATFORM' ($DIR)." >&2
-    echo "See $DIR/README.md — may be archived or runbook-only." >&2
-    exit 1
-fi
+PLATFORM_ROOT="$(platform_root "$DIR")"
+COMMAND="${REMAINING_ARGS[0]:-}"
 
-exec "$APPLY" "${REMAINING_ARGS[@]}"
+case "$COMMAND" in
+    sync|bootstrap)
+        APPLY="$PLATFORM_ROOT/apply.sh"
+        if [[ ! -x "$APPLY" ]]; then
+            echo "No apply.sh for platform '$PLATFORM' ($DIR)." >&2
+            echo "See $DIR/README.md — may be archived or runbook-only." >&2
+            exit 1
+        fi
+        exec "$APPLY" "$COMMAND"
+        ;;
+    help|--help|-h)
+        usage
+        ;;
+    "")
+        echo "Missing command. Use: sync | bootstrap" >&2
+        usage >&2
+        exit 1
+        ;;
+    *)
+        echo "Unknown command: $COMMAND" >&2
+        usage >&2
+        exit 1
+        ;;
+esac

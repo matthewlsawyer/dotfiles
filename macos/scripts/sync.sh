@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Contract: sync — apply path; bootstrap pipeline step 3 — sync.sh
+# Internal: sync — dotfiles → $HOME.
 #
-# Apply:     invoked by apply.sh (default)
-# Bootstrap: step 3 of installer → packages → sync → postinstall
-# See install/README.md.
+# Invoked by apply.sh sync and bootstrap.sh (pipeline step).
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib/init.sh
@@ -12,7 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [[ ! -d "$DOTFILES_PLATFORM_ROOT/dotfiles" ]]; then
     echo "No dotfiles/ for macOS yet — nothing to sync."
-    echo "Run: ./apply.sh bootstrap  (or: dotfiles.sh macos bootstrap)"
+    echo "Run: dotfiles.sh macos bootstrap"
     exit 0
 fi
 

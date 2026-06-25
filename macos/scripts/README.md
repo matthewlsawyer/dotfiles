@@ -1,51 +1,38 @@
-# scripts/
+# scripts/ (internal)
 
-Install scripts for macOS.
-
-## Contracts
-
-| Contract | Scripts | Entry |
-|----------|---------|-------|
-| **Apply** | `sync.sh` | `./apply.sh` |
-| **Bootstrap** | [install pipeline](install/README.md) | `./apply.sh bootstrap` |
-
-Root router: [`dotfiles.sh`](../../dotfiles.sh) → `./apply.sh`.
+Implementation behind the [platform interface](../README.md#interface). Not entry points — use `dotfiles.sh macos sync|bootstrap` or [`../apply.sh`](../apply.sh).
 
 ## Layout
 
 ```
-scripts/
-├── apply.sh              # apply / bootstrap / help
-├── sync.sh               # dotfiles → $HOME (apply + bootstrap step 3)
-├── bootstrap.sh          # runs install pipeline
-├── lib/                  # init (paths, HOMEBREW_CASK_OPTS)
-├── install/              # bootstrap pipeline steps 1–2, 4
-└── apps/                 # optional modules
+macos/
+├── apply.sh                # interface (platform root)
+└── scripts/
+    ├── sync.sh             # apply sync + bootstrap pipeline step
+    ├── bootstrap.sh        # apply bootstrap — runs install pipeline
+    ├── lib/                # init (paths, HOMEBREW_CASK_OPTS)
+    ├── install/            # bootstrap pipeline steps
+    └── apps/               # optional modules
 ```
 
-## Bootstrap pipeline (contract)
+## Bootstrap pipeline (internal steps)
 
-Fixed order — see [install/README.md](install/README.md):
+Fixed order — see [install/README.md](install/README.md). Orchestrated by [`bootstrap.sh`](bootstrap.sh), invoked via [`../apply.sh bootstrap`](../apply.sh):
 
 ```
-installer.sh → packages.sh → sync.sh → postinstall.sh
+install/installer.sh → install/packages.sh → sync.sh → install/postinstall.sh
 ```
 
 Core `install/packages.sh` installs CLI essentials and rsync only. Step 4 (`postinstall.sh`) is a **stub**.
-
-```bash
-./apply.sh bootstrap
-```
 
 ## Recommended run
 
 Fresh macOS install with dev tooling:
 
 ```bash
-cd ~/Code/dotfiles/macos/scripts
+./dotfiles.sh macos bootstrap
 
-./apply.sh bootstrap
-
+cd macos/scripts
 ./apps/dev.sh && ./apps/browsers.sh
 ./apps/awscli.sh
 ```

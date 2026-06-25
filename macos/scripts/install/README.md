@@ -1,23 +1,23 @@
-# Bootstrap pipeline contract
+# Bootstrap pipeline (internal)
 
-Fixed-order steps for a fresh macOS install. **`bootstrap.sh`** is the only supported orchestrator — do not reorder steps without updating this file and `bootstrap.sh`.
+Fixed-order steps invoked by [`../bootstrap.sh`](../bootstrap.sh). Do not reorder without updating this file and `../bootstrap.sh`.
+
+**User entry:** `dotfiles.sh macos bootstrap` → `apply.sh bootstrap` → [`../bootstrap.sh`](../bootstrap.sh) → these scripts.
 
 ## Pipeline
 
 ```
-installer.sh → packages.sh → sync.sh → postinstall.sh
+install/installer.sh → install/packages.sh → ../sync.sh → install/postinstall.sh
 ```
 
 | Step | Script | Role |
 |------|--------|------|
 | 1 | `install/installer.sh` | Homebrew |
 | 2 | `install/packages.sh` | Core CLI — git, wget, htop, jq, httpie, mac2unix, rsync |
-| 3 | `../sync.sh` | Dotfiles → `$HOME` (stub until `macos/dotfiles/` exists) |
+| 3 | [`../sync.sh`](../sync.sh) | Dotfiles → `$HOME` (stub until `macos/dotfiles/` exists) |
 | 4 | `install/postinstall.sh` | **Stub** — post-bootstrap tuning |
 
-**Entry:** `./apply.sh bootstrap` or `./bootstrap.sh` from `scripts/`.
-
-Step 3 (`sync.sh`) is also the default **apply** path on an existing machine.
+Step 3 ([`../sync.sh`](../sync.sh)) is also reached via **sync** (`dotfiles.sh macos sync` → `apply.sh sync`).
 
 ## Prerequisites
 
@@ -25,4 +25,4 @@ Xcode Command Line Tools: `xcode-select --install`
 
 ## After the contract
 
-Optional modules are **not** part of this pipeline. See [Recommended run](../README.md#recommended-run).
+Optional modules are **not** part of this pipeline. See [Recommended run](../../README.md#recommended-run).

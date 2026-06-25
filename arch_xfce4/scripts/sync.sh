@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Contract: sync — apply path; bootstrap pipeline step 4 — sync.sh
+# Internal: sync — dotfiles → $HOME.
 #
-# Apply:     invoked by apply.sh (default)
-# Bootstrap: step 4 of installer → packages → desktop → sync → postinstall
-# See install/README.md.
+# Invoked by apply.sh sync and bootstrap.sh (pipeline step).
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib/init.sh

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Contract: bootstrap — runs the install pipeline in fixed order.
+# Internal: bootstrap — orchestrates install pipeline then sync.
 #
-# Pipeline (do not reorder — see install/README.md):
+# Pipeline (see install/README.md):
 #   installer.sh → packages.sh → desktop.sh → sync.sh → postinstall.sh
 #
 # Invoked by apply.sh bootstrap.
@@ -12,15 +12,13 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib/init.sh
 . "$SCRIPT_DIR/lib/init.sh"
-cd "$DOTFILES_SCRIPTS_ROOT"
 
-# Bootstrap pipeline contract — keep in sync with install/README.md
 BOOTSTRAP_PIPELINE=(
-    install/installer.sh
-    install/packages.sh
-    install/desktop.sh
-    sync.sh
-    install/postinstall.sh
+    "$DOTFILES_SCRIPTS_ROOT/install/installer.sh"
+    "$DOTFILES_SCRIPTS_ROOT/install/packages.sh"
+    "$DOTFILES_SCRIPTS_ROOT/install/desktop.sh"
+    "$DOTFILES_SCRIPTS_ROOT/sync.sh"
+    "$DOTFILES_SCRIPTS_ROOT/install/postinstall.sh"
 )
 
 run_step() {
@@ -30,15 +28,17 @@ run_step() {
 }
 
 for step in "${BOOTSTRAP_PIPELINE[@]}"; do
-    run_step "$step" "./$step"
+    run_step "$(basename "$step")" "$step"
 done
 
-echo "==> bootstrap.sh complete"
-cat <<'EOF'
+echo "==> bootstrap complete"
+platform="$(basename "$DOTFILES_PLATFORM_ROOT")"
+cat <<EOF
 
 Recommended optional (NVIDIA + dev tooling):
+  cd ${platform}/scripts
   ./hardware/graphics-nvidia.sh
   ./apps/dev.sh && ./apps/utilities.sh
 
-See scripts/README.md for the full module list.
+See README.md for the full module list.
 EOF
