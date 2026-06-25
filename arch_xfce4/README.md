@@ -1,10 +1,54 @@
 # arch_xfce4
 
-**Status:** Planned — hardware exists; may revive on existing or new machine with a similar setup.
+> **Planned** — hardware exists; entry scripts and bootstrap pipeline are contract-tested but the stack is stale before revival on real hardware. See [MODERNIZATION.md](../MODERNIZATION.md).
 
 Arch Linux workstation running XFCE4. Modular install scripts, dotfiles synced via rsync, and a handful of system config files copied manually to `/etc`.
 
-The checkout is an **installer tree** — scripts plus source dotfiles. After `sync.sh`, live config lives in `$HOME` (and selected paths under `/etc`). The checkout path does not need to stay fixed unless you keep it for updates or re-running optional modules.
+The checkout is an **installer tree** — scripts plus source dotfiles. After sync, live config lives in `$HOME` (and selected paths under `/etc`). The checkout path does not need to stay fixed unless you keep it for updates or re-running optional modules.
+
+---
+
+## Interface
+
+[`dotfiles.sh`](../dotfiles.sh) routes **sync** and **bootstrap** to [`apply.sh`](apply.sh):
+
+| Command | When | What runs |
+|---------|------|-----------|
+| **sync** | Machine already set up | `apply.sh sync` → [`scripts/sync.sh`](scripts/sync.sh) |
+| **bootstrap** | Fresh install | `apply.sh bootstrap` → [`scripts/bootstrap.sh`](scripts/bootstrap.sh) |
+
+```bash
+./dotfiles.sh arch_xfce4 sync
+./dotfiles.sh arch_xfce4 bootstrap
+
+# or directly:
+./arch_xfce4/apply.sh sync
+./arch_xfce4/apply.sh bootstrap
+```
+
+[`apply.sh`](apply.sh) is the sole entry script at the platform root. Sync, bootstrap pipeline, and optional modules live under [`scripts/`](scripts/).
+
+### Bootstrap pipeline
+
+Fixed order — orchestrated by [`scripts/bootstrap.sh`](scripts/bootstrap.sh), invoked via `apply.sh bootstrap`. Do not reorder without updating [`scripts/install/README.md`](scripts/install/README.md) and `scripts/bootstrap.sh`.
+
+```
+install/installer.sh → install/packages.sh → install/desktop.sh → sync.sh → install/postinstall.sh
+```
+
+| Step | Script | Role |
+|------|--------|------|
+| 1 | `install/installer.sh` | AUR helper (yaourt) |
+| 2 | `install/packages.sh` | Core packages |
+| 3 | `install/desktop.sh` | XFCE, Compton, Arc, elementary icons, base fonts |
+| 4 | [`scripts/sync.sh`](scripts/sync.sh) | Dotfiles → `$HOME` |
+| 5 | `install/postinstall.sh` | Font cache, paccache timer, keys, groups |
+
+Optional modules under `scripts/` are **not** part of this pipeline.
+
+### Contract test
+
+[`test/contract-test.sh`](../test/contract-test.sh) validates `apply.sh` and bootstrap pipeline scripts.
 
 ---
 
@@ -16,8 +60,9 @@ Checkout location is flexible — scripts resolve paths relative to their own lo
 
 ```bash
 git clone git@github.com:matthewlsawyer/dotfiles.git ~/Code/dotfiles
-~/Code/dotfiles/dotfiles.sh arch              # apply dotfiles
-# ~/Code/dotfiles/dotfiles.sh arch bootstrap  # fresh hardware
+cd ~/Code/dotfiles
+./dotfiles.sh arch_xfce4 sync
+# ./dotfiles.sh arch_xfce4 bootstrap  # fresh hardware
 ```
 
 Keep the repo for `git pull`, optional modules, and dotfile diffs.
@@ -27,31 +72,21 @@ Keep the repo for `git pull`, optional modules, and dotfile diffs.
 ```bash
 ./make-release.sh                          # from repo root, writes dotfiles-YYYYMMDD.tar.gz
 tar xzf dotfiles-20250622.tar.gz -C ~/
-cd ~/dotfiles && ./dotfiles.sh arch bootstrap
+cd ~/dotfiles && ./dotfiles.sh arch_xfce4 bootstrap
 ```
-
-Automated checks: [test/contract-test.sh](../../test/contract-test.sh).
 
 ---
 
 ## Quick start
 
-Two flows depending on machine state:
-
 | Flow | When | Command |
 |------|------|---------|
-| **Apply** | System already set up; pull in dotfiles | `./apply.sh` or `dotfiles.sh arch` |
-| **Bootstrap** | Fresh Arch install | `./apply.sh bootstrap` or `dotfiles.sh arch bootstrap` |
+| **Sync** | System already set up; pull in dotfiles | `./dotfiles.sh arch_xfce4 sync` |
+| **Bootstrap** | Fresh Arch install | `./dotfiles.sh arch_xfce4 bootstrap` |
 
-```bash
-cd ~/arch_xfce4/scripts   # or your checkout path
-./apply.sh              # apply dotfiles
-./apply.sh bootstrap    # full pipeline
-```
+### Sync (existing machine)
 
-### Apply (existing machine)
-
-`./apply.sh` — syncs `dotfiles/` to `$HOME`. Requires `rsync` on the system (installed via `packages.sh` during bootstrap, or already present).
+`./dotfiles.sh arch_xfce4 sync` — rsyncs `dotfiles/` to `$HOME`. Requires `rsync` on the system (installed via `packages.sh` during bootstrap, or already present).
 
 Run optional modules individually if needed (`zsh.sh`, `apps/dev.sh`, …).
 
@@ -67,40 +102,23 @@ nmcli device wifi connect "SSID" password "pass"   # or use nmtui
 
 Wired DHCP, `systemd-networkd`, or `dhcpcd` from your install medium work too — bootstrap only needs reachability to mirrors, not a specific stack.
 
-#### Bootstrap pipeline (contract)
-
-Fixed order — orchestrated by `bootstrap.sh` / `./apply.sh bootstrap`. See [scripts/install/README.md](scripts/install/README.md).
-
-```
-installer.sh → packages.sh → desktop.sh → sync.sh → postinstall.sh
-```
-
-| Step | Script | What it does |
-|------|--------|--------------|
-| 1 | `install/installer.sh` | AUR helper (yaourt) |
-| 2 | `install/packages.sh` | Core packages |
-| 3 | `install/desktop.sh` | XFCE, Compton, Arc, elementary icons, base fonts |
-| 4 | `sync.sh` | Dotfiles → `$HOME` |
-| 5 | `install/postinstall.sh` | Font cache, paccache timer, keys, groups |
-
 #### Recommended run
 
 Typical fresh install on NVIDIA hardware with dev tooling:
 
 ```bash
-cd ~/arch_xfce4/scripts
+./dotfiles.sh arch_xfce4 bootstrap
 
-./apply.sh bootstrap
-
+cd arch_xfce4/scripts
 ./hardware/graphics-nvidia.sh
 ./apps/dev.sh && ./apps/utilities.sh
 ```
 
-Add other optional modules as needed — [full list below](#optional-modules). Manual copy of `files/etc/` to `/system` is still bootstrap-only — see [What's covered](#whats-covered).
+Add other optional modules as needed — [full list below](#optional-modules). Manual copy of `files/etc/` to `/etc` is still bootstrap-only — see [What's covered](#whats-covered).
 
 ### Optional modules
 
-Run from `scripts/` after bootstrap (or after `apply.sh` on an existing machine):
+Run from `scripts/` after bootstrap (or after sync on an existing machine):
 
 **Hardware** (`scripts/hardware/`)
 
@@ -139,7 +157,7 @@ Most optional scripts source `lib/sudov.sh` and `lib/functions.sh` via `lib/init
 
 ## What's covered
 
-### Dotfiles (`dotfiles/` → `$HOME` via `sync.sh`)
+### Dotfiles (`dotfiles/` → `$HOME` via `apply.sh sync`)
 
 - **Shell:** `.zshrc`, `.bashrc`, `.commonrc` (aliases, XDG dirs, npm local prefix, `pinstall`/`yinstall`)
 - **Desktop:** Compton config, Plank autostart, XFCE terminal + Tilix (Base16 Ocean, FuraCode Nerd Font)
@@ -162,7 +180,6 @@ These are **not** deployed by any script.
 - **yaourt for AUR** — `install/installer.sh` runs first; optional modules use `yinstall`.
 - **LVM split** — SSD volume group for `/`, `/var`, `/sdata`; HDD volume group for `/home`, swap, `/data`. Boot partition outside LVM.
 - **Dev stack (optional)** — `apps/dev.sh` (editors, Docker, optional Node/langs) — not part of core bootstrap.
-- **`apply.sh`** dispatches apply vs bootstrap; optional modules stay separate.
 
 ---
 

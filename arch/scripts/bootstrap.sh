@@ -3,7 +3,7 @@
 # Internal: bootstrap — orchestrates install pipeline then sync.
 #
 # Pipeline (see install/README.md):
-#   installer.sh → packages.sh → sync.sh → postinstall.sh
+#   packages.sh → sync.sh → postinstall.sh
 #
 # Invoked by apply.sh bootstrap.
 
@@ -14,7 +14,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$SCRIPT_DIR/lib/init.sh"
 
 BOOTSTRAP_PIPELINE=(
-    "$DOTFILES_SCRIPTS_ROOT/install/installer.sh"
     "$DOTFILES_SCRIPTS_ROOT/install/packages.sh"
     "$DOTFILES_SCRIPTS_ROOT/sync.sh"
     "$DOTFILES_SCRIPTS_ROOT/install/postinstall.sh"
@@ -37,7 +36,7 @@ cat <<EOF
 Recommended optional:
   cd ${platform}/scripts
   ./apps/dev.sh && ./apps/browsers.sh
-  ./apps/awscli.sh
+  ./apps/utilities.sh && ./extras/flatpak.sh
 
 See README.md for optional modules.
 EOF

@@ -1,8 +1,6 @@
 # Raspberry Pi with Open Media Vault
 
-> **Stale runbook** — written for OMV arrakis / PHP 7.0 era. Hardware may be rebuilt; verify current OMV release and package names before following these steps. No scripts in this directory — procedural notes only.
-
-**Status:** Repurpose — NAS hardware exists; may rebuild with updated OMV.
+> **Stale** — written for OMV arrakis / PHP 7.0 era. Hardware may be rebuilt; verify current OMV release and package names before following these steps. No scripts in this directory — procedural notes only.
 
 ---
 

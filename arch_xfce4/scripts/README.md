@@ -1,40 +1,28 @@
-# scripts/
+# scripts/ (internal)
 
-Install scripts for arch_xfce4.
-
-## Contracts
-
-| Contract | Scripts | Entry |
-|----------|---------|-------|
-| **Apply** | `sync.sh` | `./apply.sh` |
-| **Bootstrap** | [install pipeline](install/README.md) | `./apply.sh bootstrap` |
-
-Root router: [`dotfiles.sh`](../../dotfiles.sh) → `./apply.sh`.
+Implementation behind the [platform interface](../README.md#interface). Not entry points — use `dotfiles.sh arch_xfce4 sync|bootstrap` or [`../apply.sh`](../apply.sh).
 
 ## Layout
 
 ```
-scripts/
-├── apply.sh              # apply / bootstrap / help
-├── sync.sh               # dotfiles → $HOME (apply + bootstrap step 4)
-├── bootstrap.sh          # runs install pipeline
-├── lib/                  # init, sudov, functions
-├── install/              # bootstrap pipeline steps 1–3, 5
-├── hardware/             # optional — GPU, firmware, bluetooth
-├── apps/                 # optional — dev, browsers, games, …
-└── desktop/              # optional — shell, fonts, themes
+arch_xfce4/
+├── apply.sh                # interface (platform root)
+└── scripts/
+    ├── sync.sh             # apply sync + bootstrap pipeline step
+    ├── bootstrap.sh        # apply bootstrap — runs install pipeline
+    ├── lib/                # init, sudov, functions
+    ├── install/            # bootstrap pipeline steps
+    ├── hardware/           # optional — GPU, firmware, bluetooth
+    ├── apps/               # optional — dev, browsers, games, …
+    └── desktop/            # optional — shell, fonts, themes
 ```
 
-## Bootstrap pipeline (contract)
+## Bootstrap pipeline (internal steps)
 
-Fixed order — see [install/README.md](install/README.md):
+Fixed order — see [install/README.md](install/README.md). Orchestrated by [`bootstrap.sh`](bootstrap.sh), invoked via [`../apply.sh bootstrap`](../apply.sh):
 
 ```
-installer.sh → packages.sh → desktop.sh → sync.sh → postinstall.sh
-```
-
-```bash
-./apply.sh bootstrap
+install/installer.sh → install/packages.sh → install/desktop.sh → sync.sh → install/postinstall.sh
 ```
 
 ## Recommended run
@@ -42,12 +30,9 @@ installer.sh → packages.sh → desktop.sh → sync.sh → postinstall.sh
 Full fresh install on NVIDIA hardware with dev tooling:
 
 ```bash
-cd ~/arch_xfce4/scripts
+./dotfiles.sh arch_xfce4 bootstrap
 
-# Contract (required)
-./apply.sh bootstrap
-
-# Recommended optional (pick what applies)
+cd arch_xfce4/scripts
 ./hardware/graphics-nvidia.sh
 ./apps/dev.sh && ./apps/utilities.sh
 ```
