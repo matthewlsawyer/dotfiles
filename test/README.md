@@ -9,8 +9,19 @@ cd test
 
 Checks:
 
-- `dotfiles.sh` routing (help, arch/macos help, unknown platform fails)
-- Platform entry scripts and bootstrap pipeline scripts exist and are executable
-- Key arch_xfce4 dotfiles and `files/etc` paths exist
+- `dotfiles.sh` routing (help, unknown platform fails)
+- `arch/`, `macos/`, `arch_xfce4/` — `apply.sh` at platform root, `scripts/sync.sh`, `scripts/bootstrap.sh`, and bootstrap pipeline scripts under `scripts/install/`
+- `crostini/` — archived `apply.sh` stub; routing smoke test (`sync` / `bootstrap` exit 0)
+- `arch/dotfiles/.zshrc` and `arch_xfce4/dotfiles/.zshrc` exist
+- `test/arch/integration-test.sh` harness exists (does not run Docker)
+
+## Docker integration (optional, slow)
+
+```bash
+cd test/arch
+./integration-test.sh    # arch pacman-only bootstrap
+```
+
+Uses volume `dotfiles-pacman-cache` for pacman package cache between runs. On Apple Silicon, set `DOCKER_PLATFORM=linux/amd64` (default in script).
 
 Not included in release tarballs (see `make-release.sh`).
