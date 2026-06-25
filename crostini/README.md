@@ -1,6 +1,6 @@
 # crostini
 
-> **Archived** — preserved for reference, not maintained. Stack is end-of-life (Node 13, Python 3.7, PyCharm 2019.3). Do not run without updating versions.
+> **Archived** — preserved for reference, not maintained. [`apply.sh`](apply.sh) is a no-op stub (`sync` / `bootstrap` exit 0); use the legacy scripts below. Stack is end-of-life (Node 13, Python 3.7, PyCharm 2019.3).
 
 Chrome OS Linux (Crostini) dev environment. Debian-based, bootstrapped for Python and Node development with PyCharm CE and VS Code integrated into the Chrome OS app launcher via Garcon.
 
@@ -56,7 +56,7 @@ Then copy or symlink dotfiles from `crostini/dotfiles/` to `$HOME`.
 
 ## Known limitations
 
-- No orchestration script, stow, or sync mechanism (unlike `arch_xfce4/`).
+- [`apply.sh`](apply.sh) is a router-compatible no-op stub only — real install is the manual `scripts/` sequence below (no rsync or bootstrap pipeline).
 - `python37.sh` does not return to original directory — re-runs may fail.
 - No venv/pipenv/poetry setup after Python build.
 - No Node version manager.

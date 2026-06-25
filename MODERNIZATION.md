@@ -1,20 +1,22 @@
 # Modernization Backlog
 
-Prioritized list of updates before running stale scripts on real hardware. READMEs document what exists today; this file tracks what needs to change.
+Prioritized list of updates before running stale scripts on real hardware. READMEs document what exists today; this file tracks what still needs to change.
+
+**Current state:** Use [`arch/`](arch/README.md) for fresh headless Arch installs. [`arch_xfce4/`](arch_xfce4/README.md) and much of [`macos/`](macos/README.md) still need refresh before real use.
 
 ---
 
 ## P0 — before arch_xfce4 revival
 
-These block a safe rebuild on current Arch:
+These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless noted.
 
 | Item | Current | Target | Files affected |
 |------|---------|--------|----------------|
-| AUR helper | yaourt + package-query | paru or yay | `scripts/install/installer.sh`, `scripts/lib/functions.sh`, `.yaourtrc` |
-| Compositor | compton | picom | `scripts/install/desktop.sh`, `dotfiles/.config/compton.conf`, autostart desktop file |
-| Script flow | — | tiered optional modules | `scripts/README.md`, `bootstrap.sh` |
-| Flash | pepper-flash | removed (EOL) | — |
-| youtube-dl | — | yt-dlp | `scripts/apps/utilities.sh` (if re-added) |
+| AUR helper | yaourt + package-query | paru or yay | `arch_xfce4/scripts/install/installer.sh`, `arch_xfce4/scripts/lib/functions.sh`, `arch_xfce4/dotfiles/.yaourtrc` |
+| Compositor | compton | picom | `arch_xfce4/scripts/install/desktop.sh`, `arch_xfce4/dotfiles/.config/compton.conf`, autostart desktop file |
+| youtube-dl | — | yt-dlp | `arch_xfce4/scripts/apps/utilities.sh` (if re-added) |
+
+**Use `arch/` today** for a fresh headless Arch install. Revive `arch_xfce4/` only after P0 (and a real-hardware dry run).
 
 ---
 
@@ -23,13 +25,12 @@ These block a safe rebuild on current Arch:
 | Item | Current | Target | Files affected |
 |------|---------|--------|----------------|
 | Package manifest | inline `brew install` | Brewfile | `macos/scripts/apps/*.sh` |
-| Cask syntax | `brew cask install` | `brew install --cask` | `macos/scripts/apps/*.sh` |
 | Homebrew install | legacy Ruby one-liner | official install script; Apple Silicon note | `macos/scripts/install/installer.sh` |
 | AWS CLI | v1 bundled zip | v2 (`brew install awscli` or official pkg) | `macos/scripts/apps/awscli.sh` |
 | Node | unpinned brew | nvm/fnm/mise | `macos/scripts/apps/dev.sh` |
-| VS Code extensions | tslint, jslint, typescript-hero, etc. | audit and replace obsolete IDs | `macos/scripts/apps/dev.sh` |
-| Package tiers | split | done (core + apps/) | `install/packages.sh`, `apps/` |
-| Dotfiles | none | add shell/git/editor config or stow | new `macos/dotfiles/` |
+| VS Code extensions | tslint, jslint, typescript-hero, etc. in comments | audit and replace obsolete IDs | `macos/scripts/apps/dev.sh` |
+| Dotfiles | none — sync stub | add `macos/dotfiles/` or stow | new `macos/dotfiles/` |
+| postinstall | stub | defaults, keys, or other post-bootstrap tuning | `macos/scripts/install/postinstall.sh` |
 
 ---
 
@@ -37,53 +38,55 @@ These block a safe rebuild on current Arch:
 
 | Item | Notes |
 |------|-------|
-| Per-platform orchestrator | Optional `setup.sh` at root of each active platform |
-| Shared shell config | Extract `.commonrc` patterns for cross-platform use |
-| pi_omv scripts | Extract README steps into `pi_omv/scripts/` |
-| crostini | Leave archived or delete folder |
-| macOS dotfiles | Shell, git, VS Code settings not managed yet |
+| Shared shell config | Extract `.commonrc` patterns from `arch/` / `arch_xfce4/` for cross-platform use |
+| pi_omv scripts | Extract README steps into `pi_omv/scripts/` + `apply.sh` when rebuilt |
+| macOS dotfiles | Shell, git, editor config — see P1 |
 
 ---
 
 ## P3 — nice-to-have
 
-| Item | Notes |
-|------|-------|
-| PipeWire | PulseAudio stack | PipeWire | `scripts/install/packages.sh`, `scripts/install/desktop.sh` |
-| powerlevel9k → powerlevel10k | powerlevel9k | powerlevel10k | `scripts/desktop/zsh.sh`, `.powerlevelrc` |
-| wine-staging-nine → wine-staging | wine-staging-nine | wine-staging | `scripts/apps/games.sh` |
-| steam-native-runtime | deprecated package | remove | `scripts/apps/games.sh` |
-| Network config | Fix `DBS` typo in `51-static.network`; parameterize interface/IP |
-| Intel + NVIDIA docs | Document hybrid GPU conflict for TearFree + proprietary NVIDIA |
-| GRUB root LV | Increase from 20G (flagged in README) |
-| VS Code C# extension | `ms-vscode.csharp` → `ms-dotnettools.csharp` |
-| reflector | Mirror optimization before first `pacman -Syu` |
-| Firewall | ufw or nftables baseline |
+| Item | Current | Target | Files affected |
+|------|---------|--------|----------------|
+| Audio | PulseAudio stack | PipeWire | `arch_xfce4/scripts/install/packages.sh`, `desktop.sh` |
+| Shell prompt | powerlevel9k | powerlevel10k | `arch_xfce4/scripts/desktop/zsh.sh`, `.powerlevelrc` |
+| WINE | wine-staging-nine | wine-staging | `arch_xfce4/scripts/apps/games.sh` |
+| steam-native-runtime | deprecated package | remove | `arch_xfce4/scripts/apps/games.sh` |
+| Network config | `DBS` typo in `51-static.network`; hardcoded interface/IP | parameterize | `arch_xfce4/files/etc/systemd/network/` |
+| Intel + NVIDIA docs | TearFree snippet vs proprietary NVIDIA | document hybrid conflict | `arch_xfce4/README.md`, `files/etc/` |
+| GRUB root LV | 20G flagged too small | resize guidance | `arch_xfce4/LVM.md`, README |
+| VS Code C# extension | `ms-vscode.csharp` | `ms-dotnettools.csharp` | `macos/scripts/apps/dev.sh` (commented) |
+| reflector | — | mirror optimization before first `pacman -Syu` | new optional script or bootstrap step |
+| Firewall | — | ufw or nftables baseline | optional module |
 
 ---
 
 ## Platform-specific quick notes
 
-### arch_xfce4
+### arch (active)
 
-- Automated tests in `test/` (excluded from release tarballs); repo-root `make-release.sh`.
-- `flatpak.sh` should source `sudov.sh` (fixed).
-- `files/etc/` never deployed by scripts — consider a `deploy-system.sh` or keep manual.
+- Headless pacman-only — no AUR, no desktop. Desktop stack lives in `arch_xfce4/` after P0.
+- `install/postinstall.sh` is a stub; optional work in `scripts/apps/`, `scripts/extras/`.
+
+### arch_xfce4 (planned)
+
+- Contract-tested layout but **stale stack** — do not run on real hardware until P0.
+- `files/etc/` never deployed by scripts — manual copy or future `deploy-system.sh`.
 - `postinstall.sh` interactive gpg/ssh-keygen blocks unattended installs.
 - Budgie script has TODO to relocate — clarify DE strategy before revival.
 
-### macos
+### macos (active scripts, stale content)
 
-- VS Code extensions noted to "behave weird" — investigate before re-running.
-- Todoist CLI tap commented out in `packages.sh`.
+- Bootstrap is minimal and works; optional `apps/` content is dated.
+- VS Code extensions noted to "behave weird" — investigate before re-running `apps/dev.sh`.
+- Todoist CLI tap commented out in `install/packages.sh`.
 
 ### crostini (archived)
 
 - Node 13, Python 3.7.3, PyCharm 2019.3 — all EOL.
-- `packages.sh` had syntax error on `user.name` (fixed).
-- No sync/stow mechanism.
+- Real install is manual `crostini/scripts/` sequence.
 
 ### pi_omv (stale runbook)
 
 - OMV arrakis, PHP 7.0, `apt-key add` — all outdated.
-- README-only; no automation.
+- README-only; no `apply.sh`. Future: scripts + router entry if rebuilt.
