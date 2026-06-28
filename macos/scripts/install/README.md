@@ -25,4 +25,4 @@ Xcode Command Line Tools: `xcode-select --install`
 
 ## After the contract
 
-Optional modules are **not** part of this pipeline. See [Recommended run](../../README.md#recommended-run).
+Optional modules are **not** part of this pipeline. See [../scripts/README.md](../scripts/README.md).

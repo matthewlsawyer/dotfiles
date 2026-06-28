@@ -38,7 +38,6 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 
 | Item | Notes |
 |------|-------|
-| Shared shell config | Extract `.commonrc` patterns from `arch/` / `arch_xfce4/` for cross-platform use |
 | pi_omv scripts | Extract README steps into `pi_omv/scripts/` + `apply.sh` when rebuilt |
 | macOS dotfiles | Shell, git, editor config — see P1 |
 
@@ -52,9 +51,7 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 | Shell prompt | powerlevel9k | powerlevel10k | `arch_xfce4/scripts/desktop/zsh.sh`, `.powerlevelrc` |
 | WINE | wine-staging-nine | wine-staging | `arch_xfce4/scripts/apps/games.sh` |
 | steam-native-runtime | deprecated package | remove | `arch_xfce4/scripts/apps/games.sh` |
-| Network config | `DBS` typo in `51-static.network`; hardcoded interface/IP | parameterize | `arch_xfce4/files/etc/systemd/network/` |
-| Intel + NVIDIA docs | TearFree snippet vs proprietary NVIDIA | document hybrid conflict | `arch_xfce4/README.md`, `files/etc/` |
-| GRUB root LV | 20G flagged too small | resize guidance | `arch_xfce4/LVM.md`, README |
+| GRUB resume | — | document in host post-install | `hosts/arch-desktop/README.md` |
 | VS Code C# extension | `ms-vscode.csharp` | `ms-dotnettools.csharp` | `macos/scripts/apps/dev.sh` (commented) |
 | reflector | — | mirror optimization before first `pacman -Syu` | new optional script or bootstrap step |
 | Firewall | — | ufw or nftables baseline | optional module |
@@ -71,7 +68,7 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 ### arch_xfce4 (planned)
 
 - Contract-tested layout but **stale stack** — do not run on real hardware until P0.
-- `files/etc/` never deployed by scripts — manual copy or future `deploy-system.sh`.
+- Machine-specific `files/etc/` and LVM live in [`hosts/arch-desktop/`](../hosts/arch-desktop/) — manual copy after bootstrap.
 - `postinstall.sh` interactive gpg/ssh-keygen blocks unattended installs.
 - Budgie script has TODO to relocate — clarify DE strategy before revival.
 
@@ -88,5 +85,5 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 
 ### pi_omv (stale runbook)
 
-- OMV arrakis, PHP 7.0, `apt-key add` — all outdated.
-- README-only; no `apply.sh`. Future: scripts + router entry if rebuilt.
+- Pi + OMV runbook — OMV arrakis, PHP 7.0, `apt-key add` outdated.
+- README-only; no `apply.sh`. Disk layout in [`hosts/pi-omv/`](../hosts/pi-omv/). Future: scripts when rebuilt.
