@@ -26,6 +26,7 @@ host_dir() {
     case "$1" in
         arch-desktop) echo arch-desktop ;;
         pi-omv) echo pi-omv ;;
+        macbook-pro-m1) echo macbook-pro-m1 ;;
         *) return 1 ;;
     esac
 }
@@ -50,6 +51,7 @@ Targets — profiles (runbooks):
 Targets — hosts (machine identity; resolves profile from hosts/<name>/profile):
   arch-desktop         arch_xfce4 workstation — see hosts/arch-desktop/README.md
   pi-omv               pi_omv NAS — see hosts/pi-omv/README.md
+  macbook-pro-m1       macos laptop — see hosts/macbook-pro-m1/README.md
 
 Commands:
   sync                 Sync dotfiles to \$HOME
@@ -60,6 +62,7 @@ Examples:
   $0 arch_xfce4 bootstrap
   $0 arch-desktop bootstrap
   $0 pi-omv sync
+  $0 macbook-pro-m1 bootstrap
 
   export DOTFILES_PLATFORM=arch
   $0 sync

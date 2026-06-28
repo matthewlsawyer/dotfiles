@@ -18,6 +18,7 @@ Personal bootstrap repo — profiles (reusable runbooks), hosts (machine identit
 # Hosts — resolves profile from hosts/<name>/profile, then applies host overlay
 ./dotfiles.sh arch-desktop bootstrap
 ./dotfiles.sh pi-omv sync
+./dotfiles.sh macbook-pro-m1 bootstrap
 ```
 
 **Env vars** — omit the target argument:
@@ -66,6 +67,7 @@ Each profile exposes **sync** and **bootstrap** via [`apply.sh`](arch/apply.sh) 
 |------|---------|------------------|
 | [arch-desktop/](hosts/arch-desktop/) | `arch_xfce4` | LVM, static network, Intel Xorg |
 | [pi-omv/](hosts/pi-omv/) | `pi_omv` | Disk layout for this NAS |
+| [macbook-pro-m1/](hosts/macbook-pro-m1/) | `macos` | pipx, M1 laptop overlay |
 
 ---
 

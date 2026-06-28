@@ -2,6 +2,8 @@
 
 Prioritized list of updates before running stale scripts on real hardware. READMEs document what exists today; this file tracks what still needs to change.
 
+**Maintenance:** Remove items from this file as they are completed — do not leave "done" rows behind. This backlog is temporary; when empty or obsolete, delete the file.
+
 **Current state:** Use [`arch/`](arch/README.md) for fresh headless Arch installs. [`arch_xfce4/`](arch_xfce4/README.md) and much of [`macos/`](macos/README.md) still need refresh before real use.
 
 ---
@@ -29,7 +31,6 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 | AWS CLI | v1 bundled zip | v2 (`brew install awscli` or official pkg) | `macos/scripts/apps/awscli.sh` |
 | Node | unpinned brew | nvm/fnm/mise | `macos/scripts/apps/dev.sh` |
 | VS Code extensions | tslint, jslint, typescript-hero, etc. in comments | audit and replace obsolete IDs | `macos/scripts/apps/dev.sh` |
-| Dotfiles | none — sync stub | add `macos/dotfiles/` or stow | new `macos/dotfiles/` |
 | postinstall | stub | defaults, keys, or other post-bootstrap tuning | `macos/scripts/install/postinstall.sh` |
 
 ---
@@ -39,7 +40,7 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 | Item | Notes |
 |------|-------|
 | pi_omv scripts | Extract README steps into `pi_omv/scripts/` + `apply.sh` when rebuilt |
-| macOS dotfiles | Shell, git, editor config — see P1 |
+| Dotfiles fragment pattern | Profile + host rsync same filename (e.g. `.zprofile`) — later layer overwrites whole file; host duplicates profile content as workaround | Sync snippets to `~/.config/dotfiles/zprofile.d/` (or similar); thin `~/.zprofile` sources fragments; update `dotfiles.sh` / `macos/scripts/sync.sh` |
 
 ---
 

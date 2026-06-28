@@ -100,6 +100,15 @@ echo "==> hosts — manifests"
     exit 1
 }
 
+[[ -f "$REPO_ROOT/hosts/macbook-pro-m1/profile" ]] || {
+    echo "missing hosts/macbook-pro-m1/profile" >&2
+    exit 1
+}
+[[ "$(tr -d '[:space:]' < "$REPO_ROOT/hosts/macbook-pro-m1/profile")" == "macos" ]] || {
+    echo "hosts/macbook-pro-m1/profile should be macos" >&2
+    exit 1
+}
+
 echo "==> arch — integration harness"
 check_executable "$REPO_ROOT/test/arch/integration-test.sh"
 

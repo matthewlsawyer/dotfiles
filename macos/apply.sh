@@ -12,7 +12,7 @@ apply_usage() {
     cat <<EOF
 Usage: $0 sync|bootstrap|help
 
-  sync        Dotfiles → \$HOME (stub until macos/dotfiles/ exists)
+  sync        Dotfiles → \$HOME
   bootstrap   Full install pipeline
 
 Or: dotfiles.sh macos sync | bootstrap
