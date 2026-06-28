@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Common aliases and env vars between bash and zsh
+# Common aliases and env vars between bash and zsh (shared across Linux profiles)
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -16,9 +16,11 @@ alias mv='mv -i'
 alias sume='sudo -E -s'
 
 # Program defaults
-BROWSER=/usr/bin/chromium
 VISUAL=/usr/bin/vim
 EDITOR=/usr/bin/vim
 
 # Local binaries
 export PATH=~/.local/bin:$PATH
+
+# Profile-specific overrides (synced from <profile>/dotfiles/.commonrc.local)
+[[ -f ~/.commonrc.local ]] && . ~/.commonrc.local

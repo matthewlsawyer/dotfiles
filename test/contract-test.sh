@@ -39,8 +39,8 @@ echo "==> root router"
 check_executable "$REPO_ROOT/dotfiles.sh"
 "$REPO_ROOT/dotfiles.sh" help >/dev/null
 
-if "$REPO_ROOT/dotfiles.sh" nosuchplatform >/dev/null 2>&1; then
-    echo "expected unknown platform to fail" >&2
+if "$REPO_ROOT/dotfiles.sh" nosuchtarget sync >/dev/null 2>&1; then
+    echo "expected unknown target to fail" >&2
     exit 1
 fi
 
@@ -69,8 +69,8 @@ echo "==> crostini — archived entry script"
 check_executable "$REPO_ROOT/crostini/apply.sh"
 
 echo "==> crostini — routing (no-op)"
-"$REPO_ROOT/dotfiles.sh" crostini sync >/dev/null
-"$REPO_ROOT/dotfiles.sh" crostini bootstrap >/dev/null
+"$REPO_ROOT/dotfiles.sh" crostini sync 2>/dev/null
+"$REPO_ROOT/dotfiles.sh" crostini bootstrap 2>/dev/null
 
 echo "==> arch — dotfiles"
 [[ -f "$REPO_ROOT/arch/dotfiles/.zshrc" ]] || {
@@ -81,6 +81,22 @@ echo "==> arch — dotfiles"
 echo "==> arch_xfce4 — dotfiles"
 [[ -f "$REPO_ROOT/arch_xfce4/dotfiles/.zshrc" ]] || {
     echo "missing arch_xfce4/dotfiles/.zshrc" >&2
+    exit 1
+}
+
+echo "==> shared — dotfiles"
+[[ -f "$REPO_ROOT/shared/dotfiles/.commonrc" ]] || {
+    echo "missing shared/dotfiles/.commonrc" >&2
+    exit 1
+}
+
+echo "==> hosts — manifests"
+[[ -f "$REPO_ROOT/hosts/arch-desktop/profile" ]] || {
+    echo "missing hosts/arch-desktop/profile" >&2
+    exit 1
+}
+[[ "$(tr -d '[:space:]' < "$REPO_ROOT/hosts/arch-desktop/profile")" == "arch_xfce4" ]] || {
+    echo "hosts/arch-desktop/profile should be arch_xfce4" >&2
     exit 1
 }
 
