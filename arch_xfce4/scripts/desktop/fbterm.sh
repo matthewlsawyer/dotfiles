@@ -5,7 +5,7 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
-. "$DOTFILES_SCRIPTS_ROOT/lib/sudov.sh"
+. "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 
 cat << EOF
 You are about to install fbterm, which has a conflict with the ncurses package.

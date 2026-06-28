@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# This file has global functions and is intended to be sourced into the
-# other various scripts.
+# Global functions — sourced by optional module scripts.
 
-function pinstall() {
-    sudo pacman -S --noconfirm --needed -q $@
-}
+# shellcheck source=../../../shared/scripts/lib/pacman.sh
+. "$DOTFILES_SHARED_ROOT/scripts/lib/pacman.sh"
 
 function yinstall() {
-    yaourt -S --noconfirm --needed $@
+    yaourt -S --noconfirm --needed "$@"
 }

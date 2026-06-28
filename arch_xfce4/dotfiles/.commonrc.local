@@ -1,31 +1,12 @@
 #!/bin/sh
 
-# Common aliases and env vars between bash and zsh
+# arch_xfce4 profile overrides (XFCE desktop)
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
-# Aliases
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias sume='sudo -E -s'
-
-# Program defaults
 BROWSER=/usr/bin/firefox
-VISUAL=/usr/bin/vim
-EDITOR=/usr/bin/vim
 
 # LESS highlighting
 export LESSOPEN="| pygmentize %s"
 export LESS="-R "
-
-# Local binaries
-export PATH=~/.local/bin:$PATH
 
 # VTE support for Tilix
 # https://gnunn1.github.io/tilix-web/manual/vteconfig/

@@ -22,8 +22,8 @@ Step 4 ([`../sync.sh`](../sync.sh)) is also reached via **sync** (`dotfiles.sh a
 
 ## Prerequisites
 
-Working network before step 1. See [../../README.md](../../README.md#bootstrap-fresh-install).
+Working network before step 1.
 
 ## After the contract
 
-Optional modules are **not** part of this pipeline. See [Recommended run](../../README.md#recommended-run).
+Optional modules are **not** part of this pipeline. See [../scripts/README.md](../scripts/README.md).
