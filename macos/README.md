@@ -15,7 +15,7 @@
 ## Pipeline
 
 ```
-install/installer.sh → install/packages.sh → sync.sh → install/postinstall.sh
+install/installer.sh → install/packages.sh → install/uv.sh → sync.sh → install/postinstall.sh
 ```
 
 Details: [scripts/install/README.md](scripts/install/README.md)
@@ -29,12 +29,18 @@ cd macos/scripts
 ./apps/awscli.sh      # optional
 ```
 
-On `macbook-pro-m1`, also run `hosts/macbook-pro-m1/scripts/pipx.sh` for pipx.
-
 ## Python
 
-- **Profile** (`apps/python.sh`) installs `python@3.14` — project deps always in `python3 -m venv`
-- **Host** (`hosts/macbook-pro-m1/scripts/pipx.sh`) installs pipx for ad-hoc CLIs
-- **Personal** — `brew install` or `pipx install` for tools like yt-dlp; not tracked in repo
+**Runtime:** `apps/python.sh` installs `python@3.14` and links it as default `python3`.
+
+**Do not** `pip install` globally on the Homebrew Python — no project deps on system site-packages.
+
+| Use case | How |
+|----------|-----|
+| CLI tools | `brew install <tool>` or `uv tool install <tool>` (uv from bootstrap) |
+| Project work | `python3 -m venv .venv` → `source .venv/bin/activate` → `pip install -r requirements.txt` |
+| One-off pip | `python3 -m pip install …` inside a venv, not bare global `pip install` |
+
+Individual uv tools stay ad hoc and out of repo — only `uv` itself is installed by bootstrap (`install/uv.sh`).
 
 Optional modules: [scripts/README.md](scripts/README.md)

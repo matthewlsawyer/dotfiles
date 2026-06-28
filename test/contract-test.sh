@@ -55,6 +55,7 @@ check_platform_scripts macos \
     "$REPO_ROOT/macos/scripts" \
     install/installer.sh \
     install/packages.sh \
+    install/uv.sh \
     install/postinstall.sh
 
 check_platform_scripts arch_xfce4 \

@@ -7,17 +7,18 @@ Fixed-order steps invoked by [`../bootstrap.sh`](../bootstrap.sh). Do not reorde
 ## Pipeline
 
 ```
-install/installer.sh → install/packages.sh → ../sync.sh → install/postinstall.sh
+install/installer.sh → install/packages.sh → install/uv.sh → ../sync.sh → install/postinstall.sh
 ```
 
 | Step | Script | Role |
 |------|--------|------|
 | 1 | `install/installer.sh` | Homebrew |
 | 2 | `install/packages.sh` | Core CLI — git, wget, htop, jq, httpie, mac2unix, rsync |
-| 3 | [`../sync.sh`](../sync.sh) | Dotfiles → `$HOME` (stub until `macos/dotfiles/` exists) |
-| 4 | `install/postinstall.sh` | **Stub** — post-bootstrap tuning |
+| 3 | `install/uv.sh` | uv — ad-hoc CLI tools via `uv tool install` / `uvx` |
+| 4 | [`../sync.sh`](../sync.sh) | Dotfiles → `$HOME` |
+| 5 | `install/postinstall.sh` | **Stub** — post-bootstrap tuning |
 
-Step 3 ([`../sync.sh`](../sync.sh)) is also reached via **sync** (`dotfiles.sh macos sync` → `apply.sh sync`).
+Step 4 ([`../sync.sh`](../sync.sh)) is also reached via **sync** (`dotfiles.sh macos sync` → `apply.sh sync`).
 
 ## Prerequisites
 

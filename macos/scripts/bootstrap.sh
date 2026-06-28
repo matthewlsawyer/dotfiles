@@ -3,7 +3,7 @@
 # Internal: bootstrap — orchestrates install pipeline then sync.
 #
 # Pipeline (see install/README.md):
-#   installer.sh → packages.sh → sync.sh → postinstall.sh
+#   installer.sh → packages.sh → uv.sh → sync.sh → postinstall.sh
 #
 # Invoked by apply.sh bootstrap.
 
@@ -16,6 +16,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BOOTSTRAP_PIPELINE=(
     "$DOTFILES_SCRIPTS_ROOT/install/installer.sh"
     "$DOTFILES_SCRIPTS_ROOT/install/packages.sh"
+    "$DOTFILES_SCRIPTS_ROOT/install/uv.sh"
     "$DOTFILES_SCRIPTS_ROOT/sync.sh"
     "$DOTFILES_SCRIPTS_ROOT/install/postinstall.sh"
 )

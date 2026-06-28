@@ -16,7 +16,6 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 |------|---------|--------|----------------|
 | AUR helper | yaourt + package-query | paru or yay | `arch_xfce4/scripts/install/installer.sh`, `arch_xfce4/scripts/lib/functions.sh`, `arch_xfce4/dotfiles/.yaourtrc` |
 | Compositor | compton | picom | `arch_xfce4/scripts/install/desktop.sh`, `arch_xfce4/dotfiles/.config/compton.conf`, autostart desktop file |
-| youtube-dl | — | yt-dlp | `arch_xfce4/scripts/apps/utilities.sh` (if re-added) |
 
 **Use `arch/` today** for a fresh headless Arch install. Revive `arch_xfce4/` only after P0 (and a real-hardware dry run).
 

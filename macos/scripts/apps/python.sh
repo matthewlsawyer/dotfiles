@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Optional — Python 3.14 runtime (project deps go in venv, not global pip).
+# Optional — Python 3.14 runtime only.
+# Project deps: python3 -m venv .venv — never pip install globally on Homebrew Python.
+# CLI tools: brew install or uv tool install / uvx (uv installed by bootstrap).
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh

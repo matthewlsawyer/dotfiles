@@ -67,7 +67,7 @@ Each profile exposes **sync** and **bootstrap** via [`apply.sh`](arch/apply.sh) 
 |------|---------|------------------|
 | [arch-desktop/](hosts/arch-desktop/) | `arch_xfce4` | LVM, static network, Intel Xorg |
 | [pi-omv/](hosts/pi-omv/) | `pi_omv` | Disk layout for this NAS |
-| [macbook-pro-m1/](hosts/macbook-pro-m1/) | `macos` | pipx, M1 laptop overlay |
+| [macbook-pro-m1/](hosts/macbook-pro-m1/) | `macos` | M1 laptop overlay |
 
 ---
 

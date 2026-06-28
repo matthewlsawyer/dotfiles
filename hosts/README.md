@@ -12,7 +12,7 @@ Machine-specific config — not generic runbooks. Each host points at a profile 
 |------|---------|-------------|
 | [arch-desktop/](arch-desktop/) | `arch_xfce4` | LVM, static network, Intel Xorg, post-install notes |
 | [pi-omv/](pi-omv/) | `pi_omv` | NAS disk layout |
-| [macbook-pro-m1/](macbook-pro-m1/) | `macos` | pipx, M1 post-bootstrap notes |
+| [macbook-pro-m1/](macbook-pro-m1/) | `macos` | M1 post-bootstrap notes |
 
 ## Layout per host
 

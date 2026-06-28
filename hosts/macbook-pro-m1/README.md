@@ -15,21 +15,34 @@ After bootstrap:
 ```bash
 ./macos/scripts/apps/dev.sh
 ./macos/scripts/apps/python.sh
-./hosts/macbook-pro-m1/scripts/pipx.sh
 ```
 
 Personal CLIs — not in repo:
 
 ```bash
-brew install yt-dlp    # or: pipx install <tool>
+brew install <tool>           # or: uv tool install <tool>
+uvx <tool>                    # one-off run, no install
 ```
 
-## This machine
+## Python
 
-- Apple Silicon (M1)
-- Python 3.14 via Homebrew (`macos/scripts/apps/python.sh`)
-- pipx via `hosts/macbook-pro-m1/scripts/pipx.sh`
-- One-time legacy global pip cleanup is manual — not automated by bootstrap
+Same conventions as [macos/README.md](../../macos/README.md#python) — bootstrap installs uv; `python.sh` installs `python@3.14`.
+
+**Workflow on this machine:**
+
+```bash
+# CLI tools — brew or uv, never global pip on 3.14
+brew install <tool>
+uv tool install <tool>
+uvx <tool>                    # one-off
+
+# Project deps — always in a venv
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Do **not** `pip install` globally on Homebrew Python. Legacy global pip trees are one-time manual cleanup — not automated by bootstrap.
 
 ## Sync
 
