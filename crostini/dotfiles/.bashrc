@@ -113,4 +113,4 @@ if ! shopt -oq posix; then
 fi
 
 # Local bin on path
-PATH=$PATH:/home/matthewlsawyer/.local/bin
+export PATH="$PATH:$HOME/.local/bin"
