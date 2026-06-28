@@ -8,8 +8,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
-pinstall samba smbclient cifs-utils
-pinstall gvfs gvfs-smb
+pkg_install samba smbclient cifs-utils
+pkg_install gvfs gvfs-smb
 
 # Get samba configuration
 sudo wget -O /etc/samba/smb.conf \

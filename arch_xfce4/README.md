@@ -9,18 +9,16 @@ XFCE workstation profile. Host overlay: [hosts/arch-desktop/](../hosts/arch-desk
 ```bash
 ./dotfiles.sh arch_xfce4 sync
 ./dotfiles.sh arch_xfce4 bootstrap
-./dotfiles.sh arch-desktop bootstrap   # profile + host overlay
+./dotfiles.sh arch-desktop bootstrap   # host apply.sh — see hosts/arch-desktop/
 ```
 
 **Prerequisite:** network before bootstrap (configure during base Arch install or via NetworkManager).
 
-## Pipeline
+## Bootstrap pipeline
 
 ```
-install/installer.sh → install/packages.sh → install/desktop.sh → sync.sh → install/postinstall.sh
+install/installer.sh → install/packages.sh → install/desktop.sh → run_sync → install/postinstall.sh
 ```
-
-Details: [scripts/install/README.md](scripts/install/README.md)
 
 ## After bootstrap
 
@@ -30,7 +28,7 @@ cd arch_xfce4/scripts
 ./apps/dev.sh && ./apps/utilities.sh
 ```
 
-Copy host system files: [hosts/arch-desktop/](../hosts/arch-desktop/). Optional modules: [scripts/README.md](scripts/README.md)
+Copy host system files: [hosts/arch-desktop/](../hosts/arch-desktop/).
 
 ## Dotfiles
 
@@ -38,6 +36,6 @@ Shell (shared `.commonrc` + `.commonrc.local`), XFCE/Compton/Plank, Tilix, VS Co
 
 ## Notes
 
-- `postinstall.sh` runs interactive `ssh-keygen` / `gpg --full-gen-key`
+- SSH/GPG keys — optional `./scripts/extras/keys.sh` after bootstrap
 - LVM layout: [hosts/arch-desktop/disk-layout.md](../hosts/arch-desktop/disk-layout.md)
 - Stack dated: yaourt, compton, powerlevel9k — see MODERNIZATION P0

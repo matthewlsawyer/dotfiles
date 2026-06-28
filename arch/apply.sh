@@ -1,15 +1,20 @@
 #!/bin/bash
 
-# Platform interface — sync | bootstrap.
-#
-#   sync        dotfiles/ → $HOME
-#   bootstrap   full install pipeline
+# Contract: sync | bootstrap | help
+# Edit bootstrap_pipeline below; tail is always: run_sync → postinstall
 #
 # Invoked by dotfiles.sh arch sync | bootstrap.
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=scripts/lib/init.sh
+. "$SCRIPT_DIR/scripts/lib/init.sh"
+
+bootstrap_pipeline=(
+    "$DOTFILES_SCRIPTS_ROOT/install/installer.sh"
+    "$DOTFILES_SCRIPTS_ROOT/install/packages.sh"
+)
 
 apply_usage() {
     cat <<EOF
@@ -24,12 +29,39 @@ See README.md.
 EOF
 }
 
+run_sync() {
+    [[ -d "$DOTFILES_SHARED_ROOT/dotfiles" ]] && \
+        rsync -avh --no-perms "$DOTFILES_SHARED_ROOT/dotfiles/" ~/
+    [[ -d "$DOTFILES_PROFILE_ROOT/dotfiles" ]] && \
+        rsync -avh --no-perms "$DOTFILES_PROFILE_ROOT/dotfiles/" ~/
+}
+
+run_bootstrap() {
+    for step in "${bootstrap_pipeline[@]}"; do
+        echo "==> $(basename "$step")"
+        "$step"
+    done
+    run_sync
+    echo "==> postinstall.sh"
+    "$DOTFILES_SCRIPTS_ROOT/install/postinstall.sh"
+    echo "==> bootstrap complete"
+    cat <<EOF
+
+Recommended optional:
+  cd arch/scripts
+  ./apps/dev.sh && ./apps/browsers.sh
+  ./apps/utilities.sh && ./extras/flatpak.sh
+
+See README.md for optional modules.
+EOF
+}
+
 case "${1:-}" in
     sync)
-        exec "$SCRIPT_DIR/scripts/sync.sh"
+        run_sync
         ;;
     bootstrap)
-        exec "$SCRIPT_DIR/scripts/bootstrap.sh"
+        run_bootstrap
         ;;
     help|--help|-h)
         apply_usage

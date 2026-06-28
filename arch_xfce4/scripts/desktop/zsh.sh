@@ -10,7 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 # Zsh
-pinstall zsh zsh-completions
+pkg_install zsh zsh-completions
 
 # Oh-my-zsh
 # Don't use the AUR here because the PKGBUILD puts it in /usr/share/oh-my-zsh/

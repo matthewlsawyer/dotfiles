@@ -15,23 +15,20 @@ Personal bootstrap repo — profiles (reusable runbooks), hosts (machine identit
 ./dotfiles.sh macos bootstrap
 ./dotfiles.sh pi_omv bootstrap          # runbook-only — see pi_omv/README.md
 
-# Hosts — resolves profile from hosts/<name>/profile, then applies host overlay
+# Hosts — resolves profile from hosts/<name>/profile; uses host apply.sh
 ./dotfiles.sh arch-desktop bootstrap
-./dotfiles.sh pi-omv sync
 ./dotfiles.sh macbook-pro-m1 bootstrap
 ```
 
 **Env vars** — omit the target argument:
 
 ```bash
-export DOTFILES_PLATFORM=arch_xfce4
+export DOTFILES_TARGET=arch_xfce4
 ./dotfiles.sh sync
 
-export DOTFILES_HOST=arch-desktop
+export DOTFILES_TARGET=arch-desktop
 ./dotfiles.sh bootstrap
 ```
-
-`DOTFILES_HOST` takes precedence over `DOTFILES_PLATFORM` when both are set.
 
 **Offline install:** `./make-release.sh` → `dotfiles-YYYYMMDD.tar.gz`. Extract and run `./dotfiles.sh arch bootstrap`.
 
@@ -43,11 +40,11 @@ export DOTFILES_HOST=arch-desktop
 
 | Layer | Purpose | Examples |
 |-------|---------|----------|
-| [shared/](shared/) | Cross-profile dotfiles and libs | `.commonrc`, `sudov.sh`, `pinstall` |
+| [shared/](shared/) | Cross-profile dotfiles and libs | `.commonrc`, `sudov.sh`, install contract |
 | Profiles | OS / role runbooks | `arch/`, `arch_xfce4/`, `macos/`, `pi_omv/` |
 | [hosts/](hosts/) | Machine-specific overlays | `arch-desktop/`, `pi-omv/` |
 
-Each profile exposes **sync** and **bootstrap** via [`apply.sh`](arch/apply.sh) when scripted. Hosts add a dotfiles overlay and `files/etc/` hints after the profile runs.
+Each profile exposes **sync** and **bootstrap** via [`apply.sh`](arch/apply.sh) when scripted.
 
 ---
 
@@ -65,7 +62,7 @@ Each profile exposes **sync** and **bootstrap** via [`apply.sh`](arch/apply.sh) 
 
 | Host | Profile | Machine-specific |
 |------|---------|------------------|
-| [arch-desktop/](hosts/arch-desktop/) | `arch_xfce4` | LVM, static network, Intel Xorg |
+| [arch-desktop/](hosts/arch-desktop/) | `arch_xfce4` | LVM, static network, Intel Xorg — host apply.sh |
 | [pi-omv/](hosts/pi-omv/) | `pi_omv` | Disk layout for this NAS |
 | [macbook-pro-m1/](hosts/macbook-pro-m1/) | `macos` | M1 laptop overlay |
 

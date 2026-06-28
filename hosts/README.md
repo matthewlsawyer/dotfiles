@@ -3,7 +3,8 @@
 Machine-specific config — not generic runbooks. Each host points at a profile via `profile` file.
 
 ```bash
-./dotfiles.sh arch-desktop bootstrap   # reads profile → runs arch_xfce4 + overlay
+./dotfiles.sh arch-desktop bootstrap   # host apply.sh — overrides arch_xfce4
+./dotfiles.sh macbook-pro-m1 bootstrap # host apply.sh — full pipeline + 3-layer sync
 ```
 
 ## Hosts
@@ -21,7 +22,9 @@ hosts/<name>/
 ├── profile          # one line — profile dir name
 ├── README.md        # rebuild steps, machine notes
 ├── disk-layout.md   # optional — disks / LVM
-├── dotfiles/        # optional — rsync overlay after profile
+├── apply.sh         # optional — overrides profile apply.sh explicitly (no delegate)
+├── scripts/lib/init.sh  # optional — host path vars (when apply.sh present)
+├── dotfiles/        # optional — third rsync layer (host apply only)
 └── files/etc/       # optional — manual copy to / (never auto-deployed)
 ```
 

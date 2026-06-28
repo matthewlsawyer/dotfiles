@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Contract: bootstrap pipeline step 1 — installer.sh
-# Install AUR helper (yaourt) if not present. See install/README.md.
+# installer.sh — AUR helper (yaourt). See apply.sh bootstrap_pipeline.
 
 if pacman -Qs yaourt > /dev/null; then
     echo "yaourt already installed"

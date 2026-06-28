@@ -35,10 +35,6 @@ else
     export XDG_RUNTIME_DIR
 fi
 
-# Install functions
-function pinstall() { sudo pacman -S --noconfirm --needed -q $@; }
-function yinstall() { yaourt -S --noconfirm --needed $@; }
-
 # Generate .gitingore files using gitingore.io
 #  Use `gi list` for a list of all supported files
 function _gi() { curl -L -s https://www.gitignore.io/api/$@; }

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Contract: bootstrap pipeline step 2 — packages.sh
-# Core packages only. Optional tiers live in hardware/, apps/, desktop/.
+# packages.sh — core packages. Optional tiers in hardware/, apps/, desktop/.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
@@ -19,22 +18,22 @@ sudo pacman -Syu --noconfirm
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 # Display base (Xorg before desktop.sh)
-pinstall xorg-server xorg-xinit xorg-apps
+pkg_install xorg-server xorg-xinit xorg-apps
 
 # Desktop audio
-pinstall pulseaudio libpulse lib32-libpulse \
+pkg_install pulseaudio libpulse lib32-libpulse \
             alsa-plugins lib32-alsa-plugins \
             alsa-lib lib32-alsa-lib \
             pavucontrol
 
 # Opinionated extras
-pinstall plank
+pkg_install plank
 
 # Shell / dev minimum
-pinstall vim git tmux jq
+pkg_install vim git tmux jq
 
 # System
-pinstall pacman-contrib lvm2
+pkg_install pacman-contrib lvm2
 
-# Contract — sync.sh
-pinstall rsync
+# Contract — run_sync (apply.sh)
+pkg_install rsync

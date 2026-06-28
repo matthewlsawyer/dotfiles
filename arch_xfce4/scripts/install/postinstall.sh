@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Contract: bootstrap pipeline step 5 — postinstall.sh
-# System tuning after sync. GPU steps → hardware/graphics-nvidia.sh. See install/README.md.
+# postinstall.sh — system tuning after sync. GPU → hardware/graphics-nvidia.sh.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
@@ -12,9 +11,6 @@ fc-cache -f
 
 sudo systemctl enable paccache.timer
 sudo systemctl start paccache.timer
-
-ssh-keygen
-gpg --full-gen-key
 
 # TODO: new home?
 # Kernel 4.18+ native Steam controller support conflicts with Steam — blacklist if needed

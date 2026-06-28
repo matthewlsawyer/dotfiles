@@ -4,7 +4,7 @@
 cd test && ./contract-test.sh
 ```
 
-Validates `dotfiles.sh` routing, `apply.sh` + bootstrap pipeline layout per profile, `shared/dotfiles/.commonrc`, host manifests.
+Validates `dotfiles.sh` routing, profile and host `apply.sh`, bootstrap pipeline layout per profile, `shared/dotfiles/.commonrc`, host manifests.
 
 ## Docker (optional, slow)
 

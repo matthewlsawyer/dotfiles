@@ -39,7 +39,7 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 | Item | Notes |
 |------|-------|
 | pi_omv scripts | Extract README steps into `pi_omv/scripts/` + `apply.sh` when rebuilt |
-| Dotfiles fragment pattern | Profile + host rsync same filename (e.g. `.zprofile`) — later layer overwrites whole file; host duplicates profile content as workaround | Sync snippets to `~/.config/dotfiles/zprofile.d/` (or similar); thin `~/.zprofile` sources fragments; update `dotfiles.sh` / `macos/scripts/sync.sh` |
+| Dotfiles fragment pattern | Profile + host rsync same filename (e.g. `.zprofile`) — later layer overwrites whole file; host duplicates profile content as workaround | Sync snippets to `~/.config/dotfiles/zprofile.d/` (or similar); thin `~/.zprofile` sources fragments; update `apply.sh` `run_sync` |
 
 ---
 
@@ -69,7 +69,6 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 
 - Contract-tested layout but **stale stack** — do not run on real hardware until P0.
 - Machine-specific `files/etc/` and LVM live in [`hosts/arch-desktop/`](../hosts/arch-desktop/) — manual copy after bootstrap.
-- `postinstall.sh` interactive gpg/ssh-keygen blocks unattended installs.
 - Budgie script has TODO to relocate — clarify DE strategy before revival.
 
 ### macos (active scripts, stale content)

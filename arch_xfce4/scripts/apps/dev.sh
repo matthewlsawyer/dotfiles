@@ -10,11 +10,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 yinstall visual-studio-code-bin
 
-pinstall docker docker-compose
+pkg_install docker docker-compose
 sudo usermod -aG docker "$USER"
 
 # Node (npm included in nodejs package)
-pinstall nodejs
+pkg_install nodejs
 NPM_PACKAGES="${HOME}/.npm-packages"
 mkdir -p "$NPM_PACKAGES"
 npm config set prefix "$NPM_PACKAGES"
@@ -38,11 +38,11 @@ npm config set prefix "$NPM_PACKAGES"
 # code --install-extension nrwl.angular-console
 
 # Optional languages / tools — uncomment as needed
-# pinstall pygmentize
-# pinstall aws-cli
-# pinstall redis
-# pinstall python
-# pinstall qtcreator
+# pkg_install pygmentize
+# pkg_install aws-cli
+# pkg_install redis
+# pkg_install python
+# pkg_install qtcreator
 
 # Optional npm globals — uncomment as needed
 # npm install -g typescript @angular/cli

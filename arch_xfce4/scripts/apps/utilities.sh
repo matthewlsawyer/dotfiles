@@ -8,25 +8,25 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
-pinstall htop iotop powertop atop
-pinstall lm_sensors
+pkg_install htop iotop powertop atop
+pkg_install lm_sensors
 yinstall update-grub
-pinstall hardinfo
-pinstall viewnior
-pinstall imagemagick
-pinstall scrot
-pinstall lesspipe
-pinstall transmission-qt
-pinstall gparted
-pinstall tilix
-pinstall filezilla
-pinstall gnuplot
-pinstall file-roller
-pinstall bookworm
-pinstall alacarte
-pinstall seahorse
+pkg_install hardinfo
+pkg_install viewnior
+pkg_install imagemagick
+pkg_install scrot
+pkg_install lesspipe
+pkg_install transmission-qt
+pkg_install gparted
+pkg_install tilix
+pkg_install filezilla
+pkg_install gnuplot
+pkg_install file-roller
+pkg_install bookworm
+pkg_install alacarte
+pkg_install seahorse
 yinstall qdirstat
-pinstall ffmpegthumbnailer
-pinstall hdparm
-pinstall smartmontools
-pinstall unzip p7zip unrar
+pkg_install ffmpegthumbnailer
+pkg_install hdparm
+pkg_install smartmontools
+pkg_install unzip p7zip unrar

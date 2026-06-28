@@ -1,9 +1,13 @@
 #!/bin/bash
 
+# Host apply — explicitly overrides macos/apply.sh (does not delegate).
+# dotfiles.sh prefers this file when targeting macbook-pro-m1.
+# Profile scripts via DOTFILES_SCRIPTS_ROOT; host adds third dotfiles layer in run_sync.
+#
 # Contract: sync | bootstrap | help
 # Edit bootstrap_pipeline below; tail is always: run_sync → postinstall
 #
-# Invoked by dotfiles.sh macos sync | bootstrap.
+# Invoked by: dotfiles.sh macbook-pro-m1 sync | bootstrap
 
 set -euo pipefail
 
@@ -21,12 +25,12 @@ apply_usage() {
     cat <<EOF
 Usage: $0 sync|bootstrap|help
 
-  sync        Dotfiles → \$HOME
+  sync        Dotfiles → \$HOME (shared → profile → host)
   bootstrap   Full install pipeline
 
-Or: dotfiles.sh macos sync | bootstrap
+Or: dotfiles.sh macbook-pro-m1 sync | bootstrap
 
-See README.md.
+See hosts/macbook-pro-m1/README.md.
 EOF
 }
 
@@ -35,6 +39,8 @@ run_sync() {
         rsync -avh --no-perms "$DOTFILES_SHARED_ROOT/dotfiles/" ~/
     [[ -d "$DOTFILES_PROFILE_ROOT/dotfiles" ]] && \
         rsync -avh --no-perms "$DOTFILES_PROFILE_ROOT/dotfiles/" ~/
+    [[ -d "$DOTFILES_HOST_ROOT/dotfiles" ]] && \
+        rsync -avh --no-perms "$DOTFILES_HOST_ROOT/dotfiles/" ~/
 }
 
 run_bootstrap() {
@@ -51,9 +57,9 @@ run_bootstrap() {
 Recommended optional:
   cd macos/scripts
   ./apps/dev.sh && ./apps/browsers.sh
-  ./apps/awscli.sh
+  ./apps/python.sh
 
-See README.md for optional modules.
+See hosts/macbook-pro-m1/README.md and macos/README.md.
 EOF
 }
 

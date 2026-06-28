@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Contract: bootstrap pipeline step 3 — desktop.sh
-# XFCE desktop, compositor, themes, and base fonts. See install/README.md.
+# desktop.sh — XFCE desktop, compositor, themes, base fonts.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
@@ -9,27 +8,27 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
-pinstall xfce4
-pinstall gtk-xfce-engine gtk-engine-murrine gtk-engines
-pinstall xdg-user-dirs-gtk
+pkg_install xfce4
+pkg_install gtk-xfce-engine gtk-engine-murrine gtk-engines
+pkg_install xdg-user-dirs-gtk
 
-pinstall thunar-archive-plugin
-pinstall thunar-shares-plugin
-pinstall xfce4-whiskermenu-plugin
-pinstall xfce4-pulseaudio-plugin
+pkg_install thunar-archive-plugin
+pkg_install thunar-shares-plugin
+pkg_install xfce4-whiskermenu-plugin
+pkg_install xfce4-pulseaudio-plugin
 
 # Compositor (see MODERNIZATION.md — picom migration)
-pinstall compton
+pkg_install compton
 
 # Screen lock
-pinstall i3lock
+pkg_install i3lock
 
 # Themes and icons
-pinstall arc-gtk-theme
+pkg_install arc-gtk-theme
 yinstall elementary-xfce-icons-git
 
 # Base fonts (Nerd Fonts via optional fonts.sh)
-pinstall ttf-google-fonts-typewolf \
+pkg_install ttf-google-fonts-typewolf \
             adobe-source-code-pro-fonts \
             ttf-droid \
             ttf-fira-code \

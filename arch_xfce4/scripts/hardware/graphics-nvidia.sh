@@ -9,8 +9,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
-pinstall nvidia nvidia-utils lib32-nvidia-utils nvidia-settings
-pinstall nvidia-libgl lib32-nvidia-libgl
+pkg_install nvidia nvidia-utils lib32-nvidia-utils nvidia-settings
+pkg_install nvidia-libgl lib32-nvidia-libgl
 
 sudo nvidia-xconfig
 

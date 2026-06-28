@@ -11,13 +11,11 @@
 
 **Prerequisite:** network before bootstrap.
 
-## Pipeline
+## Bootstrap pipeline
 
 ```
-install/packages.sh → sync.sh → install/postinstall.sh
+install/installer.sh → install/packages.sh → run_sync → install/postinstall.sh
 ```
-
-Details: [scripts/install/README.md](scripts/install/README.md)
 
 ## After bootstrap
 
@@ -26,8 +24,6 @@ cd arch/scripts
 ./apps/dev.sh && ./apps/browsers.sh && ./apps/utilities.sh
 ./extras/flatpak.sh
 ```
-
-Optional modules: [scripts/README.md](scripts/README.md)
 
 ## Dotfiles
 

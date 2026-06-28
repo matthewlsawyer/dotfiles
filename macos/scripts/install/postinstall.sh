@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Contract: bootstrap pipeline step 4 — postinstall.sh
-# Stub — reserved for macOS post-bootstrap tuning (keys, defaults, etc.).
+# postinstall.sh — stub; reserved for macOS post-bootstrap tuning.
 
 echo "postinstall.sh: no-op on macOS (stub — nothing configured yet)"
 exit 0

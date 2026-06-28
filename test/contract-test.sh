@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Contract tests — validates root routing and per-platform install layout.
+# Contract tests — validates root routing and per-target install layout.
 
 set -euo pipefail
 
@@ -15,23 +15,19 @@ check_executable() {
     fi
 }
 
-check_platform_scripts() {
-    local platform="$1"
+check_profile_scripts() {
+    local profile="$1"
     local entry_root="$2"
-    local pipeline_root="$3"
+    local scripts_root="$3"
     shift 3
-    local scripts=("$@")
+    local pipeline=("$@")
 
-    echo "==> $platform — entry script"
+    echo "==> $profile — apply.sh"
     check_executable "$entry_root/apply.sh"
 
-    echo "==> $platform — internal glue"
-    check_executable "$pipeline_root/sync.sh"
-    check_executable "$pipeline_root/bootstrap.sh"
-
-    echo "==> $platform — bootstrap pipeline"
-    for script in "${scripts[@]}"; do
-        check_executable "$pipeline_root/$script"
+    echo "==> $profile — bootstrap pipeline"
+    for script in "${pipeline[@]}"; do
+        check_executable "$scripts_root/$script"
     done
 }
 
@@ -44,13 +40,14 @@ if "$REPO_ROOT/dotfiles.sh" nosuchtarget sync >/dev/null 2>&1; then
     exit 1
 fi
 
-check_platform_scripts arch \
+check_profile_scripts arch \
     "$REPO_ROOT/arch" \
     "$REPO_ROOT/arch/scripts" \
+    install/installer.sh \
     install/packages.sh \
     install/postinstall.sh
 
-check_platform_scripts macos \
+check_profile_scripts macos \
     "$REPO_ROOT/macos" \
     "$REPO_ROOT/macos/scripts" \
     install/installer.sh \
@@ -58,13 +55,19 @@ check_platform_scripts macos \
     install/uv.sh \
     install/postinstall.sh
 
-check_platform_scripts arch_xfce4 \
+check_profile_scripts arch_xfce4 \
     "$REPO_ROOT/arch_xfce4" \
     "$REPO_ROOT/arch_xfce4/scripts" \
     install/installer.sh \
     install/packages.sh \
     install/desktop.sh \
     install/postinstall.sh
+
+echo "==> macbook-pro-m1 — host apply.sh"
+check_executable "$REPO_ROOT/hosts/macbook-pro-m1/apply.sh"
+
+echo "==> arch-desktop — host apply.sh"
+check_executable "$REPO_ROOT/hosts/arch-desktop/apply.sh"
 
 echo "==> crostini — archived entry script"
 check_executable "$REPO_ROOT/crostini/apply.sh"

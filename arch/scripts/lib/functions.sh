@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Global install helpers — sourced by optional module scripts.
+# pkg_install — sourced by install pipeline + optional modules.
 
-# shellcheck source=../../../shared/scripts/lib/pacman.sh
-. "$DOTFILES_SHARED_ROOT/scripts/lib/pacman.sh"
+# shellcheck source=pacman.sh
+. "$DOTFILES_SCRIPTS_ROOT/lib/pacman.sh"

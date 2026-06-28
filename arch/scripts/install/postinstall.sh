@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Contract: bootstrap pipeline step 3 — postinstall.sh
-# Stub — optional modules live in apps/, extras/.
+# postinstall.sh — stub; optional modules live in apps/, extras/.
 
-echo "postinstall.sh: no-op (see scripts/README.md optional modules)"
+echo "postinstall.sh: no-op (see README.md After bootstrap)"

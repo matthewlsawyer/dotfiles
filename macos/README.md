@@ -7,18 +7,16 @@
 ```bash
 ./dotfiles.sh macos sync
 ./dotfiles.sh macos bootstrap
-./dotfiles.sh macbook-pro-m1 bootstrap   # macos profile + host overlay
+./dotfiles.sh macbook-pro-m1 bootstrap   # host apply.sh — see hosts/macbook-pro-m1/
 ```
 
 **Prerequisite:** Xcode CLT (`xcode-select --install`).
 
-## Pipeline
+## Bootstrap pipeline
 
 ```
-install/installer.sh → install/packages.sh → install/uv.sh → sync.sh → install/postinstall.sh
+install/installer.sh → install/packages.sh → install/uv.sh → run_sync → install/postinstall.sh
 ```
-
-Details: [scripts/install/README.md](scripts/install/README.md)
 
 ## After bootstrap
 
@@ -37,10 +35,8 @@ cd macos/scripts
 
 | Use case | How |
 |----------|-----|
-| CLI tools | `brew install <tool>` or `uv tool install <tool>` (uv from bootstrap) |
+| CLI tools | `pkg_install <tool>` or `uv tool install <tool>` (uv from bootstrap) |
 | Project work | `python3 -m venv .venv` → `source .venv/bin/activate` → `pip install -r requirements.txt` |
 | One-off pip | `python3 -m pip install …` inside a venv, not bare global `pip install` |
 
 Individual uv tools stay ad hoc and out of repo — only `uv` itself is installed by bootstrap (`install/uv.sh`).
-
-Optional modules: [scripts/README.md](scripts/README.md)

@@ -10,7 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
-pinstall budgie-desktop \
+pkg_install budgie-desktop \
             gnome \
             gnome-backgrounds \
             gnome-control-center \

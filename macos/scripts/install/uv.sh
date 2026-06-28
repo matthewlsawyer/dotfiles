@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# Contract: bootstrap pipeline step 3 — uv.sh
-# uv for ad-hoc CLI tools: uv tool install <tool>, one-offs via uvx
+# uv.sh — uv for ad-hoc CLI tools (uv tool install, uvx).
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
+# shellcheck source=../lib/functions.sh
+. "$SCRIPT_DIR/../lib/functions.sh"
 
-brew install uv
+pkg_install uv

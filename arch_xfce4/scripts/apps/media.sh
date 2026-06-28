@@ -8,5 +8,5 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
-pinstall vlc ffmpeg smplayer ncmpcpp
+pkg_install vlc ffmpeg smplayer ncmpcpp
 yinstall codecs64

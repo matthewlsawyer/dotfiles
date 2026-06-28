@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Global functions — sourced by optional module scripts.
+# pkg_install + yinstall — sourced by install pipeline + optional modules.
 
-# shellcheck source=../../../shared/scripts/lib/pacman.sh
-. "$DOTFILES_SHARED_ROOT/scripts/lib/pacman.sh"
-
-function yinstall() {
-    yaourt -S --noconfirm --needed "$@"
-}
+# shellcheck source=pacman.sh
+. "$DOTFILES_SCRIPTS_ROOT/lib/pacman.sh"
+# shellcheck source=yinstall.sh
+. "$DOTFILES_SCRIPTS_ROOT/lib/yinstall.sh"
