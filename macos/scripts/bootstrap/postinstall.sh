@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# postinstall.sh — stub; reserved for macOS post-bootstrap tuning.
+# postinstall.sh — intentional no-op. macOS tuning lives in optional scripts / host overlay.
 
-echo "postinstall.sh: no-op on macOS (stub — nothing configured yet)"
+echo "postinstall.sh: no-op (see README.md After bootstrap)"
 exit 0

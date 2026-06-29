@@ -39,15 +39,6 @@ New host: pick name (no collision with profile dirs), add `profile` manifest, mo
 
 Edit `bootstrap_pipeline` in the host's `apply.sh` to add, remove, or reorder bootstrap steps. Profile scripts use `DOTFILES_SCRIPTS_ROOT`; host-only steps can reference `DOTFILES_HOST_ROOT/scripts/bootstrap/…`.
 
-Example — minimal macOS host skips Python runtime:
-
-```bash
-bootstrap_pipeline=(
-    "$DOTFILES_SCRIPTS_ROOT/bootstrap/installer.sh"
-    "$DOTFILES_SCRIPTS_ROOT/bootstrap/packages.sh"
-    "$DOTFILES_SCRIPTS_ROOT/bootstrap/uv.sh"
-    # omit python.sh
-)
-```
+Example — generic macOS profile bootstrap uses only `Brewfile.bootstrap` via `packages.sh`; host-specific apps live in `hosts/<name>/Brewfile.apps`.
 
 Post-bootstrap optional hints in `apply.sh` should list scripts **not** already in the host pipeline. Hosts may also add machine-only optional scripts under `hosts/<name>/scripts/{apps,extras,system}/` and reference them from README or apply hints.

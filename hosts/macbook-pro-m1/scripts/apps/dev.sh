@@ -1,19 +1,15 @@
 #!/bin/bash
 
-# Optional — editors, runtimes, and dev tooling.
+# Optional — VS Code extension reference (install manually with code --install-extension).
+# Host-only — machine-specific; not part of macos profile.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
 
-brew install --cask visual-studio-code
-brew install --cask cursor
-brew install --cask docker
+# Packages: ./apps/bundle.sh (Brewfile.apps). Node via brew — no version manager.
 
-# Node (npm included)
-brew install node
-
-# Optional VS Code extensions — uncomment as needed
+# Optional VS Code extensions — uncomment and run deliberately; not bootstrap
 # code --install-extension eamodio.gitlens
 # code --install-extension mikael.angular-beastcode
 # code --install-extension PeterJausovec.vscode-docker
@@ -24,11 +20,7 @@ brew install node
 # code --install-extension yzhang.markdown-all-in-one
 # code --install-extension ms-python.python
 # code --install-extension robinbentley.sass-indented
-# code --install-extension rbbit.typescript-hero
 # code --install-extension eg2.vscode-npm-script
-# code --install-extension ms-vscode.csharp
-# code --install-extension eg2.tslint
-# code --install-extension ajhyndman.jslint
 # code --install-extension dbaeumer.vscode-eslint
 
 # Optional languages — uncomment as needed
@@ -37,6 +29,4 @@ brew install node
 # brew install kotlin
 
 # Optional npm globals — uncomment as needed
-# npm install -g gulp less
-# npm install -g typescript @angular/cli
-# npm install -g tslint eslint jslint
+# npm install -g typescript @angular/cli eslint

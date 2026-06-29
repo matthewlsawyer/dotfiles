@@ -52,8 +52,6 @@ check_profile_scripts macos \
     "$REPO_ROOT/macos/scripts" \
     bootstrap/installer.sh \
     bootstrap/packages.sh \
-    bootstrap/uv.sh \
-    bootstrap/python.sh \
     bootstrap/postinstall.sh
 
 check_profile_scripts arch_xfce4 \

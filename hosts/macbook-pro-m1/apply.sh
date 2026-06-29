@@ -18,8 +18,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 bootstrap_pipeline=(
     "$DOTFILES_SCRIPTS_ROOT/bootstrap/installer.sh"
     "$DOTFILES_SCRIPTS_ROOT/bootstrap/packages.sh"
-    "$DOTFILES_SCRIPTS_ROOT/bootstrap/uv.sh"
-    "$DOTFILES_SCRIPTS_ROOT/bootstrap/python.sh"
 )
 
 apply_usage() {
@@ -63,9 +61,9 @@ run_bootstrap() {
     cat <<EOF
 
 Recommended optional:
-  cd macos/scripts
-  ./apps/dev.sh && ./apps/browsers.sh
-  ./extras/cli-utils.sh
+  ./hosts/macbook-pro-m1/scripts/apps/bundle.sh
+  ./macos/scripts/extras/awscli.sh
+  ./hosts/macbook-pro-m1/scripts/apps/dev.sh
 
 See hosts/macbook-pro-m1/README.md and macos/README.md.
 EOF

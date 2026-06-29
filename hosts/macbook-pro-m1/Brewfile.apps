@@ -1,0 +1,10 @@
+# Host-only apps — brew bundle install via scripts/apps/bundle.sh
+
+cask "visual-studio-code"
+cask "cursor"
+cask "docker"
+cask "google-chrome"
+
+brew "node"
+brew "httpie"
+brew "mac2unix"

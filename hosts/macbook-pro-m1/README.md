@@ -13,9 +13,9 @@ Apple Silicon MacBook Pro — machine-specific notes for this box.
 After bootstrap:
 
 ```bash
-./macos/scripts/apps/dev.sh
-./macos/scripts/apps/browsers.sh
-./macos/scripts/extras/cli-utils.sh
+./hosts/macbook-pro-m1/scripts/apps/bundle.sh
+./macos/scripts/extras/awscli.sh
+./hosts/macbook-pro-m1/scripts/apps/dev.sh   # VS Code extension reference (comments only)
 ```
 
 Personal CLIs — not in repo:

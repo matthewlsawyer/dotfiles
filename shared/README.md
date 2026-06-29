@@ -65,7 +65,7 @@ Cross-profile script tier taxonomy. Profiles and hosts use the same folder names
 | **System** | `system/` | Optional OS/DE/hardware integration (drivers, BT, firmware, DE extras, shell stack) | Manual / README |
 | **Lib** | `lib/` | Sourced helpers only — never executed directly | `source` from scripts |
 
-**Profile customization:** extra bootstrap steps in `bootstrap/` (e.g. `macos/scripts/bootstrap/uv.sh`, `macos/scripts/bootstrap/python.sh`, `arch_xfce4/scripts/bootstrap/desktop.sh`); not every file in `bootstrap/` must be in the default pipeline. Profile-only folders under `apps/`, `extras/`, `system/` as needed (`macos` has no `system/`; `arch` has no `system/` today).
+**Profile customization:** extra bootstrap steps in `bootstrap/` (e.g. `arch_xfce4/scripts/bootstrap/desktop.sh`); not every file in `bootstrap/` must be in the default pipeline. macOS uses `Brewfile.bootstrap` via `bootstrap/packages.sh`. Profile-only folders under `apps/`, `extras/`, `system/` as needed (`macos` has no `system/`; `arch` has no `system/` today).
 
 **Shared optional scripts** (`shared/scripts/extras/`):
 

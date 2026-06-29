@@ -1,0 +1,9 @@
+# Bootstrap pipeline — brew bundle install via bootstrap/packages.sh
+
+brew "git"
+brew "wget"
+brew "htop"
+brew "jq"
+brew "rsync"
+brew "uv"
+brew "python@3.14"
