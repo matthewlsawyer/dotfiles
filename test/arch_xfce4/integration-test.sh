@@ -6,7 +6,9 @@
 # Usage:
 #   ./integration-test.sh
 #
-# Slow (~minutes): XFCE, AUR builds, many packages. Apple Silicon: DOCKER_PLATFORM=linux/amd64 (default).
+# Slow (~minutes): XFCE, desktop packages. Paru is preinstalled in the Docker image.
+# First image build compiles paru once; repeat runs skip installer.sh AUR build.
+# Apple Silicon: DOCKER_PLATFORM=linux/amd64 (default).
 
 set -euo pipefail
 
@@ -60,6 +62,7 @@ command -v paru picom >/dev/null
 test -f ~/.config/picom.conf || { echo "missing ~/.config/picom.conf after sync" >&2; exit 1; }
 test -f ~/.config/autostart/picom.desktop || { echo "missing picom autostart after sync" >&2; exit 1; }
 test ! -f ~/.yaourtrc || { echo "unexpected ~/.yaourtrc after sync" >&2; exit 1; }
+echo "==> assertions OK"
 '
 
 echo "==> integration-test OK"

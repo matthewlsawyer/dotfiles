@@ -4,7 +4,7 @@ Prioritized list of updates before running stale scripts on real hardware. READM
 
 **Maintenance:** Remove items from this file as they are completed — do not leave "done" rows behind. This backlog is temporary; when empty or obsolete, delete the file.
 
-**Current state:** Use [`arch/`](arch/README.md) for fresh headless Arch installs. [`arch_xfce4/`](arch_xfce4/README.md) P0 complete — validate with `test/arch_xfce4/integration-test.sh` before bare-metal use. [`macos/`](macos/README.md) P1 complete. [`pi_omv/`](pi_omv/README.md) OMV 7 modernization complete — phase-1 Docker test; full `omv.sh` on hardware only.
+**Current state:** Use [`arch/`](arch/README.md) for fresh headless Arch installs. [`arch_xfce4/`](arch_xfce4/README.md) P0 + P3 cluster complete (PipeWire, p10k, games) — validate with `test/arch_xfce4/integration-test.sh` before bare-metal use. [`macos/`](macos/README.md) P1 complete. [`pi_omv/`](pi_omv/README.md) OMV 7 modernization complete — phase-1 Docker test; full `omv.sh` on hardware only.
 
 ---
 
@@ -12,10 +12,6 @@ Prioritized list of updates before running stale scripts on real hardware. READM
 
 | Item | Current | Target | Files affected |
 |------|---------|--------|----------------|
-| Audio | PulseAudio stack | PipeWire | `arch_xfce4/scripts/bootstrap/packages.sh`, `bootstrap/desktop.sh` |
-| Shell prompt | powerlevel9k | powerlevel10k | `arch_xfce4/scripts/system/zsh.sh`, `.powerlevelrc` |
-| WINE | wine-staging-nine | wine-staging | `arch_xfce4/scripts/apps/games.sh` |
-| steam-native-runtime | deprecated package | remove | `arch_xfce4/scripts/apps/games.sh` |
 | GRUB resume | — | document in host post-install | `hosts/arch-desktop/README.md` |
 | VS Code C# extension | — | `ms-dotnettools.csharp` if C# extension added to dev.sh | `hosts/macbook-pro-m1/scripts/apps/dev.sh` |
 | reflector | — | mirror optimization before first `pacman -Syu` | new optional script or bootstrap step |
@@ -32,9 +28,9 @@ Prioritized list of updates before running stale scripts on real hardware. READM
 - Headless pacman-only — no AUR, no desktop. Desktop stack lives in `arch_xfce4/`.
 - `bootstrap/postinstall.sh` is a stub; optional work in `scripts/apps/`, `shared/scripts/extras/`.
 
-### arch_xfce4 (planned)
+### arch_xfce4 (active)
 
-- P0 done (paru, picom). Run Docker integration test before real hardware.
+- P0 done (paru, picom). P3 cluster done (PipeWire, powerlevel10k, games.sh). Run Docker integration test before real hardware.
 - Machine-specific `files/etc/` and LVM live in [`hosts/arch-desktop/`](../hosts/arch-desktop/) — manual copy after bootstrap.
 - Budgie script has TODO to relocate — clarify DE strategy before revival.
 

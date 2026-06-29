@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Powerlevel9k configs for zsh.
+# powerlevel10k configs for zsh (POWERLEVEL9K_* vars are backward-compatible).
 
 # POWERLEVEL9K_MODE='awesome-fontconfig'
 # POWERLEVEL9K_MODE='awesome-patched'

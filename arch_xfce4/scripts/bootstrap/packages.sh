@@ -19,10 +19,10 @@ sudo pacman -Syu --noconfirm
 # Display base (Xorg before desktop.sh)
 pkg_install xorg-server xorg-xinit xorg-apps
 
-# Desktop audio
-pkg_install pulseaudio libpulse lib32-libpulse \
-            alsa-plugins lib32-alsa-plugins \
-            alsa-lib lib32-alsa-lib \
+# Desktop audio (PipeWire + Pulse client API)
+pkg_install pipewire wireplumber pipewire-pulse pipewire-alsa \
+            libpulse \
+            alsa-plugins alsa-lib \
             pavucontrol
 
 # Opinionated extras

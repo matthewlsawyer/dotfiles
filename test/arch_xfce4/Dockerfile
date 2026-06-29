@@ -9,7 +9,7 @@ RUN sed -i 's/^#Server = .*$/Server = https:\/\/geo.mirror.pkgbuild.com\/\$repo\
 RUN printf '\n[options]\nDisableSandbox\n' >> /etc/pacman.conf
 
 RUN pacman -Syu --noconfirm \
-    && pacman -S --noconfirm --needed sudo rsync \
+    && pacman -S --noconfirm --needed sudo rsync git rust \
     && pacman -Scc --noconfirm
 
 ARG TEST_USER=testuser
@@ -19,3 +19,10 @@ RUN useradd -m -G wheel -s /bin/bash "$TEST_USER" \
 ENV USER=$TEST_USER
 USER $TEST_USER
 WORKDIR /home/$TEST_USER
+
+# Cached layer — bootstrap installer.sh exits early when paru is already installed.
+RUN git clone https://aur.archlinux.org/paru.git ~/paru \
+    && cd ~/paru \
+    && makepkg -s --noconfirm \
+    && sudo pacman -U --noconfirm --needed ~/paru/paru-*-*.pkg.tar.* \
+    && rm -rf ~/paru

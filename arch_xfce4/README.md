@@ -1,6 +1,6 @@
 # arch_xfce4
 
-**Planned** — contract-tested; P0 stack refreshed (paru, picom). [MODERNIZATION.md](../MODERNIZATION.md)
+**Active** — contract-tested; bootstrap uses PipeWire, paru, picom. [MODERNIZATION.md](../MODERNIZATION.md)
 
 XFCE workstation profile. Host overlay: [hosts/arch-desktop/](../hosts/arch-desktop/).
 
@@ -17,7 +17,7 @@ XFCE workstation profile. Host overlay: [hosts/arch-desktop/](../hosts/arch-desk
 ## Bootstrap pipeline
 
 ```
-bootstrap/installer.sh → bootstrap/packages.sh → bootstrap/desktop.sh → run_sync → bootstrap/postinstall.sh
+bootstrap/installer.sh → bootstrap/packages.sh (PipeWire) → bootstrap/desktop.sh → run_sync → bootstrap/postinstall.sh
 ```
 
 ## After bootstrap
@@ -42,6 +42,6 @@ Shell (shared `.commonrc` + `.commonrc.d/50-profile.sh`), XFCE/picom/Plank, Tili
 ## Notes
 
 - SSH/GPG keys — optional `../../shared/scripts/extras/keys.sh` after bootstrap
+- Shell prompt — optional `./system/zsh.sh` installs oh-my-zsh + powerlevel10k (dotfiles `.zshrc` / `.powerlevelrc` synced at bootstrap)
 - LVM layout: [hosts/arch-desktop/disk-layout.md](../hosts/arch-desktop/disk-layout.md)
-- Remaining stale items (powerlevel9k, etc.) — see MODERNIZATION P3
 - Docker validation: `cd test/arch_xfce4 && ./integration-test.sh`

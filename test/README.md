@@ -13,8 +13,8 @@ cd test/arch && ./integration-test.sh
 cd test/arch_xfce4 && ./integration-test.sh
 ```
 
-Headless `arch` bootstrap is faster. `arch_xfce4` runs full desktop pipeline (XFCE, paru, picom) — expect several minutes.
+Headless `arch` bootstrap is faster. `arch_xfce4` runs full desktop pipeline (XFCE, picom) — expect several minutes on first image build; paru is baked into the test image layer so repeat runs skip the AUR compile.
 
-Volume `dotfiles-pacman-cache` persists pacman cache. Apple Silicon: `DOCKER_PLATFORM=linux/amd64` (default in script).
+Volume `dotfiles-pacman-cache` persists pacman cache. Apple Silicon: `DOCKER_PLATFORM=linux/amd64` (default in arch scripts).
 
 Not included in release tarballs.

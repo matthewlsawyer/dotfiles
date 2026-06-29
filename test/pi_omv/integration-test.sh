@@ -49,6 +49,7 @@ command -v vim git wget jq >/dev/null
 while IFS= read -r -d "" script; do
     bash -n "$script"
 done < <(find pi_omv/scripts -name "*.sh" -print0)
+echo "==> assertions OK"
 '
 
 echo "==> integration-test OK"

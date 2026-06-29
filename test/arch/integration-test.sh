@@ -5,6 +5,8 @@
 #
 # Usage:
 #   ./integration-test.sh
+#
+# Apple Silicon: DOCKER_PLATFORM=linux/amd64 (default).
 
 set -euo pipefail
 
@@ -55,6 +57,7 @@ cd /dotfiles
 grep -q "bootstrap complete" /tmp/bootstrap.log
 test -f ~/.zshrc || { echo "missing ~/.zshrc after sync" >&2; exit 1; }
 command -v rsync git >/dev/null
+echo "==> assertions OK"
 '
 
 echo "==> integration-test OK"
