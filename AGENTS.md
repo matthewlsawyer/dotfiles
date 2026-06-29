@@ -38,4 +38,3 @@ Before Read/Grep/Glob/Bash exploration, use graphify — see [`.cursor/rules/gra
 - [`dotfiles.sh`](dotfiles.sh) — root router for `sync` / `bootstrap`
 - Profiles: `arch/`, `arch_xfce4/`, `macos/`
 - Hosts: `hosts/<name>/` — machine overlays
-- [`MODERNIZATION.md`](MODERNIZATION.md) — prioritized refresh backlog

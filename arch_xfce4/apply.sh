@@ -59,6 +59,7 @@ run_bootstrap() {
 
 Recommended optional (NVIDIA + dev tooling):
   cd arch_xfce4/scripts
+  ./system/firewall.sh
   ./system/graphics-nvidia.sh
   ./apps/dev.sh && ./apps/utilities.sh
   ../../shared/scripts/extras/keys.sh

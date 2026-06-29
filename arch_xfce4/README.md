@@ -1,6 +1,6 @@
 # arch_xfce4
 
-**Active** — contract-tested; bootstrap uses PipeWire, paru, picom. [MODERNIZATION.md](../MODERNIZATION.md)
+**Active** — contract-tested; bootstrap uses reflector, PipeWire, paru, picom.
 
 XFCE workstation profile. Host overlay: [hosts/arch-desktop/](../hosts/arch-desktop/).
 
@@ -17,13 +17,14 @@ XFCE workstation profile. Host overlay: [hosts/arch-desktop/](../hosts/arch-desk
 ## Bootstrap pipeline
 
 ```
-bootstrap/installer.sh → bootstrap/packages.sh (PipeWire) → bootstrap/desktop.sh → run_sync → bootstrap/postinstall.sh
+bootstrap/installer.sh → bootstrap/packages.sh (reflector, PipeWire) → bootstrap/desktop.sh → run_sync → bootstrap/postinstall.sh
 ```
 
 ## After bootstrap
 
 ```bash
 cd arch_xfce4/scripts
+./system/firewall.sh           # optional — ufw baseline (does not enable)
 ./system/graphics-nvidia.sh    # optional — NVIDIA hardware
 ./system/themes.sh             # optional — Arc GTK theme (AUR)
 ./system/icons.sh              # optional — elementary-xfce icon theme (AUR)

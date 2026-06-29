@@ -12,6 +12,8 @@ if [[ -z "$(grep -n "^\[multilib\]" /etc/pacman.conf)" ]]; then
     echo -e "\n[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee --append /etc/pacman.conf > /dev/null
 fi
 
+. "$DOTFILES_SHARED_ROOT/scripts/lib/reflector.sh"
+reflector_mirrors
 sudo pacman -Syy
 sudo pacman -Syu --noconfirm
 

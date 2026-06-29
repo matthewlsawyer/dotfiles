@@ -1,6 +1,6 @@
 # pi_omv
 
-**Active** — OMV 7 on Raspberry Pi OS Lite Bookworm via [installScript](https://github.com/OpenMediaVault-Plugin-Developers/installScript). [MODERNIZATION.md](../MODERNIZATION.md)
+**Active** — OMV 7 on Raspberry Pi OS Lite Bookworm via [installScript](https://github.com/OpenMediaVault-Plugin-Developers/installScript).
 
 ```bash
 ./dotfiles.sh pi_omv sync | bootstrap

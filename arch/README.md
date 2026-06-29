@@ -14,13 +14,14 @@
 ## Bootstrap pipeline
 
 ```
-bootstrap/installer.sh → bootstrap/packages.sh → run_sync → bootstrap/postinstall.sh
+bootstrap/installer.sh → bootstrap/packages.sh (reflector) → run_sync → bootstrap/postinstall.sh
 ```
 
 ## After bootstrap
 
 ```bash
 cd arch/scripts
+./system/firewall.sh           # optional — ufw baseline (does not enable)
 ./apps/dev.sh && ./apps/browsers.sh && ./apps/utilities.sh
 ./extras/flatpak.sh
 ```

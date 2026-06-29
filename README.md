@@ -93,9 +93,3 @@ Every profile (and host, if it adds scripts) uses same folder names under `scrip
 Shared cross-profile extras live in [`shared/scripts/extras/`](shared/scripts/extras/) (`keys.sh`). Profile-only extras (e.g. `flatpak.sh`) live under `<profile>/scripts/extras/`.
 
 **Bootstrap pipeline** — profile picks which `bootstrap/*.sh` files run (host can add/remove steps). Not every file in `bootstrap/` must be in default pipeline; anything pipeline-eligible still lives in `bootstrap/`, not `apps/`.
-
----
-
-## Modernization
-
-Before reviving stale stacks on real hardware, see [MODERNIZATION.md](MODERNIZATION.md).

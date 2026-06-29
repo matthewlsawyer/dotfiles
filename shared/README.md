@@ -38,6 +38,7 @@ Fragments from each layer merge additively via the wholesale `dotfiles/` rsync (
 | File | Role |
 |------|------|
 | `sudov.sh` | Keep sudo creds alive during long installs — sourced from arch `functions.sh` when using `pkg_install`/`aur_install`; source directly for sudo-only scripts |
+| `reflector.sh` | `reflector_mirrors()` — optional mirror rewrite before `pacman -Syy`; sourced from arch bootstrap `packages.sh`. Skips in Docker (`/.dockerenv`) or when `REFLECTOR_SKIP=1`. Override country with `REFLECTOR_COUNTRY` (default `US`) |
 
 ## Install contract
 
@@ -65,7 +66,7 @@ Cross-profile script tier taxonomy. Profiles and hosts use the same folder names
 | **System** | `system/` | Optional OS/DE/hardware integration (drivers, BT, firmware, DE extras, shell stack) | Manual / README |
 | **Lib** | `lib/` | Sourced helpers only — never executed directly | `source` from scripts |
 
-**Profile customization:** extra bootstrap steps in `bootstrap/` (e.g. `arch_xfce4/scripts/bootstrap/desktop.sh`); not every file in `bootstrap/` must be in the default pipeline. macOS uses `Brewfile.bootstrap` via `bootstrap/packages.sh`. Profile-only folders under `apps/`, `extras/`, `system/` as needed (`macos` has no `system/`; `arch` has no `system/` today).
+**Profile customization:** extra bootstrap steps in `bootstrap/` (e.g. `arch_xfce4/scripts/bootstrap/desktop.sh`); not every file in `bootstrap/` must be in the default pipeline. macOS uses `Brewfile.bootstrap` via `bootstrap/packages.sh`. Profile-only folders under `apps/`, `extras/`, `system/` as needed (`macos` has no `system/`; `arch` adds `system/` for optional OS modules like firewall).
 
 **Shared optional scripts** (`shared/scripts/extras/`):
 
