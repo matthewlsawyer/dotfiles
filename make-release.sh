@@ -12,6 +12,8 @@ cd "$(dirname "$REPO_ROOT")"
 
 tar czf "$OUTPUT" \
     --exclude="$REPO_NAME/.git" \
+    --exclude="$REPO_NAME/graphify-out" \
+    --exclude="$REPO_NAME/.cursor" \
     --exclude="$REPO_NAME/test" \
     --exclude="$REPO_NAME/*.tar.gz" \
     --exclude="$REPO_NAME/make-release.sh" \

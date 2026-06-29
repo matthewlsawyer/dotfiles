@@ -23,9 +23,31 @@ hosts/<name>/
 ├── README.md        # rebuild steps, machine notes
 ├── disk-layout.md   # optional — disks / LVM
 ├── apply.sh         # optional — overrides profile apply.sh explicitly (no delegate)
-├── scripts/lib/init.sh  # optional — host path vars (when apply.sh present)
+├── scripts/         # optional — machine-only scripts (same tier names as profiles)
+│   ├── lib/init.sh  # path vars (when apply.sh present)
+│   ├── bootstrap/   # machine-only pipeline steps
+│   ├── apps/        # machine-only optional apps
+│   ├── extras/      # machine-only optional extras
+│   └── system/      # machine-only OS/DE/hardware tweaks
 ├── dotfiles/        # optional — third rsync layer (host apply only)
 └── files/etc/       # optional — manual copy to / (never auto-deployed)
 ```
 
 New host: pick name (no collision with profile dirs), add `profile` manifest, move machine-specific files out of the profile.
+
+## Pipeline overrides
+
+Edit `bootstrap_pipeline` in the host's `apply.sh` to add, remove, or reorder bootstrap steps. Profile scripts use `DOTFILES_SCRIPTS_ROOT`; host-only steps can reference `DOTFILES_HOST_ROOT/scripts/bootstrap/…`.
+
+Example — minimal macOS host skips Python runtime:
+
+```bash
+bootstrap_pipeline=(
+    "$DOTFILES_SCRIPTS_ROOT/bootstrap/installer.sh"
+    "$DOTFILES_SCRIPTS_ROOT/bootstrap/packages.sh"
+    "$DOTFILES_SCRIPTS_ROOT/bootstrap/uv.sh"
+    # omit python.sh
+)
+```
+
+Post-bootstrap optional hints in `apply.sh` should list scripts **not** already in the host pipeline. Hosts may also add machine-only optional scripts under `hosts/<name>/scripts/{apps,extras,system}/` and reference them from README or apply hints.

@@ -43,25 +43,26 @@ fi
 check_profile_scripts arch \
     "$REPO_ROOT/arch" \
     "$REPO_ROOT/arch/scripts" \
-    install/installer.sh \
-    install/packages.sh \
-    install/postinstall.sh
+    bootstrap/installer.sh \
+    bootstrap/packages.sh \
+    bootstrap/postinstall.sh
 
 check_profile_scripts macos \
     "$REPO_ROOT/macos" \
     "$REPO_ROOT/macos/scripts" \
-    install/installer.sh \
-    install/packages.sh \
-    install/uv.sh \
-    install/postinstall.sh
+    bootstrap/installer.sh \
+    bootstrap/packages.sh \
+    bootstrap/uv.sh \
+    bootstrap/python.sh \
+    bootstrap/postinstall.sh
 
 check_profile_scripts arch_xfce4 \
     "$REPO_ROOT/arch_xfce4" \
     "$REPO_ROOT/arch_xfce4/scripts" \
-    install/installer.sh \
-    install/packages.sh \
-    install/desktop.sh \
-    install/postinstall.sh
+    bootstrap/installer.sh \
+    bootstrap/packages.sh \
+    bootstrap/desktop.sh \
+    bootstrap/postinstall.sh
 
 echo "==> macbook-pro-m1 — host apply.sh"
 check_executable "$REPO_ROOT/hosts/macbook-pro-m1/apply.sh"
@@ -120,6 +121,25 @@ echo "==> hosts — manifests"
 }
 [[ "$(tr -d '[:space:]' < "$REPO_ROOT/hosts/macbook-pro-m1/profile")" == "macos" ]] || {
     echo "hosts/macbook-pro-m1/profile should be macos" >&2
+    exit 1
+}
+
+echo "==> arch — extras"
+check_executable "$REPO_ROOT/arch/scripts/extras/flatpak.sh"
+
+echo "==> arch_xfce4 — extras"
+check_executable "$REPO_ROOT/arch_xfce4/scripts/extras/flatpak.sh"
+
+echo "==> shared — extras"
+check_executable "$REPO_ROOT/shared/scripts/extras/keys.sh"
+
+echo "==> arch_xfce4 — no legacy desktop/ or hardware/ dirs"
+[[ ! -d "$REPO_ROOT/arch_xfce4/scripts/desktop" ]] || {
+    echo "arch_xfce4/scripts/desktop/ should be removed" >&2
+    exit 1
+}
+[[ ! -d "$REPO_ROOT/arch_xfce4/scripts/hardware" ]] || {
+    echo "arch_xfce4/scripts/hardware/ should be removed" >&2
     exit 1
 }
 

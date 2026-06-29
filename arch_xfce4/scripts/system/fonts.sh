@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# Get various fonts
+# Optional — Nerd Fonts download and install.
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../lib/init.sh
+. "$SCRIPT_DIR/../lib/init.sh"
 
 FONTS=("DejaVuSansMono" "DroidSansMono" "FiraCode" "FiraMono" "Hack")
 

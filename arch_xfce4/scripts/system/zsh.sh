@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# This script installs zsh and oh-my-zsh and all the plugins we want for it. Installing
-# zsh is a manual process so this script should be done independently.
+# Optional — zsh, oh-my-zsh, and plugins.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
-. "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 # Zsh

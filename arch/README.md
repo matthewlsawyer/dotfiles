@@ -14,7 +14,7 @@
 ## Bootstrap pipeline
 
 ```
-install/installer.sh → install/packages.sh → run_sync → install/postinstall.sh
+bootstrap/installer.sh → bootstrap/packages.sh → run_sync → bootstrap/postinstall.sh
 ```
 
 ## After bootstrap

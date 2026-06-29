@@ -12,8 +12,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$SCRIPT_DIR/scripts/lib/init.sh"
 
 bootstrap_pipeline=(
-    "$DOTFILES_SCRIPTS_ROOT/install/installer.sh"
-    "$DOTFILES_SCRIPTS_ROOT/install/packages.sh"
+    "$DOTFILES_SCRIPTS_ROOT/bootstrap/installer.sh"
+    "$DOTFILES_SCRIPTS_ROOT/bootstrap/packages.sh"
 )
 
 apply_usage() {
@@ -48,14 +48,15 @@ run_bootstrap() {
     done
     run_sync
     echo "==> postinstall.sh"
-    "$DOTFILES_SCRIPTS_ROOT/install/postinstall.sh"
+    "$DOTFILES_SCRIPTS_ROOT/bootstrap/postinstall.sh"
     echo "==> bootstrap complete"
     cat <<EOF
 
 Recommended optional:
   cd arch/scripts
   ./apps/dev.sh && ./apps/browsers.sh
-  ./apps/utilities.sh && ./extras/flatpak.sh
+  ./apps/utilities.sh
+  ./extras/flatpak.sh
 
 See README.md for optional modules.
 EOF

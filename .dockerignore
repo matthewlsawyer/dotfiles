@@ -1,0 +1,3 @@
+# Local dev artifacts — not needed in containers or release tarballs
+graphify-out/
+.cursor/

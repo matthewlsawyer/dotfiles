@@ -32,10 +32,20 @@ docker build \
     -f "$TEST_DIR/Dockerfile" \
     "$TEST_DIR"
 
+echo "==> stage repo (exclude .git, graphify-out, .cursor)"
+STAGING="$(mktemp -d)"
+cleanup() { rm -rf "$STAGING"; }
+trap cleanup EXIT
+rsync -a \
+    --exclude='.git' \
+    --exclude='graphify-out' \
+    --exclude='.cursor' \
+    "$REPO_ROOT/" "$STAGING/"
+
 echo "==> ./dotfiles.sh arch bootstrap"
 docker run --rm \
     --platform "$DOCKER_PLATFORM" \
-    -v "$REPO_ROOT:/dotfiles:ro" \
+    -v "$STAGING:/dotfiles:ro" \
     -v "$PACMAN_CACHE_VOLUME:/var/cache/pacman" \
     "$IMAGE" \
     bash -c '

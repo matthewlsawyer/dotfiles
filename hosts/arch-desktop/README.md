@@ -15,7 +15,7 @@ sudo cp hosts/arch-desktop/files/etc/systemd/network/51-static.network /etc/syst
 sudo cp hosts/arch-desktop/files/etc/X11/xorg.conf.d/20-intel.conf /etc/X11/xorg.conf.d/
 ```
 
-NVIDIA (optional): `arch_xfce4/scripts/hardware/graphics-nvidia.sh`
+NVIDIA (optional): `arch_xfce4/scripts/system/graphics-nvidia.sh`
 
 ## This machine
 
@@ -32,4 +32,4 @@ sudo hdparm -B 255 /dev/sdb
 sudo hdparm -B 255 /dev/sdc
 ```
 
-GRUB resume, lm_sensors, fancontrol — see `arch_xfce4/scripts/install/postinstall.sh` comments.
+GRUB resume, lm_sensors, fancontrol — see `arch_xfce4/scripts/bootstrap/postinstall.sh` comments.

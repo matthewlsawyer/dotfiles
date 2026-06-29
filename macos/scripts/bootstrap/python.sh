@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Optional — Python 3.14 runtime only.
+# python.sh — Python 3.14 runtime for bootstrap pipeline.
 # Project deps: python3 -m venv .venv — never pip install globally on Homebrew Python.
 # CLI tools: brew install or uv tool install / uvx (uv installed by bootstrap).
 

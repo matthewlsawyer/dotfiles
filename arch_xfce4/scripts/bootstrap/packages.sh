@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# packages.sh — core packages. Optional tiers in hardware/, apps/, desktop/.
+# packages.sh — core packages. Optional tiers in system/, apps/, shared/extras/.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
-. "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 # Enable multilib (needed for lib32 stacks in optional graphics/games modules)

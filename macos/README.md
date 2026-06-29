@@ -15,7 +15,7 @@
 ## Bootstrap pipeline
 
 ```
-install/installer.sh → install/packages.sh → install/uv.sh → run_sync → install/postinstall.sh
+bootstrap/installer.sh → bootstrap/packages.sh → bootstrap/uv.sh → bootstrap/python.sh → run_sync → bootstrap/postinstall.sh
 ```
 
 ## After bootstrap
@@ -24,13 +24,12 @@ install/installer.sh → install/packages.sh → install/uv.sh → run_sync → 
 cd macos/scripts
 ./apps/dev.sh && ./apps/browsers.sh
 ./extras/cli-utils.sh   # httpie, mac2unix
-./apps/python.sh      # python@3.14 runtime
-./apps/awscli.sh      # optional
+./extras/awscli.sh      # optional — bundled installer
 ```
 
 ## Python
 
-**Runtime:** `apps/python.sh` installs `python@3.14` and links it as default `python3`.
+**Runtime:** `bootstrap/python.sh` installs `python@3.14` and links it as default `python3` (included in default bootstrap pipeline).
 
 **Do not** `pip install` globally on the Homebrew Python — no project deps on system site-packages.
 
@@ -40,4 +39,4 @@ cd macos/scripts
 | Project work | `python3 -m venv .venv` → `source .venv/bin/activate` → `pip install -r requirements.txt` |
 | One-off pip | `python3 -m pip install …` inside a venv, not bare global `pip install` |
 
-Individual uv tools stay ad hoc and out of repo — only `uv` itself is installed by bootstrap (`install/uv.sh`).
+Individual uv tools stay ad hoc and out of repo — only `uv` itself is installed by bootstrap (`bootstrap/uv.sh`).

@@ -14,8 +14,8 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 
 | Item | Current | Target | Files affected |
 |------|---------|--------|----------------|
-| AUR helper | yaourt + package-query | paru or yay | `arch_xfce4/scripts/install/installer.sh`, `arch_xfce4/scripts/lib/functions.sh`, `arch_xfce4/dotfiles/.yaourtrc` |
-| Compositor | compton | picom | `arch_xfce4/scripts/install/desktop.sh`, `arch_xfce4/dotfiles/.config/compton.conf`, autostart desktop file |
+| AUR helper | yaourt + package-query | paru or yay | `arch_xfce4/scripts/bootstrap/installer.sh`, `arch_xfce4/scripts/lib/functions.sh`, `arch_xfce4/dotfiles/.yaourtrc` |
+| Compositor | compton | picom | `arch_xfce4/scripts/bootstrap/desktop.sh`, `arch_xfce4/dotfiles/.config/compton.conf`, autostart desktop file |
 
 **Use `arch/` today** for a fresh headless Arch install. Revive `arch_xfce4/` only after P0 (and a real-hardware dry run).
 
@@ -26,11 +26,11 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 | Item | Current | Target | Files affected |
 |------|---------|--------|----------------|
 | Package manifest | inline `brew install` | Brewfile | `macos/scripts/apps/*.sh` |
-| Homebrew install | legacy Ruby one-liner | official install script; Apple Silicon note | `macos/scripts/install/installer.sh` |
-| AWS CLI | v1 bundled zip | v2 (`brew install awscli` or official pkg) | `macos/scripts/apps/awscli.sh` |
+| Homebrew install | legacy Ruby one-liner | official install script; Apple Silicon note | `macos/scripts/bootstrap/installer.sh` |
+| AWS CLI | v1 bundled zip | v2 (`brew install awscli` or official pkg) | `macos/scripts/extras/awscli.sh` |
 | Node | unpinned brew | nvm/fnm/mise | `macos/scripts/apps/dev.sh` |
 | VS Code extensions | tslint, jslint, typescript-hero, etc. in comments | audit and replace obsolete IDs | `macos/scripts/apps/dev.sh` |
-| postinstall | stub | defaults, keys, or other post-bootstrap tuning | `macos/scripts/install/postinstall.sh` |
+| postinstall | stub | defaults, keys, or other post-bootstrap tuning | `macos/scripts/bootstrap/postinstall.sh` |
 
 ---
 
@@ -46,8 +46,8 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 
 | Item | Current | Target | Files affected |
 |------|---------|--------|----------------|
-| Audio | PulseAudio stack | PipeWire | `arch_xfce4/scripts/install/packages.sh`, `desktop.sh` |
-| Shell prompt | powerlevel9k | powerlevel10k | `arch_xfce4/scripts/desktop/zsh.sh`, `.powerlevelrc` |
+| Audio | PulseAudio stack | PipeWire | `arch_xfce4/scripts/bootstrap/packages.sh`, `bootstrap/desktop.sh` |
+| Shell prompt | powerlevel9k | powerlevel10k | `arch_xfce4/scripts/system/zsh.sh`, `.powerlevelrc` |
 | WINE | wine-staging-nine | wine-staging | `arch_xfce4/scripts/apps/games.sh` |
 | steam-native-runtime | deprecated package | remove | `arch_xfce4/scripts/apps/games.sh` |
 | GRUB resume | — | document in host post-install | `hosts/arch-desktop/README.md` |
@@ -62,7 +62,7 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 ### arch (active)
 
 - Headless pacman-only — no AUR, no desktop. Desktop stack lives in `arch_xfce4/` after P0.
-- `install/postinstall.sh` is a stub; optional work in `scripts/apps/`, `scripts/extras/`.
+- `bootstrap/postinstall.sh` is a stub; optional work in `scripts/apps/`, `shared/scripts/extras/`.
 
 ### arch_xfce4 (planned)
 
@@ -74,7 +74,7 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 
 - Bootstrap is minimal and works; optional `apps/` content is dated.
 - VS Code extensions noted to "behave weird" — investigate before re-running `apps/dev.sh`.
-- Todoist CLI tap commented out in `install/packages.sh`.
+- Todoist CLI tap commented out in `bootstrap/packages.sh`.
 
 ### crostini (archived)
 

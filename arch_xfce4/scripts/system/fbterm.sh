@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This file installs and sets up fbterm.
+# Optional — framebuffer terminal (fbterm).
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh

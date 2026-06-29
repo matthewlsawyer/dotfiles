@@ -14,7 +14,8 @@ After bootstrap:
 
 ```bash
 ./macos/scripts/apps/dev.sh
-./macos/scripts/apps/python.sh
+./macos/scripts/apps/browsers.sh
+./macos/scripts/extras/cli-utils.sh
 ```
 
 Personal CLIs — not in repo:
@@ -26,7 +27,7 @@ uvx <tool>                    # one-off run, no install
 
 ## Python
 
-Same conventions as [macos/README.md](../../macos/README.md#python) — bootstrap installs uv; `python.sh` installs `python@3.14`.
+Same conventions as [macos/README.md](../../macos/README.md#python) — bootstrap installs uv and `python@3.14`.
 
 **Workflow on this machine:**
 

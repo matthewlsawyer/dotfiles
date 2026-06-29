@@ -1,3 +1,5 @@
 .vscode/
+.cursor/
 .DS_Store
 *.tar.gz
+graphify-out/

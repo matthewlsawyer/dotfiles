@@ -17,15 +17,16 @@ XFCE workstation profile. Host overlay: [hosts/arch-desktop/](../hosts/arch-desk
 ## Bootstrap pipeline
 
 ```
-install/installer.sh → install/packages.sh → install/desktop.sh → run_sync → install/postinstall.sh
+bootstrap/installer.sh → bootstrap/packages.sh → bootstrap/desktop.sh → run_sync → bootstrap/postinstall.sh
 ```
 
 ## After bootstrap
 
 ```bash
 cd arch_xfce4/scripts
-./hardware/graphics-nvidia.sh    # optional — NVIDIA hardware
+./system/graphics-nvidia.sh    # optional — NVIDIA hardware
 ./apps/dev.sh && ./apps/utilities.sh
+./extras/flatpak.sh
 ```
 
 Copy host system files: [hosts/arch-desktop/](../hosts/arch-desktop/).
@@ -36,6 +37,6 @@ Shell (shared `.commonrc` + `.commonrc.d/50-profile.sh`), XFCE/Compton/Plank, Ti
 
 ## Notes
 
-- SSH/GPG keys — optional `./scripts/extras/keys.sh` after bootstrap
+- SSH/GPG keys — optional `../../shared/scripts/extras/keys.sh` after bootstrap
 - LVM layout: [hosts/arch-desktop/disk-layout.md](../hosts/arch-desktop/disk-layout.md)
 - Stack dated: yaourt, compton, powerlevel9k — see MODERNIZATION P0

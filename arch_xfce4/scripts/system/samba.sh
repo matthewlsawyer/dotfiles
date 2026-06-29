@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# This file is responsible for configuring and setting up samba.
+# Optional — Samba file sharing.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
-. "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 pkg_install samba smbclient cifs-utils

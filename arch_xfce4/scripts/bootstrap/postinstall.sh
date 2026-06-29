@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# postinstall.sh — system tuning after sync. GPU → hardware/graphics-nvidia.sh.
+# postinstall.sh — system tuning after sync. GPU → system/graphics-nvidia.sh.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh

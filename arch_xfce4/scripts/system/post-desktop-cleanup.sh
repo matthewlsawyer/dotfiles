@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This file will cleanup after the install.
+# Optional — post-desktop package cache cleanup.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh

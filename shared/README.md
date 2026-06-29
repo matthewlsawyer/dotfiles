@@ -37,7 +37,7 @@ Fragments from each layer merge additively via the wholesale `dotfiles/` rsync (
 
 | File | Role |
 |------|------|
-| `sudov.sh` | Keep sudo creds alive during long installs (arch profiles) |
+| `sudov.sh` | Keep sudo creds alive during long installs — sourced from arch `functions.sh` when using `pkg_install`/`aur_install`; source directly for sudo-only scripts |
 
 ## Install contract
 
@@ -46,12 +46,32 @@ Profiles that install packages define install helpers in their own `scripts/lib/
 | Profile | Implementation | File |
 |---------|----------------|------|
 | `arch`, `arch_xfce4` | `pkg_install`: pacman; `aur_install`: yaourt (AUR) | `<profile>/scripts/lib/functions.sh` |
-| `macos` | `brew install` inline in install/app scripts | — |
+| `macos` | `brew install` inline in bootstrap/app scripts | — |
 
-**Contract:** arch profiles source `functions.sh` and call `pkg_install <packages…>`. macOS scripts call `brew install` directly. Pass-through args (`--cask`, etc.) are profile-specific. Package names are **not** shared across profiles.
+**Contract:** arch scripts that call `pkg_install`/`aur_install` source `init.sh` then `functions.sh` (which sources `sudov`). Scripts that only use direct `sudo` source `init.sh` + `sudov.sh`. macOS scripts call `brew install` directly.
 
 `aur_install()` (yaourt) is defined alongside `pkg_install()` in each profile's `functions.sh` — pending replacement with paru/yay per MODERNIZATION P0.
 
 Duplicating `functions.sh` across `arch` and `arch_xfce4` is intentional; each profile is self-contained.
+
+## Scripts layout
+
+Cross-profile script tier taxonomy. Profiles and hosts use the same folder names.
+
+| Tier | Path | Contract | Run when |
+|------|------|----------|----------|
+| **Bootstrap** | `bootstrap/` | Pipeline-eligible install steps (`bootstrap_pipeline` subset per profile/host) + mandatory tail `run_sync` → `postinstall.sh` | `apply.sh bootstrap` |
+| **Apps** | `apps/` | Optional user-facing software — browsers, editors, casks, dev tooling (not language runtimes) | Manual / README |
+| **Extras** | `extras/` | Optional cross-cutting utilities (CLI helpers, non-brew installers) | Manual / README |
+| **System** | `system/` | Optional OS/DE/hardware integration (drivers, BT, firmware, DE extras, shell stack) | Manual / README |
+| **Lib** | `lib/` | Sourced helpers only — never executed directly | `source` from scripts |
+
+**Profile customization:** extra bootstrap steps in `bootstrap/` (e.g. `macos/scripts/bootstrap/uv.sh`, `macos/scripts/bootstrap/python.sh`, `arch_xfce4/scripts/bootstrap/desktop.sh`); not every file in `bootstrap/` must be in the default pipeline. Profile-only folders under `apps/`, `extras/`, `system/` as needed (`macos` has no `system/`; `arch` has no `system/` today).
+
+**Shared optional scripts** (`shared/scripts/extras/`):
+
+| Script | Purpose |
+|--------|---------|
+| `keys.sh` | Interactive SSH and GPG key setup (arch profiles) |
 
 **Rsync order:** `shared/dotfiles/` → profile `dotfiles/` → (host `dotfiles/` when host `apply.sh` runs) → `$HOME`. Later layers win on conflicts. Executables under `dotfiles/.local/bin/` are rsync'd separately (without `--no-perms`) to `~/.local/bin/` so the committed exec bit is preserved.
