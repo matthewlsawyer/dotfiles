@@ -93,6 +93,16 @@ echo "==> shared — dotfiles"
     echo "missing shared/dotfiles/.commonrc" >&2
     exit 1
 }
+[[ -f "$REPO_ROOT/shared/dotfiles/.commonrc.d/00-base.sh" ]] || {
+    echo "missing shared/dotfiles/.commonrc.d/00-base.sh" >&2
+    exit 1
+}
+
+echo "==> macos — dotfiles"
+[[ -f "$REPO_ROOT/macos/dotfiles/.zshrc" ]] || {
+    echo "missing macos/dotfiles/.zshrc" >&2
+    exit 1
+}
 
 echo "==> hosts — manifests"
 [[ -f "$REPO_ROOT/hosts/arch-desktop/profile" ]] || {

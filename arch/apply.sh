@@ -31,9 +31,14 @@ EOF
 
 run_sync() {
     [[ -d "$DOTFILES_SHARED_ROOT/dotfiles" ]] && \
-        rsync -avh --no-perms "$DOTFILES_SHARED_ROOT/dotfiles/" ~/
+        rsync -avh --no-perms --exclude='.local/bin/' "$DOTFILES_SHARED_ROOT/dotfiles/" ~/
     [[ -d "$DOTFILES_PROFILE_ROOT/dotfiles" ]] && \
-        rsync -avh --no-perms "$DOTFILES_PROFILE_ROOT/dotfiles/" ~/
+        rsync -avh --no-perms --exclude='.local/bin/' "$DOTFILES_PROFILE_ROOT/dotfiles/" ~/
+    mkdir -p ~/.local/bin
+    [[ -d "$DOTFILES_SHARED_ROOT/dotfiles/.local/bin" ]] && \
+        rsync -avh "$DOTFILES_SHARED_ROOT/dotfiles/.local/bin/" ~/.local/bin/
+    [[ -d "$DOTFILES_PROFILE_ROOT/dotfiles/.local/bin" ]] && \
+        rsync -avh "$DOTFILES_PROFILE_ROOT/dotfiles/.local/bin/" ~/.local/bin/
 }
 
 run_bootstrap() {

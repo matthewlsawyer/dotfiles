@@ -39,18 +39,18 @@ pkg_install lib32-vulkan-icd-loader
 pkg_install cups
 pkg_install samba
 pkg_install libwbclient                        # Samba winbind client library -- might need to pull in PGP key from PKGBUILD
-#yinstall lib32-libwbclient                 # Multilib samba winbind client library
+#aur_install lib32-libwbclient                 # Multilib samba winbind client library
 pkg_install dosbox                             # DOS emulation
 pkg_install gnutls                             # Better networking in Proton 3.16 Beta
 
 # Microsoft fonts for WINE games
 # This is deprecated but there's no better solution for now
-yinstall ttf-ms-fonts
+aur_install ttf-ms-fonts
 
 # WINE wrapper useful for managing wine versions and bottles
 #pkg_install playonlinux
-#yinstall q4wine
-yinstall lutris
+#aur_install q4wine
+aur_install lutris
 
 # Clean out all the dumb wine extensions
 rm -f ~/.local/share/applications/wine-extension*
@@ -91,7 +91,7 @@ sudo pacman -S wine-staging giflib \
 pkg_install steam steam-native-runtime
 
 # Xpad kernel module included with Valve's SteamOS
-yinstall sc-controller steamos-xpad-dkms
+aur_install sc-controller steamos-xpad-dkms
 
 # ==
 # Emulators
@@ -100,7 +100,7 @@ yinstall sc-controller steamos-xpad-dkms
 #  Make sure to add user to the `games` group
 #  Might need to receive key for ncurses dependency
 pkg_install dolphin-emu    # Gamecube\Wii
-yinstall epsxe          # PS
+aur_install epsxe          # PS
 pkg_install desmume        # DS
-#yinstall citra-git  # 3DS
+#aur_install citra-git  # 3DS
 #pkg_install retroarch

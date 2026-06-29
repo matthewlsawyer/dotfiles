@@ -8,5 +8,5 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
-yinstall aic94xx-firmware   # SATA port chip
-yinstall wd719x-firmware    # WD HDDs
+aur_install aic94xx-firmware   # SATA port chip
+aur_install wd719x-firmware    # WD HDDs

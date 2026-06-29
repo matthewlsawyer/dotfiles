@@ -16,7 +16,7 @@ pkg_install budgie-desktop \
             gnome-control-center \
             gnome-screensaver
 
-yinstall budgie-extras \
+aur_install budgie-extras \
             budgie-caffeine-applet \
             budgie-calendar-applet \
             budgie-haste-applet \

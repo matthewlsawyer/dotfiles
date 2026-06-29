@@ -10,7 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 pkg_install htop iotop powertop atop
 pkg_install lm_sensors
-yinstall update-grub
+aur_install update-grub
 pkg_install hardinfo
 pkg_install viewnior
 pkg_install imagemagick
@@ -25,7 +25,7 @@ pkg_install file-roller
 pkg_install bookworm
 pkg_install alacarte
 pkg_install seahorse
-yinstall qdirstat
+aur_install qdirstat
 pkg_install ffmpegthumbnailer
 pkg_install hdparm
 pkg_install smartmontools

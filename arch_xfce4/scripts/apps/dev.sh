@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
-yinstall visual-studio-code-bin
+aur_install visual-studio-code-bin
 
 pkg_install docker docker-compose
 sudo usermod -aG docker "$USER"

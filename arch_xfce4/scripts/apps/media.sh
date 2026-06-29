@@ -9,4 +9,4 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 pkg_install vlc ffmpeg smplayer ncmpcpp
-yinstall codecs64
+aur_install codecs64

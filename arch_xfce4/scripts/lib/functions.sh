@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# pkg_install + yinstall — sourced by install pipeline + optional modules.
+function pkg_install() {
+    sudo pacman -S --noconfirm --needed -q "$@"
+}
 
-# shellcheck source=pacman.sh
-. "$DOTFILES_SCRIPTS_ROOT/lib/pacman.sh"
-# shellcheck source=yinstall.sh
-. "$DOTFILES_SCRIPTS_ROOT/lib/yinstall.sh"
+# TODO (MODERNIZATION P0): replace yaourt with paru or yay
+function aur_install() {
+    yaourt -S --noconfirm --needed "$@"
+}

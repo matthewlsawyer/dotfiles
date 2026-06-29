@@ -25,7 +25,7 @@ pkg_install i3lock
 
 # Themes and icons
 pkg_install arc-gtk-theme
-yinstall elementary-xfce-icons-git
+aur_install elementary-xfce-icons-git
 
 # Base fonts (Nerd Fonts via optional fonts.sh)
 pkg_install ttf-google-fonts-typewolf \
@@ -36,4 +36,4 @@ pkg_install ttf-google-fonts-typewolf \
             ttf-fira-mono \
             otf-fira-mono \
             awesome-terminal-fonts
-yinstall awesome-terminal-fonts-patched
+aur_install awesome-terminal-fonts-patched

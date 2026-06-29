@@ -32,7 +32,7 @@ Copy host system files: [hosts/arch-desktop/](../hosts/arch-desktop/).
 
 ## Dotfiles
 
-Shell (shared `.commonrc` + `.commonrc.local`), XFCE/Compton/Plank, Tilix, VS Code settings, NVIDIA pacman hook.
+Shell (shared `.commonrc` + `.commonrc.d/50-profile.sh`), XFCE/Compton/Plank, Tilix, VS Code settings, NVIDIA pacman hook.
 
 ## Notes
 

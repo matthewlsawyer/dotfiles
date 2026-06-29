@@ -1,26 +1,11 @@
 #!/bin/sh
 
-# Common aliases and env vars between bash and zsh (shared across Linux profiles)
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Aliases
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias sume='sudo -E -s'
-
-# Program defaults
-VISUAL=/usr/bin/vim
-EDITOR=/usr/bin/vim
-
-# Local binaries
-export PATH=~/.local/bin:$PATH
-
-# Profile-specific overrides (synced from <profile>/dotfiles/.commonrc.local)
-[[ -f ~/.commonrc.local ]] && . ~/.commonrc.local
+# Entry point (sourced by .bashrc/.zshrc). Loads ordered fragments.
+if [ -d ~/.commonrc.d ]; then
+    for f in ~/.commonrc.d/*.sh; do
+        [ -r "$f" ] && . "$f"
+    done
+fi

@@ -39,7 +39,6 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 | Item | Notes |
 |------|-------|
 | pi_omv scripts | Extract README steps into `pi_omv/scripts/` + `apply.sh` when rebuilt |
-| Dotfiles fragment pattern | Profile + host rsync same filename (e.g. `.zprofile`) — later layer overwrites whole file; host duplicates profile content as workaround | Sync snippets to `~/.config/dotfiles/zprofile.d/` (or similar); thin `~/.zprofile` sources fragments; update `apply.sh` `run_sync` |
 
 ---
 

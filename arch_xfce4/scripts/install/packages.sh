@@ -6,6 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
+. "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 # Enable multilib (needed for lib32 stacks in optional graphics/games modules)
 if [[ -z "$(grep -n "^\[multilib\]" /etc/pacman.conf)" ]]; then
@@ -15,7 +16,6 @@ fi
 sudo pacman -Syy
 sudo pacman -Syu --noconfirm
 
-. "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 # Display base (Xorg before desktop.sh)
 pkg_install xorg-server xorg-xinit xorg-apps

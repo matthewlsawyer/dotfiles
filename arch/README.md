@@ -27,7 +27,7 @@ cd arch/scripts
 
 ## Dotfiles
 
-Shell — shared `.commonrc` + profile `.commonrc.local` (minimal aliases, chromium browser).
+Shell — shared `.commonrc` (loads `~/.commonrc.d/`) + profile `.commonrc.d/50-profile.sh` (minimal aliases, chromium browser).
 
 ## vs arch_xfce4
 
