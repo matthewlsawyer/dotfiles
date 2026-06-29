@@ -146,4 +146,7 @@ echo "==> arch_xfce4 — no legacy desktop/ or hardware/ dirs"
 echo "==> arch — integration harness"
 check_executable "$REPO_ROOT/test/arch/integration-test.sh"
 
+echo "==> arch_xfce4 — integration harness"
+check_executable "$REPO_ROOT/test/arch_xfce4/integration-test.sh"
+
 echo "==> contract-test OK"

@@ -91,6 +91,10 @@ sudo pacman -S wine-staging giflib \
 
 pkg_install steam steam-native-runtime
 
+# Kernel 4.18+ hid_steam conflicts with Steam userspace controller — use sc-controller/xpad instead
+sudo modprobe -r hid_steam 2>/dev/null || true
+echo 'blacklist hid_steam' | sudo tee /etc/modprobe.d/sc.conf > /dev/null
+
 # Xpad kernel module included with Valve's SteamOS
 aur_install sc-controller steamos-xpad-dkms
 

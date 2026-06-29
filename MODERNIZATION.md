@@ -4,20 +4,7 @@ Prioritized list of updates before running stale scripts on real hardware. READM
 
 **Maintenance:** Remove items from this file as they are completed — do not leave "done" rows behind. This backlog is temporary; when empty or obsolete, delete the file.
 
-**Current state:** Use [`arch/`](arch/README.md) for fresh headless Arch installs. [`arch_xfce4/`](arch_xfce4/README.md) and much of [`macos/`](macos/README.md) still need refresh before real use.
-
----
-
-## P0 — before arch_xfce4 revival
-
-These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless noted.
-
-| Item | Current | Target | Files affected |
-|------|---------|--------|----------------|
-| AUR helper | yaourt + package-query | paru or yay | `arch_xfce4/scripts/bootstrap/installer.sh`, `arch_xfce4/scripts/lib/functions.sh`, `arch_xfce4/dotfiles/.yaourtrc` |
-| Compositor | compton | picom | `arch_xfce4/scripts/bootstrap/desktop.sh`, `arch_xfce4/dotfiles/.config/compton.conf`, autostart desktop file |
-
-**Use `arch/` today** for a fresh headless Arch install. Revive `arch_xfce4/` only after P0 (and a real-hardware dry run).
+**Current state:** Use [`arch/`](arch/README.md) for fresh headless Arch installs. [`arch_xfce4/`](arch_xfce4/README.md) P0 complete — validate with `test/arch_xfce4/integration-test.sh` before bare-metal use. Much of [`macos/`](macos/README.md) still needs refresh.
 
 ---
 
@@ -61,12 +48,12 @@ These block a safe rebuild on current Arch. Paths are under `arch_xfce4/` unless
 
 ### arch (active)
 
-- Headless pacman-only — no AUR, no desktop. Desktop stack lives in `arch_xfce4/` after P0.
+- Headless pacman-only — no AUR, no desktop. Desktop stack lives in `arch_xfce4/`.
 - `bootstrap/postinstall.sh` is a stub; optional work in `scripts/apps/`, `shared/scripts/extras/`.
 
 ### arch_xfce4 (planned)
 
-- Contract-tested layout but **stale stack** — do not run on real hardware until P0.
+- P0 done (paru, picom). Run Docker integration test before real hardware.
 - Machine-specific `files/etc/` and LVM live in [`hosts/arch-desktop/`](../hosts/arch-desktop/) — manual copy after bootstrap.
 - Budgie script has TODO to relocate — clarify DE strategy before revival.
 

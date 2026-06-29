@@ -1,11 +1,11 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=compton
+Name=picom
 GenericName=X compositor
 Comment=Compositor for X11
 Categories=Utility;
-TryExec=compton --xrender-sync-fence
-Exec=compton --xrender-sync-fence
-Icon=compton
+TryExec=picom --xrender-sync-fence
+Exec=picom --xrender-sync-fence
+Icon=picom
 # Thanks to quequotion for providing this file!

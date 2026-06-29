@@ -1,6 +1,6 @@
 # arch_xfce4
 
-**Planned** — contract-tested but stale stack. [MODERNIZATION.md](../MODERNIZATION.md)
+**Planned** — contract-tested; P0 stack refreshed (paru, picom). [MODERNIZATION.md](../MODERNIZATION.md)
 
 XFCE workstation profile. Host overlay: [hosts/arch-desktop/](../hosts/arch-desktop/).
 
@@ -25,6 +25,10 @@ bootstrap/installer.sh → bootstrap/packages.sh → bootstrap/desktop.sh → ru
 ```bash
 cd arch_xfce4/scripts
 ./system/graphics-nvidia.sh    # optional — NVIDIA hardware
+./system/themes.sh             # optional — Arc GTK theme (AUR)
+./system/icons.sh              # optional — elementary-xfce icon theme (AUR)
+./system/fonts.sh              # optional — Typewolf fonts, patched terminal fonts, Nerd Fonts
+./system/post-desktop-cleanup.sh  # optional — paccache timer + cache trim
 ./apps/dev.sh && ./apps/utilities.sh
 ./extras/flatpak.sh
 ```
@@ -33,10 +37,11 @@ Copy host system files: [hosts/arch-desktop/](../hosts/arch-desktop/).
 
 ## Dotfiles
 
-Shell (shared `.commonrc` + `.commonrc.d/50-profile.sh`), XFCE/Compton/Plank, Tilix, VS Code settings, NVIDIA pacman hook.
+Shell (shared `.commonrc` + `.commonrc.d/50-profile.sh`), XFCE/picom/Plank, Tilix, VS Code settings, NVIDIA pacman hook.
 
 ## Notes
 
 - SSH/GPG keys — optional `../../shared/scripts/extras/keys.sh` after bootstrap
 - LVM layout: [hosts/arch-desktop/disk-layout.md](../hosts/arch-desktop/disk-layout.md)
-- Stack dated: yaourt, compton, powerlevel9k — see MODERNIZATION P0
+- Remaining stale items (powerlevel9k, etc.) — see MODERNIZATION P3
+- Docker validation: `cd test/arch_xfce4 && ./integration-test.sh`

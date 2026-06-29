@@ -45,12 +45,11 @@ Profiles that install packages define install helpers in their own `scripts/lib/
 
 | Profile | Implementation | File |
 |---------|----------------|------|
-| `arch`, `arch_xfce4` | `pkg_install`: pacman; `aur_install`: yaourt (AUR) | `<profile>/scripts/lib/functions.sh` |
+| `arch` | `pkg_install`: pacman; `aur_install`: prints error and exits 1 (no AUR) | `arch/scripts/lib/functions.sh` |
+| `arch_xfce4` | `pkg_install`: pacman; `aur_install`: paru (AUR); `aur_install_interactive`: paru without `--noconfirm` | `arch_xfce4/scripts/lib/functions.sh` |
 | `macos` | `brew install` inline in bootstrap/app scripts | — |
 
 **Contract:** arch scripts that call `pkg_install`/`aur_install` source `init.sh` then `functions.sh` (which sources `sudov`). Scripts that only use direct `sudo` source `init.sh` + `sudov.sh`. macOS scripts call `brew install` directly.
-
-`aur_install()` (yaourt) is defined alongside `pkg_install()` in each profile's `functions.sh` — pending replacement with paru/yay per MODERNIZATION P0.
 
 Duplicating `functions.sh` across `arch` and `arch_xfce4` is intentional; each profile is self-contained.
 

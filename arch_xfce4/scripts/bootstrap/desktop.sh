@@ -16,23 +16,19 @@ pkg_install thunar-shares-plugin
 pkg_install xfce4-whiskermenu-plugin
 pkg_install xfce4-pulseaudio-plugin
 
-# Compositor (see MODERNIZATION.md — picom migration)
-pkg_install compton
+# Compositor
+pkg_install picom
 
 # Screen lock
 pkg_install i3lock
 
-# Themes and icons
-pkg_install arc-gtk-theme
-aur_install elementary-xfce-icons-git
+# GTK theme → optional system/themes.sh (arc-gtk-theme is AUR)
+# Icon theme → optional system/icons.sh
 
-# Base fonts (Nerd Fonts via optional fonts.sh)
-pkg_install ttf-google-fonts-typewolf \
-            adobe-source-code-pro-fonts \
+# Base fonts — official repos only (AUR/extras → optional system/fonts.sh)
+pkg_install adobe-source-code-pro-fonts \
             ttf-droid \
             ttf-fira-code \
-            otf-fira-code \
             ttf-fira-mono \
             otf-fira-mono \
             awesome-terminal-fonts
-aur_install awesome-terminal-fonts-patched

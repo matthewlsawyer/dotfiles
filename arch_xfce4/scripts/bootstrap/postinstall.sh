@@ -7,16 +7,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$SCRIPT_DIR/../lib/init.sh"
 . "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
 
+# After run_sync (apply.sh tail): refresh fontconfig for desktop.sh pacman fonts + synced dotfiles.
 fc-cache -f
 
-sudo systemctl enable paccache.timer
-sudo systemctl start paccache.timer
-
-# TODO: new home?
-# Kernel 4.18+ native Steam controller support conflicts with Steam — blacklist if needed
-sudo modprobe -r hid_steam 2>/dev/null || true
-echo 'blacklist hid_steam' | sudo tee /etc/modprobe.d/sc.conf > /dev/null
-
-sudo usermod -aG input "$USER"
+install_user="${USER:-$(id -un)}"
+sudo usermod -aG input "$install_user"
 
 # lm_sensors / fancontrol — see README post-install manual steps

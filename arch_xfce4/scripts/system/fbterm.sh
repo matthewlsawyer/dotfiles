@@ -5,7 +5,7 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
-. "$DOTFILES_SHARED_ROOT/scripts/lib/sudov.sh"
+. "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
 
 cat << EOF
 You are about to install fbterm, which has a conflict with the ncurses package.
@@ -13,7 +13,7 @@ To fix this, you should modify PKGBUILD to remove conflicting line:
   install -Dm644 terminfo/fbterm "${pkgdir}/usr/share/terminfo/f/fbterm"
 EOF
 # Do not use --noconfirm so we get prompted to edit the PKGBUILD
-sudo yaourt -S fbterm-git
+aur_install_interactive fbterm-git
 
 # To run fbterm as a non-root user
 sudo gpasswd -a $USER video

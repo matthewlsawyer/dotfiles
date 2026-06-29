@@ -1,10 +1,14 @@
 #!/bin/bash
 
-# Optional — Nerd Fonts download and install.
+# Optional — extra fonts: AUR patched terminal fonts + Nerd Fonts download.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
+. "$DOTFILES_SCRIPTS_ROOT/lib/functions.sh"
+
+aur_install awesome-terminal-fonts-patched
+aur_install ttf-google-fonts-typewolf
 
 FONTS=("DejaVuSansMono" "DroidSansMono" "FiraCode" "FiraMono" "Hack")
 
@@ -21,6 +25,8 @@ do
     yes A | unzip "$FONT_DIR/$f.zip" -d "$FONT_DIR/$f"
     rm -f "$FONT_DIR/$f.zip"
 done
+
+fc-cache -f
 
 unset FONTS
 unset TAG_NAME
