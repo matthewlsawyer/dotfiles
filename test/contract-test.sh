@@ -62,6 +62,16 @@ check_profile_scripts arch_xfce4 \
     bootstrap/desktop.sh \
     bootstrap/postinstall.sh
 
+check_profile_scripts pi_omv \
+    "$REPO_ROOT/pi_omv" \
+    "$REPO_ROOT/pi_omv/scripts" \
+    bootstrap/setup.sh \
+    bootstrap/omv.sh \
+    bootstrap/postinstall.sh
+
+echo "==> pi_omv — routing (help only)"
+"$REPO_ROOT/dotfiles.sh" pi_omv help >/dev/null
+
 echo "==> macbook-pro-m1 — host apply.sh"
 check_executable "$REPO_ROOT/hosts/macbook-pro-m1/apply.sh"
 
@@ -141,10 +151,23 @@ echo "==> arch_xfce4 — no legacy desktop/ or hardware/ dirs"
     exit 1
 }
 
+echo "==> pi_omv — optional scripts"
+check_executable "$REPO_ROOT/pi_omv/scripts/extras/samba.sh"
+check_executable "$REPO_ROOT/pi_omv/scripts/extras/omv-extras.sh"
+
+echo "==> pi_omv — no system/ tier (legacy fixes removed)"
+[[ ! -d "$REPO_ROOT/pi_omv/scripts/system" ]] || {
+    echo "pi_omv/scripts/system/ should be removed" >&2
+    exit 1
+}
+
 echo "==> arch — integration harness"
 check_executable "$REPO_ROOT/test/arch/integration-test.sh"
 
 echo "==> arch_xfce4 — integration harness"
 check_executable "$REPO_ROOT/test/arch_xfce4/integration-test.sh"
+
+echo "==> pi_omv — integration harness"
+check_executable "$REPO_ROOT/test/pi_omv/integration-test.sh"
 
 echo "==> contract-test OK"

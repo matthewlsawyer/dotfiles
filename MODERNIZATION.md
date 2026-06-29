@@ -4,15 +4,7 @@ Prioritized list of updates before running stale scripts on real hardware. READM
 
 **Maintenance:** Remove items from this file as they are completed — do not leave "done" rows behind. This backlog is temporary; when empty or obsolete, delete the file.
 
-**Current state:** Use [`arch/`](arch/README.md) for fresh headless Arch installs. [`arch_xfce4/`](arch_xfce4/README.md) P0 complete — validate with `test/arch_xfce4/integration-test.sh` before bare-metal use. [`macos/`](macos/README.md) P1 complete (Brewfiles, awscli v2).
-
----
-
-## P2 — structural
-
-| Item | Notes |
-|------|-------|
-| pi_omv scripts | Extract README steps into `pi_omv/scripts/` + `apply.sh` when rebuilt |
+**Current state:** Use [`arch/`](arch/README.md) for fresh headless Arch installs. [`arch_xfce4/`](arch_xfce4/README.md) P0 complete — validate with `test/arch_xfce4/integration-test.sh` before bare-metal use. [`macos/`](macos/README.md) P1 complete. [`pi_omv/`](pi_omv/README.md) OMV 7 modernization complete — phase-1 Docker test; full `omv.sh` on hardware only.
 
 ---
 
@@ -29,6 +21,7 @@ Prioritized list of updates before running stale scripts on real hardware. READM
 | reflector | — | mirror optimization before first `pacman -Syu` | new optional script or bootstrap step |
 | Firewall | — | ufw or nftables baseline | optional module |
 | Node version manager | brew `node` in host Brewfile.apps | mise/fnm/nvm if multi-version needed | `hosts/macbook-pro-m1/Brewfile.apps` |
+| pi_omv phase-2 hardware test | Docker phase 1 only | document bare-metal omv.sh validation checklist | `pi_omv/README.md` |
 
 ---
 
@@ -56,7 +49,9 @@ Prioritized list of updates before running stale scripts on real hardware. READM
 - Node 13, Python 3.7.3, PyCharm 2019.3 — all EOL.
 - Real install is manual `crostini/scripts/` sequence.
 
-### pi_omv (stale runbook)
+### pi_omv (active)
 
-- Pi + OMV runbook — OMV arrakis, PHP 7.0, `apt-key add` outdated.
-- README-only; no `apply.sh`. Disk layout in [`hosts/pi-omv/`](../hosts/pi-omv/). Future: scripts when rebuilt.
+- OMV 7 via installScript on Raspberry Pi OS Lite Bookworm.
+- Two-phase bootstrap: `setup.sh` (preinstall) → reboot → `omv.sh`.
+- Optional: `./extras/omv-extras.sh`, `./extras/samba.sh`.
+- `test/pi_omv/integration-test.sh` — phase 1 in Docker; full stack on Pi hardware.

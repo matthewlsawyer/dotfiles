@@ -1,83 +1,51 @@
 # pi_omv
 
-**Stale runbook** — OMV arrakis / PHP 7.0 era. No `apply.sh`. Verify package names against [current OMV](https://www.openmediavault.org/) before use. [MODERNIZATION.md](../MODERNIZATION.md)
-
-Host disk layout: [hosts/pi-omv/](../hosts/pi-omv/). `./dotfiles.sh pi_omv` (profile) or `./dotfiles.sh pi-omv` (host).
-
-## Base setup
+**Active** — OMV 7 on Raspberry Pi OS Lite Bookworm via [installScript](https://github.com/OpenMediaVault-Plugin-Developers/installScript). [MODERNIZATION.md](../MODERNIZATION.md)
 
 ```bash
-sudo apt-get update && sudo apt-get -y upgrade
-sudo apt-get install -y vim git
-sudo raspi-config
+./dotfiles.sh pi_omv sync | bootstrap
 ```
 
-## OMV install
+## Prerequisites
+
+- Raspberry Pi OS **Lite** Bookworm (64-bit recommended for Pi 3+)
+- Wired Ethernet during install
+- SSH access
+- Run `sudo raspi-config` for locale, SSH, boot options before or after phase 1
+
+## Two-phase bootstrap
+
+| Phase | Action | Then |
+|-------|--------|------|
+| 1 | `./dotfiles.sh pi_omv bootstrap` (runs `setup.sh` + preinstall) | **Reboot** |
+| 2 | Re-run bootstrap **or** `pi_omv/scripts/bootstrap/omv.sh` | OMV web UI |
+
+Pipeline: `bootstrap/setup.sh` → `bootstrap/omv.sh` → `run_sync` → `bootstrap/postinstall.sh`
+
+On first run, `omv.sh` may fail if preinstall requires reboot — reboot and run phase 2.
+
+**Manual after OMV install:**
 
 ```bash
-echo "deb http://packages.openmediavault.org/public arrakis main" | sudo tee -a /etc/apt/sources.list.d/openmediavault.list
-sudo apt-get update
-wget -O - http://packages.openmediavault.org/public/archive.key | sudo apt-key add -
-sudo apt-get install -y --allow-unauthenticated openmediavault-keyring
-sudo apt-get update
-sudo apt-get install -y openmediavault
-sudo apt-get install --reinstall -y resolvconf
-sudo omv-initsystem
-wget -O - http://omv-extras.org/install | bash   # optional
+adduser -m <user>
 ```
+
+Configure storage and services in the OMV web UI (admin / openmediavault).
+
+## After bootstrap (optional)
 
 ```bash
-adduser -m $user
+cd pi_omv/scripts
+./extras/omv-extras.sh   # if not already installed by installScript
+SAMBA_USER=... SAMBA_SERVER=... SAMBA_MOUNT=... ./extras/samba.sh
 ```
 
-Disk layout: [hosts/pi-omv/disk-layout.md](../hosts/pi-omv/disk-layout.md)
+## Validation
 
-## Samba
+- `cd test && ./contract-test.sh`
+- `test/pi_omv/integration-test.sh` — phase 1 (setup + preinstall) in Debian Bookworm Docker
+- Full `omv.sh` — validate on real Pi hardware only
 
-```bash
-sudo smbpasswd -a $user
-sudo mount -t cifs //$server/Public /mnt/path/to/Public -o user=$user,uid=$user,gid=users
-```
+## Archive
 
-## Nginx 502 fix
-
-Install `openmediavault-nginx` plugin. In `/etc/php/7.0/fpm/pool.d/www.conf`:
-
-```conf
-listen.owner = www-data
-listen.group = www-data
-listen.mode = 0660
-```
-
-In `/etc/nginx/sites-enabled/openmediavault-webgui`:
-
-```nginx
-location / {
-    try_files $uri $uri/ /index.php?$query_string;
-}
-```
-
-```bash
-sudo service nginx restart
-sudo service php7.0-fpm restart
-sudo apt-get install --reinstall libpcre3
-```
-
-## Monit fix
-
-If config changes fail with `monit.service is not active`:
-
-```bash
-sudo systemctl edit monit
-```
-
-```ini
-[Service]
-PIDFile=/var/run/monit.pid
-Restart=always
-RemainAfterExit=no
-```
-
-```bash
-sudo systemctl daemon-reload && sudo systemctl restart monit
-```
+Legacy arrakis-era nginx/monit troubleshooting scripts removed (PHP 7.0 / arrakis repo).

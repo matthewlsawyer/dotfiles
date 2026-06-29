@@ -34,19 +34,25 @@ EOF
 }
 
 run_sync() {
-    [[ -d "$DOTFILES_SHARED_ROOT/dotfiles" ]] && \
+    if [[ -d "$DOTFILES_SHARED_ROOT/dotfiles" ]]; then
         rsync -avh --no-perms --exclude='.local/bin/' "$DOTFILES_SHARED_ROOT/dotfiles/" ~/
-    [[ -d "$DOTFILES_PROFILE_ROOT/dotfiles" ]] && \
+    fi
+    if [[ -d "$DOTFILES_PROFILE_ROOT/dotfiles" ]]; then
         rsync -avh --no-perms --exclude='.local/bin/' "$DOTFILES_PROFILE_ROOT/dotfiles/" ~/
-    [[ -d "$DOTFILES_HOST_ROOT/dotfiles" ]] && \
+    fi
+    if [[ -d "$DOTFILES_HOST_ROOT/dotfiles" ]]; then
         rsync -avh --no-perms --exclude='.local/bin/' "$DOTFILES_HOST_ROOT/dotfiles/" ~/
+    fi
     mkdir -p ~/.local/bin
-    [[ -d "$DOTFILES_SHARED_ROOT/dotfiles/.local/bin" ]] && \
+    if [[ -d "$DOTFILES_SHARED_ROOT/dotfiles/.local/bin" ]]; then
         rsync -avh "$DOTFILES_SHARED_ROOT/dotfiles/.local/bin/" ~/.local/bin/
-    [[ -d "$DOTFILES_PROFILE_ROOT/dotfiles/.local/bin" ]] && \
+    fi
+    if [[ -d "$DOTFILES_PROFILE_ROOT/dotfiles/.local/bin" ]]; then
         rsync -avh "$DOTFILES_PROFILE_ROOT/dotfiles/.local/bin/" ~/.local/bin/
-    [[ -d "$DOTFILES_HOST_ROOT/dotfiles/.local/bin" ]] && \
+    fi
+    if [[ -d "$DOTFILES_HOST_ROOT/dotfiles/.local/bin" ]]; then
         rsync -avh "$DOTFILES_HOST_ROOT/dotfiles/.local/bin/" ~/.local/bin/
+    fi
 }
 
 run_bootstrap() {

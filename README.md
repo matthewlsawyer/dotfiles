@@ -13,7 +13,7 @@ Personal bootstrap repo — profiles (reusable runbooks), hosts (machine identit
 ./dotfiles.sh arch sync
 ./dotfiles.sh arch_xfce4 bootstrap
 ./dotfiles.sh macos bootstrap
-./dotfiles.sh pi_omv bootstrap          # runbook-only — see pi_omv/README.md
+./dotfiles.sh pi_omv bootstrap          # OMV 7 on Pi — see pi_omv/README.md
 
 # Hosts — resolves profile from hosts/<name>/profile; uses host apply.sh
 ./dotfiles.sh arch-desktop bootstrap
@@ -55,7 +55,7 @@ Each profile exposes **sync** and **bootstrap** via [`apply.sh`](arch/apply.sh) 
 | [arch/](arch/README.md) | **Active** | Pacman-only headless base |
 | [macos/](macos/README.md) | **Active** | Homebrew bootstrap + optional `apps/`, `extras/` |
 | [arch_xfce4/](arch_xfce4/README.md) | **Planned** | XFCE workstation — `bootstrap/`, `apps/`, `system/`, `extras/` |
-| [pi_omv/](pi_omv/README.md) | **Stale runbook** | Pi + OMV setup notes — no `apply.sh` |
+| [pi_omv/](pi_omv/README.md) | **Active** | Pi + OMV 7 — installScript bootstrap, optional `extras/` |
 | [crostini/](crostini/README.md) | **Archived** | Chrome OS Linux — EOL stack |
 
 ## Hosts

@@ -3,7 +3,7 @@
 # Contract: sync | bootstrap | help
 # Edit bootstrap_pipeline below; tail is always: run_sync → postinstall
 #
-# Invoked by dotfiles.sh arch_xfce4 sync | bootstrap.
+# Invoked by dotfiles.sh pi_omv sync | bootstrap (or pi-omv host without apply.sh).
 
 set -euo pipefail
 
@@ -12,19 +12,18 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$SCRIPT_DIR/scripts/lib/init.sh"
 
 bootstrap_pipeline=(
-    "$DOTFILES_SCRIPTS_ROOT/bootstrap/installer.sh"
-    "$DOTFILES_SCRIPTS_ROOT/bootstrap/packages.sh"
-    "$DOTFILES_SCRIPTS_ROOT/bootstrap/desktop.sh"
+    "$DOTFILES_SCRIPTS_ROOT/bootstrap/setup.sh"
+    "$DOTFILES_SCRIPTS_ROOT/bootstrap/omv.sh"
 )
 
 apply_usage() {
     cat <<EOF
 Usage: $0 sync|bootstrap|help
 
-  sync        Dotfiles → \$HOME
-  bootstrap   Full install pipeline
+  sync        Dotfiles → \$HOME (shared layer only; no pi_omv/dotfiles/ yet)
+  bootstrap   Full install pipeline (two-phase — see README.md)
 
-Or: dotfiles.sh arch_xfce4 sync | bootstrap
+Or: dotfiles.sh pi_omv sync | bootstrap
 
 See README.md.
 EOF
@@ -57,13 +56,20 @@ run_bootstrap() {
     echo "==> bootstrap complete"
     cat <<EOF
 
-Recommended optional (NVIDIA + dev tooling):
-  cd arch_xfce4/scripts
-  ./system/graphics-nvidia.sh
-  ./apps/dev.sh && ./apps/utilities.sh
-  ../../shared/scripts/extras/keys.sh
+Two-phase bootstrap (see README.md):
+  1. setup.sh + preinstall → reboot
+  2. omv.sh (re-run bootstrap after reboot, or run omv.sh directly)
 
-See README.md for the full module list.
+Manual steps:
+  sudo raspi-config
+  adduser -m <user>
+
+Recommended optional:
+  cd pi_omv/scripts
+  ./extras/omv-extras.sh
+  SAMBA_USER=... SAMBA_SERVER=... SAMBA_MOUNT=... ./extras/samba.sh
+
+See README.md for optional modules.
 EOF
 }
 
