@@ -41,14 +41,14 @@ Fragments from each layer merge additively via the wholesale `dotfiles/` rsync (
 
 ## Install contract
 
-Profiles that install packages define `pkg_install()` in their own `scripts/lib/` — not in `shared/`.
+Profiles that install packages define install helpers in their own `scripts/lib/` — not in `shared/`.
 
 | Profile | Implementation | File |
 |---------|----------------|------|
 | `arch`, `arch_xfce4` | `pkg_install`: pacman; `aur_install`: yaourt (AUR) | `<profile>/scripts/lib/functions.sh` |
-| `macos` | `brew install "$@"` | `macos/scripts/lib/functions.sh` |
+| `macos` | `brew install` inline in install/app scripts | — |
 
-**Contract:** install scripts source `functions.sh` and call `pkg_install <packages…>`. Pass-through args (`--cask`, etc.) are profile-specific. Package names are **not** shared across profiles.
+**Contract:** arch profiles source `functions.sh` and call `pkg_install <packages…>`. macOS scripts call `brew install` directly. Pass-through args (`--cask`, etc.) are profile-specific. Package names are **not** shared across profiles.
 
 `aur_install()` (yaourt) is defined alongside `pkg_install()` in each profile's `functions.sh` — pending replacement with paru/yay per MODERNIZATION P0.
 

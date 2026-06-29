@@ -64,6 +64,7 @@ run_bootstrap() {
 Recommended optional:
   cd macos/scripts
   ./apps/dev.sh && ./apps/browsers.sh
+  ./extras/cli-utils.sh
   ./apps/python.sh
 
 See hosts/macbook-pro-m1/README.md and macos/README.md.

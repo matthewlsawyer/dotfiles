@@ -56,6 +56,7 @@ run_bootstrap() {
 Recommended optional:
   cd macos/scripts
   ./apps/dev.sh && ./apps/browsers.sh
+  ./extras/cli-utils.sh
   ./apps/awscli.sh
 
 See README.md for optional modules.

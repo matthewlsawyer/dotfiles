@@ -23,6 +23,7 @@ install/installer.sh → install/packages.sh → install/uv.sh → run_sync → 
 ```bash
 cd macos/scripts
 ./apps/dev.sh && ./apps/browsers.sh
+./extras/cli-utils.sh   # httpie, mac2unix
 ./apps/python.sh      # python@3.14 runtime
 ./apps/awscli.sh      # optional
 ```
@@ -35,7 +36,7 @@ cd macos/scripts
 
 | Use case | How |
 |----------|-----|
-| CLI tools | `pkg_install <tool>` or `uv tool install <tool>` (uv from bootstrap) |
+| CLI tools | `brew install <tool>` or `uv tool install <tool>` (uv from bootstrap) |
 | Project work | `python3 -m venv .venv` → `source .venv/bin/activate` → `pip install -r requirements.txt` |
 | One-off pip | `python3 -m pip install …` inside a venv, not bare global `pip install` |
 

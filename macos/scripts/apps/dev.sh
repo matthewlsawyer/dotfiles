@@ -5,15 +5,13 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/init.sh
 . "$SCRIPT_DIR/../lib/init.sh"
-# shellcheck source=../lib/functions.sh
-. "$SCRIPT_DIR/../lib/functions.sh"
 
-pkg_install --cask visual-studio-code
-pkg_install --cask cursor
-pkg_install --cask docker
+brew install --cask visual-studio-code
+brew install --cask cursor
+brew install --cask docker
 
 # Node (npm included)
-pkg_install node
+brew install node
 
 # Optional VS Code extensions — uncomment as needed
 # code --install-extension eamodio.gitlens
@@ -34,9 +32,9 @@ pkg_install node
 # code --install-extension dbaeumer.vscode-eslint
 
 # Optional languages — uncomment as needed
-# pkg_install go
-# pkg_install gcc
-# pkg_install kotlin
+# brew install go
+# brew install gcc
+# brew install kotlin
 
 # Optional npm globals — uncomment as needed
 # npm install -g gulp less
