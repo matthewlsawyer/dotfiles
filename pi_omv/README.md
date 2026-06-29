@@ -39,13 +39,3 @@ cd pi_omv/scripts
 ./extras/omv-extras.sh   # if not already installed by installScript
 SAMBA_USER=... SAMBA_SERVER=... SAMBA_MOUNT=... ./extras/samba.sh
 ```
-
-## Validation
-
-- `cd test && ./contract-test.sh`
-- `test/pi_omv/integration-test.sh` — phase 1 (setup + preinstall) in Debian Bookworm Docker
-- Full `omv.sh` — validate on real Pi hardware only
-
-## Archive
-
-Legacy arrakis-era nginx/monit troubleshooting scripts removed (PHP 7.0 / arrakis repo).

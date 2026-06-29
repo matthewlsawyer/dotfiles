@@ -12,12 +12,10 @@ Prioritized list of updates before running stale scripts on real hardware. READM
 
 | Item | Current | Target | Files affected |
 |------|---------|--------|----------------|
-| GRUB resume | — | document in host post-install | `hosts/arch-desktop/README.md` |
 | VS Code C# extension | — | `ms-dotnettools.csharp` if C# extension added to dev.sh | `hosts/macbook-pro-m1/scripts/apps/dev.sh` |
 | reflector | — | mirror optimization before first `pacman -Syu` | new optional script or bootstrap step |
 | Firewall | — | ufw or nftables baseline | optional module |
 | Node version manager | brew `node` in host Brewfile.apps | mise/fnm/nvm if multi-version needed | `hosts/macbook-pro-m1/Brewfile.apps` |
-| pi_omv phase-2 hardware test | Docker phase 1 only | document bare-metal omv.sh validation checklist | `pi_omv/README.md` |
 
 ---
 

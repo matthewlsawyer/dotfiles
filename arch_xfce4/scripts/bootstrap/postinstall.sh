@@ -13,4 +13,4 @@ fc-cache -f
 install_user="${USER:-$(id -un)}"
 sudo usermod -aG input "$install_user"
 
-# lm_sensors / fancontrol — see README post-install manual steps
+# lm_sensors / fancontrol / GRUB hibernate — see hosts/arch-desktop/README.md
