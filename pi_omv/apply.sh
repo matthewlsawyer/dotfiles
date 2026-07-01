@@ -3,7 +3,8 @@
 # Contract: sync | bootstrap | help
 # Edit bootstrap_pipeline below; tail is always: run_sync → postinstall
 #
-# Invoked by dotfiles.sh pi_omv sync | bootstrap (or pi-omv host without apply.sh).
+# Invoked by dotfiles.sh pi_omv sync | bootstrap.
+# Host target pi-omv (manifest-only) also resolves here — see hosts/pi-omv/README.md.
 
 set -euo pipefail
 

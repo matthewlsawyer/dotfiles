@@ -7,7 +7,7 @@ Raspberry Pi NAS host — machine-specific notes for this box.
 ## Rebuild
 
 ```bash
-./dotfiles.sh pi-omv bootstrap   # profile apply.sh (no host apply.sh)
+./dotfiles.sh pi-omv bootstrap   # profile apply.sh (manifest-only host — no hosts/pi-omv/apply.sh)
 ```
 
 Then complete manual steps in [pi_omv/README.md](../../pi_omv/README.md) (raspi-config, adduser) and apply [disk-layout.md](disk-layout.md) via OMV UI.

@@ -54,7 +54,7 @@ Each profile exposes **sync** and **bootstrap** via [`apply.sh`](arch/apply.sh) 
 |-----------|--------|--------------|
 | [arch/](arch/README.md) | **Active** | Pacman-only headless base |
 | [macos/](macos/README.md) | **Active** | Homebrew bootstrap + optional `apps/`, `extras/` |
-| [arch_xfce4/](arch_xfce4/README.md) | **Planned** | XFCE workstation — `bootstrap/`, `apps/`, `system/`, `extras/` |
+| [arch_xfce4/](arch_xfce4/README.md) | **Active** | XFCE workstation — reflector bootstrap, PipeWire, paru, picom; optional `system/`, `apps/`, `extras/` |
 | [pi_omv/](pi_omv/README.md) | **Active** | Pi + OMV 7 — installScript bootstrap, optional `extras/` |
 | [crostini/](crostini/README.md) | **Archived** | Chrome OS Linux — EOL stack |
 

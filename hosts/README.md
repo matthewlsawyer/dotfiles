@@ -5,6 +5,7 @@ Machine-specific config — not generic runbooks. Each host points at a profile 
 ```bash
 ./dotfiles.sh arch-desktop bootstrap   # host apply.sh — overrides arch_xfce4
 ./dotfiles.sh macbook-pro-m1 bootstrap # host apply.sh — full pipeline + 3-layer sync
+./dotfiles.sh pi-omv bootstrap         # manifest-only — falls back to pi_omv/apply.sh
 ```
 
 ## Hosts
@@ -12,7 +13,7 @@ Machine-specific config — not generic runbooks. Each host points at a profile 
 | Host | Profile | What's here |
 |------|---------|-------------|
 | [arch-desktop/](arch-desktop/) | `arch_xfce4` | LVM, static network, Intel Xorg, post-install notes |
-| [pi-omv/](pi-omv/) | `pi_omv` | NAS disk layout |
+| [pi-omv/](pi-omv/) | `pi_omv` | NAS disk layout — **manifest-only** (no host `apply.sh`; uses profile apply) |
 | [macbook-pro-m1/](macbook-pro-m1/) | `macos` | M1 post-bootstrap notes |
 
 ## Layout per host
@@ -34,6 +35,8 @@ hosts/<name>/
 ```
 
 New host: pick name (no collision with profile dirs), add `profile` manifest, move machine-specific files out of the profile.
+
+**Manifest-only hosts** — when the profile pipeline is enough and the host only adds docs (`README.md`, `disk-layout.md`), skip `apply.sh`. [`dotfiles.sh`](../dotfiles.sh) resolves the profile from `hosts/<name>/profile` and runs `<profile>/apply.sh`. Example: [pi-omv/](pi-omv/). Add `apply.sh` when you need a third dotfiles rsync layer, a different `bootstrap_pipeline`, or host-only scripts.
 
 ## Pipeline overrides
 

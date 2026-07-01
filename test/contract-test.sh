@@ -164,4 +164,12 @@ echo "    apply.sh"
 check_executable "$REPO_ROOT/hosts/macbook-pro-m1/apply.sh"
 check_host_profile macbook-pro-m1 macos
 
+echo "==> host: pi-omv (manifest-only)"
+check_host_profile pi-omv pi_omv
+if [[ -f "$REPO_ROOT/hosts/pi-omv/apply.sh" ]]; then
+    echo "hosts/pi-omv/apply.sh should not exist (manifest-only host)" >&2
+    exit 1
+fi
+"$REPO_ROOT/dotfiles.sh" pi-omv help >/dev/null
+
 echo "==> contract-test OK"
